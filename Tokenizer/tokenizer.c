@@ -6,6 +6,8 @@
 #include <string.h>
 #include <ctype.h>
 
+/*Defines*/
+
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
@@ -28,7 +30,7 @@ void deleteToken(Token *delToken);
 void TKDestroy( TokenizerT * tk);
 char *TKGetNextToken(TokenizerT * tk);
 void PreProcessString(char *ts, size_t ts_length);
-char **HuntForTokens(char *ts, size_t ts_length, int *numOfTokens);
+char **HuntForTokens(char *ts, size_t ts_length);
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
  * (given as a string).
@@ -53,7 +55,7 @@ TokenizerT *TKCreate( char * ts ) {
   char *cp_ts = malloc(ts_length);
   strcpy (cp_ts, ts);
   PreProcessString(cp_ts,ts_length);
-  HuntForTokens(cp_ts,ts_length,numberOfTokens);
+  HuntForTokens(cp_ts,ts_length);
 
   return NULL;
 } 
@@ -104,21 +106,45 @@ void PreProcessString(char *ts, size_t ts_length) {
  *5 = hex
  *
  *i is the looping variable in this function
+ *start keeps track of what i was when it entered an if statement
+ *ie ts="HELLO", goes into isalpha and start = 0. Start is used for malloc and stnrcpy
+ *
+ *The array of tokens is initiallized to size 2
+ *The size expands by two.
+ *The current size of the token array is held in tokenArraySize
+ *when numOfTokens > tokenArraySize realloc expands the token array size
 */
- char **HuntForTokens(char *ts, size_t ts_length, int *numOfTokens) {
+ char **HuntForTokens(char *ts, size_t ts_length) {
  int type = 0;
- int i =0;
- Token *tokens = malloc(sizeof(Token));
+ int i = 0;
+ int start = 0;
+ int numOfTokens = 0;
+ size_t tokenArraySize =2;
+ Token **tokens = malloc(sizeof(Token)*tokenArraySize);
  for(i=0; i <ts_length; i++ ) {
  	if(isalpha(ts[i])) {
- 		while(isalpha(ts[i])) {
- 			printf("%c",ts[i]);
+ 	 	start = i;
+ 		while(isalpha(ts[i]) && ts[i] != '\0') {
  			i++;
- 		}
+ 		} 
+	 	i--;
 
+ 		char *type = "Word";
+ 		char *token = malloc(sizeof(char)*(i-start)+1);
+ 		strncpy(token, &ts[start], i-start+1);
+ 		if(numOfTokens == tokenArraySize){
+ 			tokenArraySize = tokenArraySize*2;
+ 			tokens = realloc(token,tokenArraySize);
+ 		}
+	 	tokens[numOfTokens] = newToken(token,type);
+	 	numOfTokens ++;
+	 	printf("TOKEN: %s \nTYPE: %s \n",tokens[numOfTokens-1]->token,tokens[numOfTokens-1]->type);
+	 	
 
  	}
  }
+ 
+
 }
 
 /*Function to create a new Token
