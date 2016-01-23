@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
@@ -12,6 +14,7 @@ typedef struct _Token {
 	char *token;
 	char *type;
 }Token;
+
 typedef struct TokenizerT_ {
 	char *st;
 	Token *tokens;
@@ -20,10 +23,12 @@ typedef struct TokenizerT_ {
 typedef struct TokenizerT_ TokenizerT;
 
 TokenizerT *TKCreate(char * ts);
+Token *newToken(char *token, char *type);
+void deleteToken(Token *delToken);
 void TKDestroy( TokenizerT * tk);
 char *TKGetNextToken(TokenizerT * tk);
-char *PreProcessString(char * ts);
-
+void PreProcessString(char *ts, size_t ts_length);
+char **HuntForTokens(char *ts, size_t ts_length, int *numOfTokens);
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
  * (given as a string).
@@ -37,29 +42,32 @@ char *PreProcessString(char * ts);
  *
  * You need to fill in this function as part of your implementation.
  *
- *If user sends in an empty string return NULL to stop method
- *
  */
 
 TokenizerT *TKCreate( char * ts ) {
   TokenizerT *tokenizer;
   size_t ts_length = strlen(ts) +1;
+  int *numberOfTokens = 0;
   if(ts_length == 1)
   	return NULL;
   char *cp_ts = malloc(ts_length);
   strcpy (cp_ts, ts);
+  PreProcessString(cp_ts,ts_length);
+  HuntForTokens(cp_ts,ts_length,numberOfTokens);
+
   return NULL;
 } 
 /*PreProccessString takes in the copy of the token stream.
  * 
+ *takes in a copy of the input string and the length of the input string
  *PreProcessString gets rid of all the deliminators and replaces them with '\0'
  *This is done so the only delim that needs checked for is '\0'
  *
  *If functions succeeds it return a processed string
  *Else it prints an error message and return null;
 */
-char *PreProcessString(char *ts) {
-	size_t ts_length = strlen(ts);
+void PreProcessString(char *ts, size_t ts_length) {
+	int *numberOfTokens =0;
 	int i = 0;
 
 	for(i = 0; i < ts_length; i++){
@@ -78,8 +86,67 @@ char *PreProcessString(char *ts) {
 				ts[i] = '\0';
 		}
 	}
-	return ts;
+
 }
+/*
+ *HuntForTokens takes in the copied string that is already processed, the length of the copied string, and a pointer to the number
+ *of tokens. I did this so that I can edit the value of numOfTokens while returning the tokens.
+ *Looks through the copied string for Tokens
+ *Returns an array of string which are the tokens
+ *If user sends in an empty string return NULL to stop method
+ *
+ *int type key
+ *0 = no type. If new token
+ *1 = word
+ *2 = decimal
+ *3 = float
+ *4 = octal
+ *5 = hex
+ *
+ *i is the looping variable in this function
+*/
+ char **HuntForTokens(char *ts, size_t ts_length, int *numOfTokens) {
+ int type = 0;
+ int i =0;
+ Token *tokens = malloc(sizeof(Token));
+ for(i=0; i <ts_length; i++ ) {
+ 	if(isalpha(ts[i])) {
+ 		while(isalpha(ts[i])) {
+ 			printf("%c",ts[i]);
+ 			i++;
+ 		}
+
+
+ 	}
+ }
+}
+
+/*Function to create a new Token
+ *
+ *Takes in a char * for the token and a char * for the type
+ *
+ *return a new Token struct
+*/
+ Token *newToken(char *token, char *type) {
+ 	Token *newToken= malloc (sizeof(Token));
+ 	newToken->token = malloc(sizeof(token));
+ 	newToken->type = malloc(sizeof(type));
+ 
+ 	newToken->token = token;
+ 	newToken->type = type;
+ }
+
+/*Delete Token takes in a *Token delToken and destroys it using free
+ *
+ *
+*/
+ void deleteToken(Token *delToken){
+ 	if(delToken != NULL) {
+ 		free(delToken->token);
+ 		free(delToken->type);
+ 		free(delToken);
+ 	}
+ }
 
 /*
  * TKDestroy destroys a TokenizerT object.  It should free all dynamically
