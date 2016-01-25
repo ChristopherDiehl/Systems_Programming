@@ -7,7 +7,8 @@
 #include <ctype.h>
 
 /*Defines*/
-
+#define GENERALERROR "An error occured while processing your request. \nPlease try again later. \n"
+#define ARGMISMATCHERROR "Invalid arguments.\n"
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
@@ -21,8 +22,7 @@ typedef struct TokenizerT_ {
 	char *st;
 	Token *tokens;
 	int numOfTokens;
-};
-typedef struct TokenizerT_ TokenizerT;
+} TokenizerT;
 
 TokenizerT *TKCreate(char * ts);
 Token *newToken(char *token, char *type);
@@ -49,7 +49,6 @@ char **HuntForTokens(char *ts, size_t ts_length);
 TokenizerT *TKCreate( char * ts ) {
   TokenizerT *tokenizer;
   size_t ts_length = strlen(ts) +1;
-  int *numberOfTokens = 0;
   if(ts_length == 1)
   	return NULL;
   char *cp_ts = malloc(ts_length);
@@ -69,9 +68,7 @@ TokenizerT *TKCreate( char * ts ) {
  *Else it prints an error message and return null;
 */
 void PreProcessString(char *ts, size_t ts_length) {
-	int *numberOfTokens =0;
 	int i = 0;
-
 	for(i = 0; i < ts_length; i++){
 		switch(ts[i]) {
 			case ' ':
@@ -115,7 +112,6 @@ void PreProcessString(char *ts, size_t ts_length) {
  *when numOfTokens > tokenArraySize realloc expands the token array size
 */
  char **HuntForTokens(char *ts, size_t ts_length) {
- int type = 0;
  int i = 0;
  int start = 0;
  int numOfTokens = 0;
@@ -124,7 +120,7 @@ void PreProcessString(char *ts, size_t ts_length) {
  for(i=0; i <ts_length; i++ ) {
  	if(isalpha(ts[i])) {
  	 	start = i;
- 		while(isalpha(ts[i]) && ts[i] != '\0') {
+ 		while(isalpha(ts[i]) && ts[i] != '\0') {-
  			i++;
  		} 
 	 	i--;
@@ -144,6 +140,7 @@ void PreProcessString(char *ts, size_t ts_length) {
  	}
  }
  
+ return NULL;
 
 }
 
@@ -160,6 +157,7 @@ void PreProcessString(char *ts, size_t ts_length) {
  
  	newToken->token = token;
  	newToken->type = type;
+ 	return newToken;
  }
 
 /*Delete Token takes in a *Token delToken and destroys it using free
@@ -210,10 +208,8 @@ char *TKGetNextToken( TokenizerT * tk ) {
 
 int main(int argc, char **argv) {
 	TokenizerT *tokenizer;
-	char *argMismatch = "Invalid arguments. \n";
-	char *generalError = "An error occured while processing your request. \nPlease try again later. \n";
 	if (argc != 2) {
-		printf("%s",argMismatch);
+		printf("%s",ARGMISMATCHERROR);
 		return -1;
 	}
 	TKCreate(argv[1]);
