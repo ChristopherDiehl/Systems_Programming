@@ -149,12 +149,11 @@ void PreProcessString(char *ts, size_t ts_length) {
  					char *token = 0;
  					tokens[numOfTokens] = newToken(token,"Decimal");
  					numOfTokens++;
- 					if(0==ArrayIsFull(numOfTokens,tokenArraySize)){
-	 					tokens[numOfTokens] = newToken("x","Word");
-	 					numOfTokens++;
- 					}else{
-
- 					}
+ 					if(1==ArrayIsFull(numOfTokens,tokenArraySize))
+	 					tokenArraySize = ExpandTokenArray(*tokens,ts_length,tokenArraySize);
+ 					tokens[numOfTokens] = newToken("x","Word");
+	 				numOfTokens++;
+ 					
  				}
  			}
  		} else{
