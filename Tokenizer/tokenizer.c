@@ -9,6 +9,7 @@
 /*Defines*/
 #define GENERALERROR "An error occured while processing your request. \nPlease try again later. \n"
 #define ARGMISMATCHERROR "Invalid arguments.\n"
+#define NULLARGS "Null Value\n"
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
@@ -31,6 +32,8 @@ void TKDestroy( TokenizerT * tk);
 char *TKGetNextToken(TokenizerT * tk);
 void PreProcessString(char *ts, size_t ts_length);
 char **HuntForTokens(char *ts, size_t ts_length);
+int ArrayIsFull(int numOfEntries, int sizeOfArray);
+int ExpandTokenArray(Token *tokens, size_t stringLength, int sizeOfArray);
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
  * (given as a string).
@@ -94,13 +97,8 @@ void PreProcessString(char *ts, size_t ts_length) {
  *Returns an array of string which are the tokens
  *If user sends in an empty string return NULL to stop method
  *
- *int type key
- *0 = no type. If new token
- *1 = word
- *2 = decimal
- *3 = float
- *4 = octal
- *5 = hex
+ *char typeChar is used to keep track of previous char in case character is a 0
+ *meant to handle octal or hex case
  *
  *i is the looping variable in this function
  *start keeps track of what i was when it entered an if statement
@@ -125,25 +123,86 @@ void PreProcessString(char *ts, size_t ts_length) {
  		} 
 	 	i--;
 
- 		char *type = "Word";
  		char *token = malloc(sizeof(char)*(i-start)+1);
  		strncpy(token, &ts[start], i-start+1);
- 		if(numOfTokens == tokenArraySize){
- 			tokenArraySize = tokenArraySize*2;
- 			tokens = realloc(token,tokenArraySize);
- 		}
-	 	tokens[numOfTokens] = newToken(token,type);
+	 	tokens[numOfTokens] = newToken(token,"Word");
 	 	numOfTokens ++;
 	 	printf("TOKEN: %s \nTYPE: %s \n",tokens[numOfTokens-1]->token,tokens[numOfTokens-1]->type);
-	 	
+ 	} else if(isdigit(ts[i])) {
+ 		start = i;
+ 		if(ts[i]==0){
+ 			char typeC = ts[i];
+ 			i++;
+ 			if(ts[i]=='x'){
+ 				if(isxdigit(ts[i+1])){
+ 					i = i +2;
+ 					while(isxdigit(ts[i])){
+ 						i++;
+ 					}
+ 					i--;
+ 					char *token = malloc(sizeof(char)*(i-start)+1);
+			 		strncpy(token, &ts[start], i-start+1);
+				 	tokens[numOfTokens] = newToken(token,"Hexadecimal");
+				 	numOfTokens ++;
+ 				} else {
+ 					//handles cases like 0xZ
+ 					char *token = 0;
+ 					tokens[numOfTokens] = newToken(token,"Decimal");
+ 					numOfTokens++;
+ 					if(0==ArrayIsFull(numOfTokens,tokenArraySize)){
+	 					tokens[numOfTokens] = newToken("x","Word");
+	 					numOfTokens++;
+ 					}else{
 
+ 					}
+ 				}
+ 			}
+ 		} else{
+ 			i++;
+ 			while(isdigit(ts[i])){
+ 				i++;
+ 			}
+ 			i--;
+			char *token = malloc(sizeof(char)*(i-start)+1);
+	 		strncpy(token, &ts[start], i-start+1);
+		 	tokens[numOfTokens] = newToken(token,"Decimal");
+		 	numOfTokens ++;
+		 	printf("TOKEN: %s \nTYPE: %s \n",tokens[numOfTokens-1]->token,tokens[numOfTokens-1]->type);
+ 		}
  	}
+	if(1 ==ArrayIsFull(numOfTokens,tokenArraySize)){
+		tokenArraySize = ExpandTokenArray(*tokens,ts_length,tokenArraySize);
+	}
  }
  
  return NULL;
 
 }
+/*ExpandTokenArray
+ *expands tokenArrayBy twice its original size up until the size of the input string
+ *there will be at most n tokens in an n length input string
+ *accepts pointer to change value
+ *arguments: Array of tokens, int which is input string length, int current size of token array
+ *returns an int which is the new size of the array
+*/
+int ExpandTokenArray(Token *tokens, size_t stringLength, int sizeOfArray){
+	sizeOfArray = sizeOfArray*2;
+		if(sizeOfArray > stringLength)
+			sizeOfArray = stringLength;
+	tokens = realloc(tokens,sizeOfArray);
+	return sizeOfArray;
+}
 
+/*ArrayIsFull(int numOfEntries, int sizeOfArray)
+ *if array is full returns 1, else returns 0
+ *used to see if numOfTokens == tokenArraySize
+*/
+int ArrayIsFull(int numOfEntries, int sizeOfArray){
+	if(numOfEntries == sizeOfArray){
+		return 1;
+	}
+	return 0;
+}
 /*Function to create a new Token
  *
  *Takes in a char * for the token and a char * for the type
@@ -162,14 +221,16 @@ void PreProcessString(char *ts, size_t ts_length) {
 
 /*Delete Token takes in a *Token delToken and destroys it using free
  *
- *
+ *if succesfull returns 0, else returns 1;
 */
  void deleteToken(Token *delToken){
  	if(delToken != NULL) {
  		free(delToken->token);
  		free(delToken->type);
  		free(delToken);
- 	}
+ 		
+ 	} else printf(NULLARGS);
+ 	
  }
 
 /*
@@ -177,9 +238,18 @@ void PreProcessString(char *ts, size_t ts_length) {
  * allocated memory that is part of the object being destroyed.
  *
  * You need to fill in this function as part of your implementation.
+ *
+ * Loops through and frees up the memory taken up by tokens
+ *i is the looping variable
  */
 
 void TKDestroy( TokenizerT * tk ) {
+	if(tk != NULL){
+		int i = 0;
+	
+	} else {
+		printf(NULLARGS);
+	}
 }
 
 /*
