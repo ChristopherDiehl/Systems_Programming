@@ -2,38 +2,61 @@
  * tokenizer.c
  */
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
+/* Define */
+#define ARGMISMATCHERROR "Please enter valid arguments \n"
+int __strncpy(char * dest, char * src , int len)
+{
+	int i ;
+	for(i = 0 ; i < len ; ++i)
+	{
+		*(dest + i) = *(src + i);
+	}
+	dest[len] = '\0';	
+	return 0 ; 
+}
 
-/*Defines*/
-#define GENERALERROR "An error occured while processing your request. \nPlease try again later. \n"
-#define ARGMISMATCHERROR "Invalid arguments.\n"
-#define NULLARGS "Null Value\n"
+
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
 
-typedef struct _Token {
-	char *token;
-	char *type;
-}Token;
+typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP, LEFT_BRACE , RIGHT_BRACE , INDEF } STATE ;
 
-typedef struct TokenizerT_ {
-	char *st;
-	Token *tokens;
-	int numOfTokens;
-} TokenizerT;
+typedef struct TokenizerT_ TokenizerT;
+struct TokenizerT_ {
+	char * _str; // Points to allocated string copy OR better to use array ? 
+	int _strLen; // size
+	int _processedLen ; // length of string processed
+	STATE _state ; 
+};
 
-TokenizerT *TKCreate(char * ts);
-Token *newToken(char *token, char *type);
-void deleteToken(Token *delToken);
-void TKDestroy( TokenizerT * tk);
-char *TKGetNextToken(TokenizerT * tk);
-void PreProcessString(char *ts, size_t ts_length);
-char **HuntForTokens(char *ts, size_t ts_length);
-int ArrayIsFull(int numOfEntries, int sizeOfArray);
-int ExpandTokenArray(Token *tokens, size_t stringLength, int sizeOfArray);
+
+
+/*
+ *
+ * Function Prototypes
+ *
+ *
+ */
+int isOctal(char *a);
+int isDigit(char *a);
+int isX(char *a);
+int isHex(char *a);
+int isWord(char *a);
+int isSpace(char *a);
+int isDot(char *a);
+int isExp(char *a);
+int isPlusMinus(char *a);
+STATE stateTest(char *p , TokenizerT * tk);
+STATE stateAndCharTest(char *p , TokenizerT * tk);
+STATE charTest(char *p);
+void stateTokenPrint(char * p , TokenizerT *tk );
+
+
+
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
  * (given as a string).
@@ -46,211 +69,33 @@ int ExpandTokenArray(Token *tokens, size_t stringLength, int sizeOfArray);
  * Else it returns NULL.
  *
  * You need to fill in this function as part of your implementation.
- *
  */
 
 TokenizerT *TKCreate( char * ts ) {
-  TokenizerT *tokenizer;
-  size_t ts_length = strlen(ts) +1;
-  if(ts_length == 1)
-  	return NULL;
-  char *cp_ts = malloc(ts_length);
-  strcpy (cp_ts, ts);
-  PreProcessString(cp_ts,ts_length);
-  HuntForTokens(cp_ts,ts_length);
-
-  return NULL;
-} 
-/*PreProccessString takes in the copy of the token stream.
- * 
- *takes in a copy of the input string and the length of the input string
- *PreProcessString gets rid of all the deliminators and replaces them with '\0'
- *This is done so the only delim that needs checked for is '\0'
- *
- *If functions succeeds it return a processed string
- *Else it prints an error message and return null;
-*/
-void PreProcessString(char *ts, size_t ts_length) {
-	int i = 0;
-	for(i = 0; i < ts_length; i++){
-		switch(ts[i]) {
-			case ' ':
-				ts[i] = '\0';
-			case '\t':
-				ts[i] = '\0';
-			case '\v':
-				ts[i] = '\0';
-			case '\f':
-				ts[i] = '\0';
-			case '\n':
-				ts[i] = '\0';
-			case '\r':
-				ts[i] = '\0';
-		}
-	}
-
+	TokenizerT *res  = (TokenizerT *)malloc(sizeof(TokenizerT)); 
+	if( res == NULL)
+		return NULL ; 
+	res->_strLen = strlen(ts);
+	
+	// Allocate string space 	
+	res->_str = (char *)malloc(sizeof(char)*res->_strLen);
+	strcpy(res->_str , ts);
+	res->_processedLen = 0 ; 
+	res->_state = START;
+  return res;
 }
-/*
- *HuntForTokens takes in the copied string that is already processed, the length of the copied string, and a pointer to the number
- *of tokens. I did this so that I can edit the value of numOfTokens while returning the tokens.
- *Looks through the copied string for Tokens
- *Returns an array of string which are the tokens
- *If user sends in an empty string return NULL to stop method
- *
- *char typeChar is used to keep track of previous char in case character is a 0
- *meant to handle octal or hex case
- *
- *i is the looping variable in this function
- *start keeps track of what i was when it entered an if statement
- *ie ts="HELLO", goes into isalpha and start = 0. Start is used for malloc and stnrcpy
- *
- *The array of tokens is initiallized to size 2
- *The size expands by two.
- *The current size of the token array is held in tokenArraySize
- *when numOfTokens > tokenArraySize realloc expands the token array size
-*/
- char **HuntForTokens(char *ts, size_t ts_length) {
- int i = 0;
- int start = 0;
- int numOfTokens = 0;
- size_t tokenArraySize =2;
- Token **tokens = malloc(sizeof(Token)*tokenArraySize);
- for(i=0; i <ts_length; i++ ) {
- 	if(isalpha(ts[i])) {
- 	 	start = i;
- 		while(isalpha(ts[i]) && ts[i] != '\0') {-
- 			i++;
- 		} 
-	 	i--;
-
- 		char *token = malloc(sizeof(char)*(i-start)+1);
- 		strncpy(token, &ts[start], i-start+1);
-	 	tokens[numOfTokens] = newToken(token,"Word");
-	 	numOfTokens ++;
-	 	printf("TOKEN: %s \nTYPE: %s \n",tokens[numOfTokens-1]->token,tokens[numOfTokens-1]->type);
- 	} else if(isdigit(ts[i])) {
- 		start = i;
- 		if(ts[i]==0){
- 			char typeC = ts[i];
- 			i++;
- 			if(ts[i]=='x'){
- 				if(isxdigit(ts[i+1])){
- 					i = i +2;
- 					while(isxdigit(ts[i])){
- 						i++;
- 					}
- 					i--;
- 					char *token = malloc(sizeof(char)*(i-start)+1);
-			 		strncpy(token, &ts[start], i-start+1);
-				 	tokens[numOfTokens] = newToken(token,"Hexadecimal");
-				 	numOfTokens ++;
- 				} else {
- 					//handles cases like 0xZ
- 					char *token = 0;
- 					tokens[numOfTokens] = newToken(token,"Decimal");
- 					numOfTokens++;
- 					if(1==ArrayIsFull(numOfTokens,tokenArraySize))
-	 					tokenArraySize = ExpandTokenArray(*tokens,ts_length,tokenArraySize);
- 					tokens[numOfTokens] = newToken("x","Word");
-	 				numOfTokens++;
- 					
- 				}
- 			}
- 		} else{
- 			i++;
- 			while(isdigit(ts[i])){
- 				i++;
- 			}
- 			i--;
-			char *token = malloc(sizeof(char)*(i-start)+1);
-	 		strncpy(token, &ts[start], i-start+1);
-		 	tokens[numOfTokens] = newToken(token,"Decimal");
-		 	numOfTokens ++;
-		 	printf("TOKEN: %s \nTYPE: %s \n",tokens[numOfTokens-1]->token,tokens[numOfTokens-1]->type);
- 		}
- 	}
-	if(1 ==ArrayIsFull(numOfTokens,tokenArraySize)){
-		tokenArraySize = ExpandTokenArray(*tokens,ts_length,tokenArraySize);
-	}
- }
- 
- return NULL;
-
-}
-/*ExpandTokenArray
- *expands tokenArrayBy twice its original size up until the size of the input string
- *there will be at most n tokens in an n length input string
- *accepts pointer to change value
- *arguments: Array of tokens, int which is input string length, int current size of token array
- *returns an int which is the new size of the array
-*/
-int ExpandTokenArray(Token *tokens, size_t stringLength, int sizeOfArray){
-	sizeOfArray = sizeOfArray*2;
-		if(sizeOfArray > stringLength)
-			sizeOfArray = stringLength;
-	tokens = realloc(tokens,sizeOfArray);
-	return sizeOfArray;
-}
-
-/*ArrayIsFull(int numOfEntries, int sizeOfArray)
- *if array is full returns 1, else returns 0
- *used to see if numOfTokens == tokenArraySize
-*/
-int ArrayIsFull(int numOfEntries, int sizeOfArray){
-	if(numOfEntries == sizeOfArray){
-		return 1;
-	}
-	return 0;
-}
-/*Function to create a new Token
- *
- *Takes in a char * for the token and a char * for the type
- *
- *return a new Token struct
-*/
- Token *newToken(char *token, char *type) {
- 	Token *newToken= malloc (sizeof(Token));
- 	newToken->token = malloc(sizeof(token));
- 	newToken->type = malloc(sizeof(type));
- 
- 	newToken->token = token;
- 	newToken->type = type;
- 	return newToken;
- }
-
-/*Delete Token takes in a *Token delToken and destroys it using free
- *
- *if succesfull returns 0, else returns 1;
-*/
- void deleteToken(Token *delToken){
- 	if(delToken != NULL) {
- 		free(delToken->token);
- 		free(delToken->type);
- 		free(delToken);
- 		
- 	} else printf(NULLARGS);
- 	
- }
 
 /*
  * TKDestroy destroys a TokenizerT object.  It should free all dynamically
  * allocated memory that is part of the object being destroyed.
  *
  * You need to fill in this function as part of your implementation.
- *
- * Loops through and frees up the memory taken up by tokens
- *i is the looping variable
  */
 
 void TKDestroy( TokenizerT * tk ) {
-	if(tk != NULL){
-		int i = 0;
-	
-	} else {
-		printf(NULLARGS);
-	}
+	free (tk->_str);
+	free (tk);
 }
-
 /*
  * TKGetNextToken returns the next token from the token stream as a
  * character string.  Space for the returned token should be dynamically
@@ -265,7 +110,310 @@ void TKDestroy( TokenizerT * tk ) {
 
 char *TKGetNextToken( TokenizerT * tk ) {
 
-  return NULL;
+/* LOOP FORWARD UNTIL WE SEE : 
+ *  1) WHITE SPACE 
+ *  2) /0 
+ *  3) CHANGE FROM ONE STATE TO ANOTHER STATE. 
+ */
+
+
+	char * p = tk->_str + tk->_processedLen ; // points to the last processed item 
+	tk->_state = START;
+	
+	if(*p == '\0')
+		return NULL;
+
+	int tokenBeg = tk->_processedLen ;  // token begins from this point onwards. 
+	
+	char * prevChar ;	
+	STATE prevState ;
+	while(*p != '\0')
+	{
+		if(isSpace(p))
+		{
+			int tokenLen =	tk->_processedLen - tokenBeg ;  
+			if(tokenLen == 0 || isSpace(prevChar)) // BAD CODE
+			{
+				++p;	
+				++tk->_processedLen; // we disregard this character during the next try
+				++tokenBeg; // next token begins after this
+				continue;
+			}
+
+			char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
+			
+
+			__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);	
+			++tk->_processedLen; // we disregard this character during the next try
+
+			if(!isSpace(token) && tokenLen != 0)
+				return token;		
+		} 
+
+		// STUPID IMPLEMENTATION 
+	prevState = tk->_state;
+
+	//	printf("%d",tk->_state);
+		tk->_state = stateAndCharTest(p,tk);	
+
+
+//	printf("%c",*p);
+//	printf("%c\n",*(p+1));
+	
+		if(tk->_state != prevState) // if transisition between two states then we know 
+		{
+			
+//			printf("PREV : %d ",prevState);
+//			printf("CURRENT : %d\n",tk->_state);
+			if(prevState != START &&prevState != ZERO) // allow transition from start and zero
+			{
+				if(prevState != DOT && prevState != EXP && prevState!= PLUS_OR_MIN) // allow transition from dot and exp and plusMinus
+				{
+					if(tk->_state != EXP && tk->_state != DOT && tk->_state != PLUS_OR_MIN) // allow transition to exp and dot and plus minus
+					{
+					//	printf("STATE CHANGE : TOKEN FORMED\n");
+						break ; 
+					}
+				}
+			}
+		}
+		
+		++tk->_processedLen;
+		prevChar = p ;
+		++p;
+	}
+	
+	int tokenLen =	tk->_processedLen - tokenBeg ;  
+	char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
+	// COPY FROM STRING TO TOKEN 
+	__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);	
+
+	if(!isSpace(token) && tokenLen != 0 )
+	{
+		if(prevState !=0)
+			tk->_state = prevState;
+
+		return token;
+	}
+	else
+		return NULL;
+}
+
+
+
+STATE stateAndCharTest(char *p , TokenizerT * tk)
+{
+	STATE st ;
+	switch(tk->_state)
+	{
+		case ZERO:
+		    if(isX(p))
+				st = HEX;
+			else if(isDot(p))
+				st = DOT;
+			else if(isOctal(p))
+				st = OCTAL;
+			else 
+				st = INDEF;
+			break; 
+		case C_OP:
+			if(ispunct(p))
+				st = C_OP;
+			else
+				st = INDEF;
+			break; 
+		case OCTAL:
+			if(isOctal(p))
+				st = OCTAL;
+			else
+				st = INDEF;
+			break; 
+
+		case HEX:
+			if(isHex(p))
+				st = HEX;				
+			else
+				st = INDEF;
+			break;
+
+		case DOT:
+			if(isDigit(p))
+				st = FLOAT;
+			else if(isExp(p))
+				st = EXP;
+			else
+				st = INDEF;
+			break;
+
+		case DIGIT:
+			if(isDigit(p))	
+				st = DIGIT; 
+			else if(isDot(p))
+				st = DOT;
+			else if(isExp(p))
+				st = EXP;
+			else
+				st = INDEF;
+			break;
+
+		case EXP:
+			if(isPlusMinus(p))
+				st = PLUS_OR_MIN;
+			else if(isDigit(p))
+				st = FLOAT;
+			else 
+				st = INDEF;
+			break;
+	
+		case FLOAT: 
+			if(isDigit(p))
+				st = FLOAT;
+			else if(isExp(p))
+				st = EXP;
+			else
+				st = INDEF;
+			break; 
+
+		case PLUS_OR_MIN:
+			if(isDigit(p))
+				st = FLOAT;
+			else
+				st = INDEF;
+			break;
+
+		case START:
+			if ( *p == '0')
+				st = ZERO;
+			else if(isDigit(p))
+			{
+		//		printf("DIGIT");
+				st = DIGIT;
+			}
+			else if(ispunct(*p)){
+				st = C_OP;
+			}
+			else if(isWord(p))
+			{
+		//		printf("WORD");
+				st = WORD;
+			} 
+			else
+				st = INDEF;
+			break;
+		case WORD:
+			if( isWord(p))
+				st = WORD;
+			else if ( isDigit(p))
+				st = WORD;
+			else
+				st = INDEF;
+			break;
+
+		case INDEF:
+		default:
+			st = INDEF; // ?? 
+				break ; 
+	}
+	return st;
+}
+
+
+
+char * findC_Op(char * token) {
+	printf("token: %s\n",token);
+	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^="};
+	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals"};
+	//size_t token_length = strlen(token);
+	int tokenArraySize = 37;
+	int i = 0;
+	for(i = 0; i < tokenArraySize ; i++) {
+		if(0 ==strcmp(token,tokenArray[i])){
+			return tokenType[i];
+		}
+	}
+
+	return 0;
+
+
+}
+/*
+ * param p : pointer to c string
+ * param tk: pointer to tokenizer
+ *
+ * FUNC : will print state and token to stdout
+ * SIDE-EFFECT : none
+ *
+ */
+
+void stateTokenPrint(char * token , TokenizerT *tk )
+{
+	if(tk->_state == DIGIT)
+		printf("decimal \"%s\"\n",token);
+	else if(tk->_state == OCTAL)
+		printf("octal \"%s\"\n",token);
+	else if(tk->_state == FLOAT)
+		printf("float \"%s\"\n",token);
+	else if(tk->_state == HEX)
+		printf("hex \"%s\"\n",token);
+	else if(tk->_state == ZERO)
+		printf("zero \"%s\"\n",token);
+	else if (tk->_state == WORD)
+		printf("word \"%s\"\n",token);
+	else if(tk->_state == INDEF)
+		printf("mal \"%s\"\n",token);
+	else if(tk->_state ==C_OP)
+		printf("%s \"%s\"\n",findC_Op(token),token);
+	else 
+		printf("mal \"%s\"\n",token);
+
+	// resetting the token for the next traversal 
+		tk->_state = START; // START OVER AGAIN
+}
+
+int isOctal(char *a)
+{	
+	int b = (int)(*a - '0');
+	return b>= 0 && b <= 7 ; 
+}
+
+int isDigit(char *a)
+{
+	return isdigit(*a);
+}
+
+int isX(char *a)
+{
+	return (*a == 'x' || *a == 'X');
+}
+
+int isHex(char *a)
+{
+	return isxdigit(*a);
+}
+
+int isSpace(char *a)
+{
+		return isspace(*a) ;
+}
+
+int isWord(char *a)
+{
+	return (int)(*a) <= 122 && (int)(*a) >= 65 ; 
+}
+
+int isDot(char *a)
+{
+	return (*a=='.');
+}
+
+int isPlusMinus(char *a)
+{
+	return (*a=='+' || *a=='-');
+}
+
+int isExp(char *a)
+{
+	return (*a=='e' || *a=='E');
 }
 
 /*
@@ -276,11 +424,26 @@ char *TKGetNextToken( TokenizerT * tk ) {
  */
 
 int main(int argc, char **argv) {
-	TokenizerT *tokenizer;
-	if (argc != 2) {
-		printf("%s",ARGMISMATCHERROR);
-		return -1;
-	}
-	TKCreate(argv[1]);
+
+	/* check the input */ 
+	if(argc !=2)
+	{
+		printf(ARGMISMATCHERROR);
+		return -1 ; 
+	}	
+
+	TokenizerT * tk = TKCreate(argv[1]);
+	//printf(" STRING : %s\n", tk->_str);
+
+	while(1)
+	{
+		char * res = TKGetNextToken(tk);	
+		if(res == NULL)
+			break ; 
+		stateTokenPrint(res,tk);
+		free(res);
+	}	
+
+	TKDestroy(tk);
   return 0;
 }
