@@ -19,9 +19,7 @@ int __strncpy(char * dest, char * src , int len)
 }
 
 
-/*
- * Tokenizer type.  You need to fill in the type as part of your implementation.
- */
+
 
 typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP, LEFT_BRACE , RIGHT_BRACE , INDEF } STATE ;
 
@@ -30,7 +28,7 @@ struct TokenizerT_ {
 	char * _str; // Points to allocated string copy OR better to use array ? 
 	int _strLen; // size
 	int _processedLen ; // length of string processed
-	STATE _state ; 
+	STATE _state ;  //current state of tokenizer
 };
 
 
@@ -89,7 +87,8 @@ TokenizerT *TKCreate( char * ts ) {
  * TKDestroy destroys a TokenizerT object.  It should free all dynamically
  * allocated memory that is part of the object being destroyed.
  *
- * You need to fill in this function as part of your implementation.
+ * Frees the tk->_str & the tokenizer struct
+ *  - these are the only things malloced besides token which is freed in main
  */
 
 void TKDestroy( TokenizerT * tk ) {
@@ -125,14 +124,13 @@ char *TKGetNextToken( TokenizerT * tk ) {
 
 	int tokenBeg = tk->_processedLen ;  // token begins from this point onwards. 
 	
-	char * prevChar ;	
 	STATE prevState ;
 	while(*p != '\0')
 	{
 		if(isSpace(p))
 		{
 			int tokenLen =	tk->_processedLen - tokenBeg ;  
-			if(tokenLen == 0 || isSpace(prevChar)) // BAD CODE
+			if(tokenLen == 0)
 			{
 				++p;	
 				++tk->_processedLen; // we disregard this character during the next try
@@ -150,55 +148,43 @@ char *TKGetNextToken( TokenizerT * tk ) {
 				return token;		
 		} 
 
-		// STUPID IMPLEMENTATION 
 	prevState = tk->_state;
+	//printf("Token going in :%d\n",tk->_state);
+	//printf("%c\n",*p);
+	tk->_state = stateAndCharTest(p,tk);	
+	//printf("Token going out\n");
+	//printf("Token going in :%d\n",tk->_state)
 
-	//	printf("%d",tk->_state);
-		tk->_state = stateAndCharTest(p,tk);	
-
-
-//	printf("%c",*p);
-//	printf("%c\n",*(p+1));
+	if(tk->_state == 13)
+		break;
 	
-		if(tk->_state != prevState) // if transisition between two states then we know 
-		{
-			
-//			printf("PREV : %d ",prevState);
-//			printf("CURRENT : %d\n",tk->_state);
-			if(prevState != START &&prevState != ZERO) // allow transition from start and zero
-			{
-				if(prevState != DOT && prevState != EXP && prevState!= PLUS_OR_MIN) // allow transition from dot and exp and plusMinus
-				{
-					if(tk->_state != EXP && tk->_state != DOT && tk->_state != PLUS_OR_MIN) // allow transition to exp and dot and plus minus
-					{
-					//	printf("STATE CHANGE : TOKEN FORMED\n");
-						break ; 
-					}
-				}
-			}
-		}
-		
-		++tk->_processedLen;
-		prevChar = p ;
-		++p;
+	++tk->_processedLen;
+	++p;
 	}
-	
 	int tokenLen =	tk->_processedLen - tokenBeg ;  
 	char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
-	// COPY FROM STRING TO TOKEN 
 	__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);	
-
+	//handles if there is no space and tokenLen != 0 IE 132ASF is a digit and a word
 	if(!isSpace(token) && tokenLen != 0 )
 	{
-		if(prevState !=0)
+		
+		if(prevState == 0 && *p != '\0'){
 			tk->_state = prevState;
+		}
+		if(tk->_state == INDEF){
+			tk->_state = prevState;
+		}
+		
 
-		return token;
+	return token;
 	}
 	else
 		return NULL;
 }
 
+/*Takes in the current char and the tokenizer
+ *Once state is identified, tk->_state is changed to new value
+*/
 
 
 STATE stateAndCharTest(char *p , TokenizerT * tk)
@@ -209,8 +195,6 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 		case ZERO:
 		    if(isX(p))
 				st = HEX;
-			else if(isDot(p))
-				st = DOT;
 			else if(isOctal(p))
 				st = OCTAL;
 			else 
@@ -228,7 +212,6 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 			else
 				st = INDEF;
 			break; 
-
 		case HEX:
 			if(isHex(p))
 				st = HEX;				
@@ -240,7 +223,7 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 			if(isDigit(p))
 				st = FLOAT;
 			else if(isExp(p))
-				st = EXP;
+				st = FLOAT;
 			else
 				st = INDEF;
 			break;
@@ -248,10 +231,8 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 		case DIGIT:
 			if(isDigit(p))	
 				st = DIGIT; 
-			else if(isDot(p))
-				st = DOT;
-			else if(isExp(p))
-				st = EXP;
+			else if(isDot(p)||isExp(p))
+				st = FLOAT;
 			else
 				st = INDEF;
 			break;
@@ -285,18 +266,13 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 			if ( *p == '0')
 				st = ZERO;
 			else if(isDigit(p))
-			{
-		//		printf("DIGIT");
 				st = DIGIT;
-			}
-			else if(ispunct(*p)){
-				st = C_OP;
-			}
 			else if(isWord(p))
-			{
-		//		printf("WORD");
 				st = WORD;
-			} 
+			else if(isDot(p))
+				st = DOT;
+			else if(ispunct(*p))
+				st = C_OP;
 			else
 				st = INDEF;
 			break;
@@ -317,14 +293,18 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 	return st;
 }
 
-
+/*Takes in a char* token
+ *the token is matched to an entry in tokenArray
+ *the index is used to find the corresponding tokenType in tokenType array
+ *tokenType is then returned
+ *Worst case: O(n) where n is the amount of tokens in tokenArray
+*/
 
 char * findC_Op(char * token) {
-	printf("token: %s\n",token);
-	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^="};
-	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals"};
-	//size_t token_length = strlen(token);
-	int tokenArraySize = 37;
+	//printf("token: %s\n",token);
+	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":"};
+	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon"};
+	int tokenArraySize = 38;
 	int i = 0;
 	for(i = 0; i < tokenArraySize ; i++) {
 		if(0 ==strcmp(token,tokenArray[i])){
@@ -341,8 +321,8 @@ char * findC_Op(char * token) {
  * param tk: pointer to tokenizer
  *
  * FUNC : will print state and token to stdout
- * SIDE-EFFECT : none
- *
+ * If no state is defined or state is undeterminedthen prints bad token
+ * Resets the token state to start state
  */
 
 void stateTokenPrint(char * token , TokenizerT *tk )
@@ -359,17 +339,22 @@ void stateTokenPrint(char * token , TokenizerT *tk )
 		printf("zero \"%s\"\n",token);
 	else if (tk->_state == WORD)
 		printf("word \"%s\"\n",token);
+	else if (tk->_state == EXP)
+		printf("float \"%s\"\n",token);
 	else if(tk->_state == INDEF)
-		printf("mal \"%s\"\n",token);
+		printf("bad token \"%s\"\n",token);
+	else if(tk->_state == DOT)
+		printf("%s \"%s\"\n",findC_Op(token),token);
 	else if(tk->_state ==C_OP)
 		printf("%s \"%s\"\n",findC_Op(token),token);
 	else 
-		printf("mal \"%s\"\n",token);
+		printf("bad token \"%s\"\n",token);
 
 	// resetting the token for the next traversal 
-		tk->_state = START; // START OVER AGAIN
+	tk->_state = START; 
 }
 
+/* Functions to Check what kind of type the char is */
 int isOctal(char *a)
 {	
 	int b = (int)(*a - '0');
@@ -421,6 +406,8 @@ int isExp(char *a)
  * The string argument contains the tokens.
  * Print out the tokens in the second string in left-to-right order.
  * Each token should be printed on a separate line.
+ * The token is freed at the end of each while loop iteration
+ * Loop only breaks if res == 0 or res is NULL
  */
 
 int main(int argc, char **argv) {
@@ -438,7 +425,7 @@ int main(int argc, char **argv) {
 	while(1)
 	{
 		char * res = TKGetNextToken(tk);	
-		if(res == NULL)
+		if(res == 0)
 			break ; 
 		stateTokenPrint(res,tk);
 		free(res);
