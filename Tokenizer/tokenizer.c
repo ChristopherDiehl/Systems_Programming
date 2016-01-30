@@ -26,7 +26,7 @@ typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , E
 typedef struct TokenizerT_ TokenizerT;
 struct TokenizerT_ {
 	char * _str; // Points to allocated string copy OR better to use array ? 
-	int _strLen; // size
+	size_t _strLen; // size
 	int _processedLen ; // length of string processed
 	STATE _state ;  //current state of tokenizer
 };
@@ -52,7 +52,26 @@ STATE stateTest(char *p , TokenizerT * tk);
 STATE stateAndCharTest(char *p , TokenizerT * tk);
 STATE charTest(char *p);
 void stateTokenPrint(char * p , TokenizerT *tk );
+void PreProcessString(char *ts, size_t ts_length);
 
+/*Preprocesses delims and makes them spaces so main will automatically separate delims into new token*/
+void PreProcessString(char *ts, size_t ts_length) {
+	int i = 0;
+    for(i = 0; i < ts_length; i++){
+		switch(ts[i]) {
+			case '\t':
+				ts[i] = ' ';
+			case '\v':
+				ts[i] = ' ';
+			case '\f':
+				ts[i] = ' ';
+			case '\n':
+				ts[i] = ' ';
+			case '\r':
+				ts[i] = ' ';
+		}
+	}
+}
 
 
 /*
@@ -78,6 +97,7 @@ TokenizerT *TKCreate( char * ts ) {
 	// Allocate string space 	
 	res->_str = (char *)malloc(sizeof(char)*res->_strLen);
 	strcpy(res->_str , ts);
+	PreProcessString (res->_str,res->_strLen);
 	res->_processedLen = 0 ; 
 	res->_state = START;
   return res;
