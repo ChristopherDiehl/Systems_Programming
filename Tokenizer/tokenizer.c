@@ -21,7 +21,7 @@ int __strncpy(char * dest, char * src , int len)
 
 
 
-typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP, LEFT_BRACE , RIGHT_BRACE , INDEF } STATE ;
+typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP, LEFT_BRACE , RIGHT_BRACE ,INDEF } STATE ;
 
 typedef struct TokenizerT_ TokenizerT;
 struct TokenizerT_ {
@@ -142,11 +142,43 @@ char *TKGetNextToken( TokenizerT * tk ) {
 	if(*p == '\0')
 		return NULL;
 
-	int tokenBeg = tk->_processedLen ;  // token begins from this point onwards. 
+	int tokenBeg = tk->_processedLen ;
 	
 	STATE prevState ;
 	while(*p != '\0')
 	{
+		if(*p == '/' && *(++p) == '*'){
+		    tk->_processedLen += 2;
+			tokenBeg += 2;;
+			while (*p != '\0'){
+				if(*p == '*' && *(++p) == '/') {
+					++tk->_processedLen;
+					++tokenBeg;
+					break;
+				}
+				++p;
+				++tk->_processedLen; 
+				++tokenBeg; 
+			}
+			//have to increment everything again to get past last */
+			++p;
+		    ++tk->_processedLen; 
+			++tokenBeg; 
+			continue;
+		} 
+		//handles C comment //
+		else if (*p == '/' && *(++p) == '/') {
+			tk->_processedLen += 2;
+			tokenBeg += 2;
+			while (*p != '\0'){
+				if(isSpace(p)) { //space means a new token or end of comment. Lets next if block handle that
+					break;
+				}
+				++p;
+				++tk->_processedLen; // we disregard this character during the next try
+				++tokenBeg; 
+			}
+		}
 		if(isSpace(p))
 		{
 			int tokenLen =	tk->_processedLen - tokenBeg ;  
@@ -175,7 +207,7 @@ char *TKGetNextToken( TokenizerT * tk ) {
 	//printf("Token going out\n");
 	//printf("Token going in :%d\n",tk->_state)
 
-	if(tk->_state == 13)
+	if(tk->_state == INDEF)
 		break;
 	
 	++tk->_processedLen;
@@ -375,6 +407,7 @@ void stateTokenPrint(char * token , TokenizerT *tk )
 }
 
 /* Functions to Check what kind of type the char is */
+
 int isOctal(char *a)
 {	
 	int b = (int)(*a - '0');
@@ -398,7 +431,7 @@ int isHex(char *a)
 
 int isSpace(char *a)
 {
-		return isspace(*a) ;
+	return isspace(*a) ;
 }
 
 int isWord(char *a)
