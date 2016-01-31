@@ -21,7 +21,7 @@ int __strncpy(char * dest, char * src , int len)
 
 
 
-typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP, LEFT_BRACE , RIGHT_BRACE ,INDEF } STATE ;
+typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , PLUS_OR_MIN ,DOT , EXP, WORD,C_OP ,INDEF } STATE ;
 
 typedef struct TokenizerT_ TokenizerT;
 struct TokenizerT_ {
@@ -85,7 +85,7 @@ void PreProcessString(char *ts, size_t ts_length) {
  * If the function succeeds, it returns a non-NULL TokenizerT.
  * Else it returns NULL.
  *
- * You need to fill in this function as part of your implementation.
+ *
  */
 
 TokenizerT *TKCreate( char * ts ) {
@@ -96,6 +96,8 @@ TokenizerT *TKCreate( char * ts ) {
 	
 	// Allocate string space 	
 	res->_str = (char *)malloc(sizeof(char)*res->_strLen);
+	if(res->_str == NULL)
+		return NULL;
 	strcpy(res->_str , ts);
 	PreProcessString (res->_str,res->_strLen);
 	res->_processedLen = 0 ; 
@@ -132,7 +134,8 @@ char *TKGetNextToken( TokenizerT * tk ) {
 /* LOOP FORWARD UNTIL WE SEE : 
  *  1) WHITE SPACE 
  *  2) /0 
- *  3) CHANGE FROM ONE STATE TO ANOTHER STATE. 
+ *  3)C Comment
+ *  4) CHANGE FROM ONE STATE TO ANOTHER STATE. 
  */
 
 
@@ -201,11 +204,9 @@ char *TKGetNextToken( TokenizerT * tk ) {
 		} 
 
 	prevState = tk->_state;
-	//printf("Token going in :%d\n",tk->_state);
-	//printf("%c\n",*p);
+
 	tk->_state = stateAndCharTest(p,tk);	
-	//printf("Token going out\n");
-	//printf("Token going in :%d\n",tk->_state)
+
 
 	if(tk->_state == INDEF)
 		break;
