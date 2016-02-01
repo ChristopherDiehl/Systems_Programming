@@ -193,8 +193,7 @@ char *TKGetNextToken( TokenizerT * tk ) {
 			}
 
 			char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
-			
-
+			 
 			__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);	
 			++tk->_processedLen; // we disregard this character during the next try
 
@@ -313,7 +312,6 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 			else
 				st = INDEF;
 			break;
-
 		case START:
 			if ( *p == '0')
 				st = ZERO;
@@ -350,13 +348,15 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
  *the index is used to find the corresponding tokenType in tokenType array
  *tokenType is then returned
  *Worst case: O(n) where n is the amount of tokens in tokenArray
+ *if there are two punctuation marks back to back it assumes that they are one punctation character ie. && = logical and
+ *else [] == badtoken
 */
 
 char * findC_Op(char * token) {
 	//printf("token: %s\n",token);
-	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":","(",")"};
-	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon","left parenthesis","right parenthesis"};
-	int tokenArraySize = 40;
+	char **tokenArray = (char *[]){"[","-""]","{","}",".","&","*","-","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":","(",")","()"};
+	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","minus","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon","left parenthesis","right parenthesis","method invocation"};
+	int tokenArraySize = 42;
 	int i = 0;
 	for(i = 0; i < tokenArraySize ; i++) {
 		if(0 ==strcmp(token,tokenArray[i])){
@@ -364,7 +364,7 @@ char * findC_Op(char * token) {
 		}
 	}
 
-	return 0;
+	return "Bad Token";
 
 
 }
@@ -405,7 +405,6 @@ void stateTokenPrint(char * token , TokenizerT *tk )
 	// resetting the token for the next traversal 
 	tk->_state = START; 
 }
-
 /* Functions to Check what kind of type the char is */
 
 int isOctal(char *a)
@@ -473,7 +472,6 @@ int main(int argc, char **argv) {
 	}	
 
 	TokenizerT * tk = TKCreate(argv[1]);
-	//printf(" STRING : %s\n", tk->_str);
 
 	while(1)
 	{

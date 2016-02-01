@@ -1,0 +1,9 @@
+Edge cases:
+If no number is after e, it is assumed that you are specifying e1
+ex:
+12.e -treated as float
+12.0e -treated as float
+12.0e1
+.e assumed it is equal to .1e1 treated as float
+
+TRY TO FIND THAT EXCLAMATION POINT AFTER LONG QUOTES
