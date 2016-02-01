@@ -52,7 +52,7 @@ STATE stateTest(char *p , TokenizerT * tk);
 STATE stateAndCharTest(char *p , TokenizerT * tk);
 STATE charTest(char *p);
 void stateTokenPrint(char * p , TokenizerT *tk );
-void PreProcessString(char *ts, size_t ts_length);
+//void PreProcessString(char *ts, size_t ts_length);
 
 /*Preprocesses delims and makes them spaces so main will automatically separate delims into new token*/
 void PreProcessString(char *ts, size_t ts_length) {
@@ -72,7 +72,6 @@ void PreProcessString(char *ts, size_t ts_length) {
 		}
 	}
 }
-
 
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
@@ -254,7 +253,7 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 				st = INDEF;
 			break; 
 		case C_OP:
-			if(ispunct(p))
+			if(ispunct(*p))
 				st = C_OP;
 			else
 				st = INDEF;
@@ -355,9 +354,9 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 
 char * findC_Op(char * token) {
 	//printf("token: %s\n",token);
-	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":"};
-	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon"};
-	int tokenArraySize = 38;
+	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","/","%","+","=",";","<",">","|","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":","(",")"};
+	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","period","ampersand","asterisk","slash","modulus",	"plus","equals","semicolon","lessthan","greaterthan","vertical bar","exclamation point","tilde","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon","left parenthesis","right parenthesis"};
+	int tokenArraySize = 40;
 	int i = 0;
 	for(i = 0; i < tokenArraySize ; i++) {
 		if(0 ==strcmp(token,tokenArray[i])){
@@ -437,7 +436,7 @@ int isSpace(char *a)
 
 int isWord(char *a)
 {
-	return (int)(*a) <= 122 && (int)(*a) >= 65 ; 
+	return isalpha(*a); 
 }
 
 int isDot(char *a)
