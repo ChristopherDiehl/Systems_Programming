@@ -1,9 +1,609 @@
-Edge cases:
-If no number is after e, it is assumed that you are specifying e1
-ex:
-12.e -treated as float
-12.0e -treated as float
-12.0e1
-.e assumed it is equal to .1e1 treated as float
+TESTCASE #0 
+	STRING :
+		 
+	OUPUT : 
+		decimal integer  "21312000010"
+		word "x21312accccccbbbbbbbeeeeeeeeeeep1232131232123"
+		decimal integer  "123"
+		decimal integer  "123"
+		hexadecimal integer "0x1234"
+		float "0.123e+1233"
+		hexadecimal integer "0x123123233"
+		decimal integer  "12312"
+		octal integer "0123123"
+		plusequals "+=" 
+		equals "=" 
+		minus "-" 
+		minus "-" 
+		
+TESTCASE #1 
+	STRING : 
+		" 21312000010x21312accccccbbbbbbbeeeeeeeeeeep1232131232123               123               123 0.0.0.0.0 01231232313120x1234" 
+	OUTPUT : 
+		decimal integer  "21312000010"
+		word "x21312accccccbbbbbbbeeeeeeeeeeep1232131232123"
+		decimal integer  "123"
+		decimal integer  "123"
+		float "0.0"
+		dot "." 
+		float "0.0"
+		dot "." 
+		Bad Token: 0x30
+		octal integer "01231232313120"
+		word "x1234"
 
-TRY TO FIND THAT EXCLAMATION POINT AFTER LONG QUOTES
+TESTCASE #2
+	STRING :
+		"  123.0123e+12321-1231+ - & | " 
+	OUTPUT : 
+		float "123.0123e+12321"
+		minus "-" 
+		decimal integer  "1231"
+		plus "+" 
+		minus "-" 
+		address "&" 
+		bitwise or "|" 
+				
+
+TESTCASE #3
+	STRING :  
+		"123e123 123123 213123 213213123n12n3j21nui3niudnaf8a9d982318210312jndasjfni12839218391280x123123123120x123123120x123123 "
+	OUTPUT : 
+		decimal integer  "123"
+		word "e123"
+		decimal integer  "123123"
+		decimal integer  "213123"
+		decimal integer  "213213123"
+		word "n12n3j21nui3niudnaf8a9d982318210312jndasjfni12839218391280x123123123120x123123120x123123"
+					
+TESTCASE #4 
+	STRING : 
+		" 123123 0x12312 01231241 0123.213e-12321 12321.12e+123 c_rocks crocksbutcppisbetter"
+	OUTPUT : 
+		decimal integer  "123123"
+		hexadecimal integer "0x12312"
+		octal integer "01231241"
+		octal integer "0123"
+		dot "." 
+		decimal integer  "213"
+		word "e"
+		minus "-" 
+		decimal integer  "12321"
+		float "12321.12e+123"
+		word "c"
+		Bad Token: 0x5f
+		word "rocks"
+		word "crocksbutcppisbetter"
+			
+TESTCASE #5 
+	STRING : 
+		" i want to be a systems prog "
+	OUTPUT : 
+		word "i"
+		word "want"
+		word "to"
+		word "be"
+		word "a"
+		word "systems"
+		word "prog"	
+				
+TESTCASE #6
+	STRING : 
+		"0x12321312301231212asadadfa"
+	OUTPUT :
+		hexadecimal integer "0x12321312301231212a"
+		word "sadadfa"
+
+TESTCASE #7
+	STRING : 
+		"0x12321312301231212asadadfa 12312 12312 123 2131 012321321323476217312536125513521431 "	
+	OUTPUT :
+		hexadecimal integer "0x12321312301231212a"
+		word "sadadfa"
+		decimal integer  "12312"
+		decimal integer  "12312"
+		decimal integer  "123"
+		decimal integer  "2131"
+		octal integer "012321321323476217312536125513521431"
+
+
+TESTCASE #8
+	STRING : 
+		" rutgers 0 1230xx12323xxxxxx " 
+	OUTPUT: 				
+		word "rutgers"
+		decimal integer  "0"
+		decimal integer  "1230"
+		word "xx12323xxxxxx"
+
+
+
+TESTCASE #9
+	STRING : 
+		" x x x x x x x x x x x  x x xx x x x  x x x x ........  . .. . .. .. -------- --- "	
+	OUTPUT: 
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "xx"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		word "x"
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		dot "." 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+				
+TESTCASE #10
+	STRING : 
+		" ( ( ( )) )))))) += -- << == <= >= => hello while if then could be "
+		
+	OUTPUT: 
+		left parenthesis "(" 
+		left parenthesis "(" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		plusequals "+=" 
+		minus "-" 
+		minus "-" 
+		shift left "<<" 
+		equals "==" 
+		less or equal "<=" 
+		greater or equal ">=" 
+		equals "=" 
+		greaterthan ">" 
+		word "hello"
+		word "while"
+		word "if"
+		word "then"
+		word "could"
+		word "be"
+				
+
+
+
+
+TESTCASE #11
+	STRING : 
+		" {{}} :   --- +++ ++++ &&&&&&& ^ *= += -- ++ %= %% ^ ^= | & && < >  "
+	OUTPUT: 
+		leftcurlybrace "{" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		rightcurlybrace "}" 
+		colon ":" 
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		Logical and "&&" 
+		Logical and "&&" 
+		Logical and "&&" 
+		address "&" 
+		bitwise exclusive or "^" 
+		multiplyequals "*=" 
+		plusequals "+=" 
+		minus "-" 
+		minus "-" 
+		plus "+" 
+		plus "+" 
+		modulo equals "%=" 
+		modulus "%" 
+		modulus "%" 
+		bitwise exclusive or "^" 
+		exclusive or equals "^=" 
+		bitwise or "|" 
+		address "&" 
+		Logical and "&&" 
+		lessthan "<" 
+		greaterthan ">" 	
+
+
+
+
+TESTCASE #12 
+	STRING : 
+		"                                                                          "        // EMPTY INPUT 
+	OUTPUT: 
+											           // NO OUTPUT 
+
+
+
+
+TESTCASE #13
+	STRING : 
+					// NO INPUT 
+	OUTPUT: 
+		Please enter valid arguments	
+
+
+TESTCASE #14
+	STRING : 
+		"/***********************************************************"	
+	OUTPUT: 
+							// NO OUTPUT
+
+
+TESTCASE #15 
+	STRING : 
+ 		"*+++++0x123"
+	OUTPUT: 
+		multiply "*" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		hexadecimal integer "0x123"	
+
+TESTCASE #16
+	STRING : 
+		"*+++++asdfa+++12312---(())()()()(){{}{}{}{}{}<><><><>>>>><>><<<<<<>>>>>>>&&&&&&&&"
+		
+	OUTPUT: 
+		multiply "*" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		word "asdfa"
+		plus "+" 
+		plus "+" 
+		plus "+" 
+		decimal integer  "12312"
+		minus "-" 
+		minus "-" 
+		minus "-" 
+		left parenthesis "(" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		leftcurlybrace "{" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		leftcurlybrace "{" 
+		rightcurlybrace "}" 
+		lessthan "<" 
+		greaterthan ">" 
+		lessthan "<" 
+		greaterthan ">" 
+		lessthan "<" 
+		greaterthan ">" 
+		lessthan "<" 
+		shift right ">>" 
+		shift right ">>" 
+		greaterthan ">" 
+		lessthan "<" 
+		shift right ">>" 
+		shift left "<<" 
+		shift left "<<" 
+		shift left "<<" 
+		shift right ">>" 
+		shift right ">>" 
+		shift right ">>" 
+		greaterthan ">" 
+		Logical and "&&" 
+		Logical and "&&" 
+		Logical and "&&" 
+		Logical and "&&" 
+				
+
+TESTCASE #17
+	STRING :
+		" {**}12321312310x12312307213123120.123211e+1231231aasdfadsfa"	 
+
+	OUTPUT:
+		leftcurlybrace "{" 
+		multiply "*" 
+		multiply "*" 
+		rightcurlybrace "}" 
+		decimal integer  "12321312310"
+		word "x12312307213123120"
+		dot "." 
+		decimal integer  "123211"
+		word "e"
+		plus "+" 
+		decimal integer  "1231231"
+		word "aasdfadsfa13123120"
+				 
+
+TESTCASE #18
+	STRING : 
+		" ppppasdfadsfasd9193293912009 " 	
+	OUTPUT: 
+		word "ppppasdfadsfasd9193293912009"
+		
+TESTCASE #19
+	STRING : 
+		" ******^^^^^6afadsfasdjf123120x123123123 0x123123 0231230123 012312.321389e-12312 321.312e-123123 "	
+	OUTPUT: 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		bitwise exclusive or "^" 
+		bitwise exclusive or "^" 
+		bitwise exclusive or "^" 
+		bitwise exclusive or "^" 
+		bitwise exclusive or "^" 
+		decimal integer  "6"
+		word "afadsfasdjf123120x123123123"
+		hexadecimal integer "0x123123"
+		octal integer "0231230123"
+		octal integer "012312"
+		dot "." 
+		decimal integer  "321389"
+		word "e"
+		minus "-" 
+		decimal integer  "12312"
+		float "321.312e-123123"	
+
+TESTCASE #20
+	STRING : 
+		" /**** afads* //  ***/ adfasdf afdsnfj //123213123230x123 21321  "
+	OUTPUT: 
+		word "adfasdf"
+		word "afdsnfj"
+		decimal integer  "21321"
+				
+TESTCASE #21
+	STRING : 
+		" asdf8888****// **)()()(()(// ********/ /*are these enough ???  "
+	OUTPUT : 	
+		word "asdf8888"
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		left parenthesis "(" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		multiply "*" 
+		divide "/" 
+TESTCASE #22
+	STRING : 
+		" 1231230X12321313 "	
+	OUTPUT : 			
+		decimal integer  "1231230"
+		word "X12321313"	
+
+TESTCASE #23
+	STRING : 
+		" 123123 0X12321313 "
+	OUTPUT : 
+		decimal integer  "123123"
+		hexadecimal integer "0X12321313"
+
+TESTCASE #24
+	STRING : 
+		" 0xaeefaa12321307213232.123213 "
+	OUTPUT : 
+		hexadecimal integer "0xaeefaa12321307213232"
+		dot "." 
+		decimal integer  "123213"
+
+TESTCASE #25
+	STRING : 
+		" 12321.2321e+1231230x123123123asfasdfasdjfasjdfopppp "	
+	OUTPUT : 
+		float "12321.2321e+1231230"
+		word "x123123123asfasdfasdjfasjdfopppp"
+			
+TESTCASE #26
+	STRING : 
+		" adlflasdfkk0.c213 12312 0x121312 0 0 0 00 0 0   00 0"	
+	OUTPUT : 
+		word "adlflasdfkk0"
+		dot "." 
+		word "c213"
+		decimal integer  "12312"
+		hexadecimal integer "0x121312fkk0"
+		decimal integer  "0"
+		decimal integer  "0"
+		decimal integer  "0"
+		octal integer "00"
+		decimal integer  "0"
+		decimal integer  "0"
+		octal integer "00"
+		decimal integer  "0"
+				
+
+
+TESTCASE #27
+	STRING : 
+		" what is the meaning of life ? 42 "	
+	OUTPUT : 
+		word "what"
+		word "is"
+		word "the"
+		word "meaning"
+		word "of"
+		word "life"
+		Bad Token: 0x3f
+		decimal integer  "42"
+					
+
+TESTCASE #28
+	STRING : 
+		" robots will take over the world hahahahhahahahahh I for one welcome them"	
+	OUTPUT : 
+		word "robots"
+		word "will"
+		word "take"
+		word "over"
+		word "the"
+		word "world"
+		word "hahahahhahahahahh"
+		word "I"
+		word "for"
+		word "one"
+		word "welcome"
+		word "the"
+		word "overloads"
+				
+
+TESTCASE #29
+	STRING : 
+		" 012317231230x123abcdeeeeasllllll0.1231234.+="	
+	OUTPUT : 
+		word "x123abcdeeeeasllllll0"
+		dot "." 
+		Bad Token: 0x313233313233342e
+		plusequals "+=" 
+				
+
+TESTCASE #30
+	STRING : 
+		" 012317231230x123abcdeeeeasllllll0.1asd 0.1.1.2.1.1.1..1.1.1. *12881*128188218*&&&1(())___ 0x12123oxxxoxox ooafadsf ppaof "	
+	OUTPUT : 
+		octal "012317231230"
+		word "x123abcdeeeeasllllll0"
+		dot "." 
+		decimal "1"
+		word "asd"
+		zero "0"
+		dot "." 
+		float "1.1"
+		dot "." 
+		float "2.1"
+		dot "." 
+		float "1.1"
+		dot "." 
+		dot "." 
+		float "1.1"
+		dot "." 
+		Bad Token: 0x312e
+		multiply "*" 
+		decimal "12881"
+		multiply "*" 
+		decimal "128188218"
+		multiply "*" 
+		Logical and "&&" 
+		address "&" 
+		decimal "1"
+		left parenthesis "(" 
+		left parenthesis "(" 
+		right parenthesis ")" 
+		right parenthesis ")" 
+		Bad Token: 0x5f
+		Bad Token: 0x5f
+		Bad Token: 0x5f
+		hex "0x12123"
+		word "oxxxoxox"
+		word "ooafadsf"
+		word "ppaof"
+
+TESTCASE #31
+	STRING : 				
+		" 123.213e-1230x12323 "		
+	OUTPUT: 
+		float "123.213e-1230"
+		word "x12323"
+TESTCASE #32 
+	STRING :
+		$'a\nb'
+	OUTPUT:
+		word "a"
+		word "b"
+TESTCASE #33
+	STRING:
+		"1.f 1. 1.0x 1.e .13e 1.d3 1.4e-4 1.3e4 1.33e8e7"
+	OUTPUT:
+		Bad Token: 0x312e
+		word "f"
+		Bad Token: 0x312e
+		float "1.0"
+		word "x"
+		Bad Token: 0x312e
+		word "e"
+		dot "." 
+		decimal "13"
+		word "e"
+		Bad Token: 0x312e
+		word "d3"
+		float "1.4e-4"
+		float "1.3e4"
+		float "1.33e8"
+		word "e7"
