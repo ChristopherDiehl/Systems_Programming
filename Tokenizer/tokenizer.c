@@ -1,6 +1,8 @@
 /*
  * tokenizer.c
  *Christopher and Sandeep
+ *
+ *
  */
 #include <stdio.h>
 #include <string.h>
@@ -22,19 +24,19 @@ int __strncpy(char * dest, char * src , int len)
 	return 0 ; 
 }
 
-/*
- *indef is used to identify the beginning of a new token,
- *if current token is bad then BADTOKEN state is issued ie. 12.0e is a bad token
- *FLOATE is assigned when a float token acquires an e. this stops cases like 1.2e-2e8
-*/
+
+//indef is used to identify the beginning of a new token,
+//if current token is bad then BADTOKEN state is issued ie. 12.0e is a bad token
+//FLOATE is assigned when a float token acquires an e. this stops cases like 1.2e-2e8
+
 typedef enum { START ,ZERO ,  OCTAL , HEX , DIGIT , FLOAT , FLOATE, PLUS_OR_MIN ,DOT , EXP, WORD,C_OP ,INDEF,BADTOKEN,POTENTIALHEX } STATE ;
 
 typedef struct TokenizerT_ TokenizerT;
 struct TokenizerT_ {
-	char * _str; /* Points to allocated string copy OR better to use array ? */
-	size_t _strLen; /* size */
-	int _processedLen ; /* length of string processed*/
-	STATE _state ;  /*current state of tokenizer*/
+	char * _str; // Points to allocated string copy OR better to use array ? 
+	size_t _strLen; // size
+	int _processedLen ; // length of string processed
+	STATE _state ;  //current state of tokenizer
 };
 
 
@@ -64,6 +66,8 @@ int isC_OP(char *p);
 char * findC_Op(char * token) ;
 int checkForSpecialC_OP(char * p);
 int isSpecialChar(char *p);
+int  isCKeyWord(char * token);
+
 
 /*
  * TKCreate creates a new TokenizerT object for a given token stream
@@ -234,7 +238,46 @@ char *TKGetNextToken( TokenizerT * tk ) {
 		return NULL;
 }
 
+/*
+ * main will have a string argument (in argv[1]).
+ * The string argument contains the tokens.
+ * Print out the tokens in the second string in left-to-right order.
+ * Each token should be printed on a separate line.
+ * The token is freed at the end of each while loop iteration
+ * Loop only breaks if res == 0 or res is NULL
+ */
 
+int main(int argc, char **argv) {
+
+	/* check the input */ 
+	if(argc !=2)
+	{
+		printf(ARGMISMATCHERROR);
+		return -1 ; 
+	}	
+
+	TokenizerT * tk = TKCreate(argv[1]);
+
+	while(1)
+	{
+		char * res = TKGetNextToken(tk);	
+		if(res == 0)
+			break ; 
+		stateTokenPrint(res,tk);
+		if(res != 0)
+			free(res);
+	}	
+
+	TKDestroy(tk);
+  return 0;
+}
+
+
+
+
+
+
+/********************************************************************************* HELPER FUNCTIONS ********************************************************************************************************/
 
 /*Takes in the current char and the tokenizer
  *Once state is identified, tk->_state is changed to new value
@@ -245,7 +288,8 @@ char *TKGetNextToken( TokenizerT * tk ) {
  *then it is a comment then loop through everything
  *returns number of ints to increment p
 */
-int processComment(char *p, TokenizerT *tk) {
+int processComment(char *p, TokenizerT *tk) 
+{
 	p++;
 	tk->_processedLen++;
 	int returnVal =1 ;
@@ -272,10 +316,6 @@ int processComment(char *p, TokenizerT *tk) {
 					p++;
 					tk->_processedLen++;
 					break;
-				}else{
-					returnVal--;
-					p--;
-					tk->_processedLen--;
 				} 
 			}
 			returnVal++;
@@ -289,6 +329,9 @@ int processComment(char *p, TokenizerT *tk) {
 	}
 	return returnVal;
 }
+
+
+
 /*Test to see what character is what */
 STATE stateAndCharTest(char *p , TokenizerT * tk)
 {
@@ -389,7 +432,7 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
 
 		case INDEF:
 		default:
-			st = INDEF; // ?? 
+			st = INDEF; 
 				break ; 
 	}
 	return st;
@@ -404,7 +447,8 @@ STATE stateAndCharTest(char *p , TokenizerT * tk)
  *this handles c ops of length <=2 
  *larger c ops are handled by checkForSpecialC_OP
 */
-int isC_OP(char *p) {
+int isC_OP(char *p) 
+{
 	char * c_op = (char *)malloc(sizeof(char)*3);
 	if(c_op != 0){
 		__strncpy(c_op, p, 2);
@@ -502,15 +546,19 @@ int checkForSpecialC_OP(char * p){
  *if not found and it is a punctuation then returns null
 */
 
-char *  findC_Op(char * token) {
+char *  findC_Op(char * token) 
+{
 	//printf("token: %s\n",token);
 	char **tokenArray = (char *[]){"[","]","{","}",".","&","*","-","/","%","+","=",";","<",">","!","~",",","+=","-=","*=",">>","<<","<=",">=","==","!=","&&","||","/=","&=","|=","%=",">>=","<<=","^","^=",":","(",")","sizeof()","?true :false","|","->"};
-	char ** tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","dot","address","multiply","minus","divide","modulus","plus","equals","semicolon","lessthan","greaterthan","negate","1's comp","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon","left parenthesis","right parenthesis","cast","Conditional Expression","bitwise or","structure pointer"};
+	char **tokenType = (char *[]){"leftbrace", "rightbrace","leftcurlybrace","rightcurlybrace","dot","address or bitwise and","multiply","minus","divide","modulus","plus","equals","semicolon","lessthan","greaterthan","negate","1's comp","comma","plusequals","minusequals","multiplyequals","shift right","shift left","less or equal","greater or equal","equals","not equals","Logical and","Logical or","divide equals","and equals","or equals","modulo equals","shiftrightequals","shiftleftequals","bitwise exclusive or","exclusive or equals","colon","left parenthesis","right parenthesis","cast","Conditional Expression","bitwise or","structure pointer"};
 	int tokenArraySize = 44;
 	int i = 0;
-	for(i = 0; i < tokenArraySize ; i++) {
-		if(0 ==strcmp(token,tokenArray[i])){
-			return tokenType[i];
+	for(i = 0; i < tokenArraySize ; i++) 
+	{
+		if(0 ==strcmp(token,tokenArray[i]))
+		{
+					// store the c op name that we want to return in the heap 
+			return tokenType[i]; // this works as string literals have static storage duration
 		}
 	}
 	return 0;
@@ -522,7 +570,8 @@ char *  findC_Op(char * token) {
  *Convert to unsigned char then print out 
  *uses multiple printf statements and %ux
 */
-void printBadToken(char * token) {
+void printBadToken(char * token) 
+{
 	size_t token_len = strlen(token);
 	int i = 0;
 	printf("Bad Token: 0x");
@@ -542,19 +591,20 @@ void printBadToken(char * token) {
 
 void stateTokenPrint(char * token , TokenizerT *tk )
 {
-	if(tk->_state == DIGIT)
-		printf("decimal \"%s\"\n",token);
+	if(tk->_state == DIGIT || tk->_state == ZERO)
+		printf("decimal integer \"%s\"\n",token);
 	else if(tk->_state == OCTAL)
-		printf("octal \"%s\"\n",token);
+		printf("octal integer \"%s\"\n",token);
 	else if(tk->_state == FLOAT ||tk->_state == FLOATE)
 		printf("float \"%s\"\n",token);
 	else if(tk->_state == HEX)
-		printf("hex \"%s\"\n",token);
-	else if(tk->_state == ZERO)
-		printf("zero \"%s\"\n",token);
-	else if (tk->_state == WORD)
-		printf("word \"%s\"\n",token);
-	else if(tk->_state ==C_OP) {
+		printf("hex integer\"%s\"\n",token);
+	else if (tk->_state == WORD) // here check if it is a C key word 
+		if(isCKeyWord(token)) // not a c key word
+			printf("c keyword \"%s\"\n",token);
+		else 
+			printf("word \"%s\"\n",token);
+	else if(tk->_state == C_OP) {
 		printf("%s \"%s\"\a \n",findC_Op(token),token);
 	}
 	else 
@@ -563,6 +613,37 @@ void stateTokenPrint(char * token , TokenizerT *tk )
 	// resetting the token for the next traversal 
 	tk->_state = START; 
 }
+
+
+/*
+ *
+ * FUNC test if it is a C key word
+ * 	and returns the name of the keyword
+ *
+ */
+int isCKeyWord(char * token)
+{
+	char * keywords[] = { "auto" , "break" ,"case", "char" , "const" , "continue" , "default" ,  "do" ,  "double" ,  "else" , "enum" , "extern" , "float" ,  "for" , "goto" ,"if" , "int" , "long" , "register" , "return" , "short" , "signed" ,"sizeof" , "static" , "struct" ,"switch" , "typedef"  , "union" , "unsigned" ,  "void" , "volatile" ,  "while" }; 
+	int keywordArrLen = 32; 
+	int idx = 0 ; 
+	for( idx = 0 ; idx < keywordArrLen ; ++idx)
+	{
+		if(strcmp(token , keywords[idx]) == 0 )
+			return 1;
+	}
+
+	return 0 ; 	
+}
+
+
+
+
+
+
+
+
+
+
 /* Functions to Check what kind of type the char is */
 
 int isOctal(char *a)
@@ -613,36 +694,4 @@ int isExp(char *a)
 	return (*a=='e');
 }
 
-/*
- * main will have a string argument (in argv[1]).
- * The string argument contains the tokens.
- * Print out the tokens in the second string in left-to-right order.
- * Each token should be printed on a separate line.
- * The token is freed at the end of each while loop iteration
- * Loop only breaks if res == 0 or res is NULL
- */
 
-int main(int argc, char **argv) {
-
-	/* check the input */ 
-	if(argc !=2)
-	{
-		printf(ARGMISMATCHERROR);
-		return -1 ; 
-	}	
-
-	TokenizerT * tk = TKCreate(argv[1]);
-
-	while(1)
-	{
-		char * res = TKGetNextToken(tk);	
-		if(res == 0)
-			break ; 
-		stateTokenPrint(res,tk);
-		if(res != 0)
-			free(res);
-	}	
-
-	TKDestroy(tk);
-  return 0;
-}
