@@ -43,10 +43,22 @@ typedef void (*DestructFuncT)( void * );
  */
 struct SortedList
 {
+  Node firstNode;
+  Node lastNode;
 };
 typedef struct SortedList* SortedListPtr;
 
+/*Node Struct which will be used to implement a singly linked list 
+ * Node will hold the data and point to the next and previous Node
+*/
 
+typedef struct Node_ Node;
+struct Node_
+{
+  Node nextNode;
+  Node prevNode;
+  void * data;
+};
 /*
  * SLCreate creates a new, empty, 'SortedList'.
  *
@@ -147,7 +159,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter);
  *  been iterated through.
  *
  * NB: Be sure to check the length of the list that SortedListIterator holds
- *         before attempting to access and return an item from it.
+ *         efore attempting to access and return an item from it.
  *         If an item is removed from the list, making it shorter, be careful not
  *         to try to read and return an item off the end of the list.
  */
