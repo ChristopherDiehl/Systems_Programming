@@ -38,27 +38,30 @@ typedef void (*DestructFuncT)( void * );
 //=====0: SortedList=====================================
 //===0.1: List Definition, List Create/Destroy
 
+/*Node Struct which will be used to implement a singly linked list 
+ *  * Node will hold the data and point to the next and previous Node
+ *  */
+
+
+typedef struct Node_
+{
+ struct Node_ *nextNode;
+ struct Node_ *prevNode;
+ void * data; 
+}Node;
+
+
 /*
  * Sorted list type that will hold all the data to be sorted.
  */
 struct SortedList
 {
-  Node firstNode;
-  Node lastNode;
+  int (*CompareFuncT)( void *, void * ); 
+  void (*DestructFuncT)(void *); 
+  Node *firstNode;
+  Node *lastNode;
 };
 typedef struct SortedList* SortedListPtr;
-
-/*Node Struct which will be used to implement a singly linked list 
- * Node will hold the data and point to the next and previous Node
-*/
-
-typedef struct Node_ Node;
-struct Node_
-{
-  Node nextNode;
-  Node prevNode;
-  void * data;
-};
 /*
  * SLCreate creates a new, empty, 'SortedList'.
  *
