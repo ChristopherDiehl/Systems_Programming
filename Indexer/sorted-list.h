@@ -56,8 +56,8 @@ typedef struct Node_
  */
 struct SortedList
 {
-  int (*CompareFuncT)( void *, void * ); 
-  void (*DestructFuncT)(void *); 
+  CompareFuncT compare;
+  DestructFuncT destroy; 
   Node *firstNode;
   Node *lastNode;
 };
