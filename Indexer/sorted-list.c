@@ -39,6 +39,7 @@ void SLDestroy(SortedListPtr list) {
  *  Then change currentNode.prevNode.nextNode = newNode.
  *   we change the currentNode.prevNode = newNode
  *If we recieve a 0, or obj is currently in list then return a 0
+ *
 */
 
 int SLInsert (SortedListPtr list, void *newObj){
