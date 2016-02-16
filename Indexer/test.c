@@ -4,6 +4,11 @@
 
 int main(){
   printf("Test is complete");
+  SortedListPtr slp = createSortedList(fnptrtocompare,fnptrdestruct);
+  int * newvalue = (int *) malloc (sizeof(int));
+  * newvalue = 5;
+  sortthing=(void*) newvalue;
+  slp.
 }
 
 /*compareint is a simple function to be passed for test purposes */
@@ -16,5 +21,6 @@ int compareint(void * num, void *num1){
 	return -1;
   return 0;
 }
+
 
 

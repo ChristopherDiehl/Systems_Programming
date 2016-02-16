@@ -43,23 +43,26 @@ typedef void (*DestructFuncT)( void * );
  *  */
 
 
-typedef struct Node_
+struct Node_
 {
  struct Node_ *nextNode;
  struct Node_ *prevNode;
  void * data; 
-}Node;
+};
+typedef struct Node_ * Node;
 
 
 /*
  * Sorted list type that will hold all the data to be sorted.
+ * Store comparison function pointer
+ * Store destruct function pointer
+ * Store node for first linked list element
  */
 struct SortedList
 {
   CompareFuncT compare;
   DestructFuncT destroy; 
-  Node *firstNode;
-  Node *lastNode;
+  Node firstNode;
 };
 typedef struct SortedList* SortedListPtr;
 /*
@@ -126,7 +129,7 @@ int SLRemove(SortedListPtr list, void *newObj);
  */
 struct SortedListIterator
 {
-	Node * startNode;
+	Node startNode;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

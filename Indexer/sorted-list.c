@@ -5,12 +5,15 @@
  * If malloc fails then return 0, else return list pointer
  * storing compare and delete functions in SortedList
  * returns a pointer to the list with firstNode and lastNode null
+ * Builds and initializes sortedListPtr struct
+ *
  */
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  SortedListPtr  list = malloc(sizeof(SortedListPtr));
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
+  list->firstNode = 0;
 	return list;
  }
  return 0;
@@ -25,9 +28,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
 */
  SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
  	SortedListIteratorPtr slip = malloc(sizeof(SortedListIteratorPtr));
- 	if(slip ==0) return null;
- 	slip->startNode = malloc(sizeof(Node));
- 	if (slip->startNode == 0) return null;
+ 	if(slip ==0) return 0;
  	slip->startNode = list->firstNode;
  	return slip;
  }
@@ -37,8 +38,8 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  */
 
   void SLDestroyIterator(SortedListIteratorPtr iter) {
- 	free(iter->startNode);
- 	free(iter);
+ 	 free(iter->startNode);
+ 	 free(iter);
  }
 
  /*void * SLNextItem(SortedListIteratorPtr iter)
@@ -49,8 +50,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
   	if(iter->startNode == 0) return 0;
   	iter->startNode = iter->startNode->nextNode;
   	if(iter->startNode ==0) return 0;
-  	void * data = iter->startNode->data;
-  	return data;
+  	return iter->startNode->data;
   }
 
    /*void * SLGetItem(SortedListIteratorPtr iter)
@@ -59,17 +59,18 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  */
   void * SLGetItem(SortedListIteratorPtr iter) {
   	if(iter->startNode == 0) return 0;
-  	void * data = iter->startNode->data;
-  	return data;
+  	return iter->startNode->data;
   }
 /*SLDestroy will free all the nodes in the sortedList
  * Once a node == 0 then free the sortedlist
 */
 
 void SLDestroy(SortedListPtr list) {
+ Node firstNode = list->firstNode;
  while(list->firstNode !=0){
   Node tempNode = firstNode;
   firstNode = firstNode->nextNode;
+  list->destroy(tempNode->data);
   free(tempNode);
  }
  free(list);
