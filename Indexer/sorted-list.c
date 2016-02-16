@@ -1,5 +1,7 @@
 /*sorted-list.c*/
 #include "sorted-list.h"
+#include <stdio.h>
+
 
 /*Flesh out SortedList
  * If malloc fails then return 0, else return list pointer
@@ -48,7 +50,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  */
   void * SLNextItem(SortedListIteratorPtr iter) {
   	if(iter->startNode == 0) return 0;
-    if(iter->startNode->numOfReferences ==-1) {
+    if(iter->startNode->numOfReferences ==1) {
       Node tempNode = iter->startNode;
       iter->startNode = iter->startNode->nextNode;
       iter->destroy(tempNode->data);
@@ -57,6 +59,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
       iter->startNode = iter->startNode->nextNode;
     }
   	if(iter->startNode ==0) return 0;
+    iter->startNode->numOfReferences++;
   	return iter->startNode->data;
   }
 
@@ -69,7 +72,8 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
   	return iter->startNode->data;
   }
 /*SLDestroy will free all the nodes in the sortedList
- * Once a node == 0 then free the sortedlist
+ * Once a node == 0 then free the sortedlist 
+ * If numOfReferences in Node > 1 then just go through
 */
 
 void SLDestroy(SortedListPtr list) {
@@ -102,5 +106,26 @@ int SLInsert (SortedListPtr list, void *newObj){
     list->firstNode->data = &newObj;
     list->lastNode = list->firstNode;
   } else {
+    Node iterNode = list->firstNode;
+    while(iterNode !=0){ 
+      int compareReturn = list->compare(iterNode->data,newObj);
+      if(compareReturn == -1)
+       iterNode = iterNode->nextNode;
+      else if(compareReturn == 1) {
+        Node newNode = (Node)malloc(sizeof(Node));
+        newNode->data = &newObj;
+        newNode->nextNode = iterNode;
+        newNode->prevNode = iterNode->prevNode;
+        iterNode->prevNode->nextNode = newNode;
+        iterNode->prevNode = newNode;
+      }else if (compareReturn == 0) {
+        return 0;
+      }
+      else {
+        printf("MAYDAY CAPTAIN");
+      }
+    }
   }
+  printf("WE DID GOOD WORK SON\n");
+  return 0;
 }

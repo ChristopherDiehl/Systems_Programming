@@ -2,23 +2,35 @@
 #include <stdio.h>
 #include "sorted-list.h"
 
-int main(){
-  printf("Test is complete");
-  SortedListPtr slp = createSortedList(fnptrtocompare,fnptrdestruct);
-  int * newvalue = (int *) malloc (sizeof(int));
-  * newvalue = 5;
-  sortthing=(void*) newvalue;
-  slp.
+int compareint(void * num0, void *num1) {
+	int *compare0 = (int*)num0;
+	int *compare1 = (int*)num1;
+	if(* compare1 > *compare0)
+		return 1;
+	if (*compare1 < *compare0)
+		return -1;
+	return 0;
 }
 
-/*compareint is a simple function to be passed for test purposes */
-int compareint(void * num, void *num1){
-  int *compare0 = (int*)num0;
-  int *compare1 = (int*)num1;
-  if(compare1>compare0)
-	return 1;
-  if (compare1<compare0)
-	return -1;
+void intDestructFunc(void * thingToDestroy){
+	free(thingToDestroy);
+}
+
+
+int main(){
+  int (*compare)(void*,void*);
+  compare = &compareint;
+  void (*destruct)(void *);
+  destruct = &intDestructFunc;
+  SortedListPtr slp = SLCreate(compare,destruct);
+  int i = 0;
+  while(i < 2) {
+	  int * newvalue = (int *) malloc (sizeof(int));
+	  * newvalue = i;
+	  int returnVal = SLInsert(slp,(void*)newvalue);
+	  printf("Test is complete. Return value:  %d\n",returnVal);
+	  i++;
+  }
   return 0;
 }
 
