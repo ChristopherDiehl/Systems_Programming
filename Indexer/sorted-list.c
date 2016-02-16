@@ -101,7 +101,8 @@ void SLDestroy(SortedListPtr list) {
 */
 
 int SLInsert (SortedListPtr list, void *newObj){
-  if(list->firstNode ==0){
+  if(list->firstNode == 0){
+    printf("FIRSTNODE ?");
     list->firstNode = (Node)malloc(sizeof(Node));
     list->firstNode->data = &newObj;
     list->lastNode = list->firstNode;
@@ -109,15 +110,20 @@ int SLInsert (SortedListPtr list, void *newObj){
     Node iterNode = list->firstNode;
     while(iterNode !=0){ 
       int compareReturn = list->compare(iterNode->data,newObj);
-      if(compareReturn == -1)
+      printf("CompareReturn %d",compareReturn);
+      if(compareReturn == -1) {
        iterNode = iterNode->nextNode;
+      }
       else if(compareReturn == 1) {
+        printf("NEW NODE ABOUT TO BE CREATED");
         Node newNode = (Node)malloc(sizeof(Node));
         newNode->data = &newObj;
         newNode->nextNode = iterNode;
         newNode->prevNode = iterNode->prevNode;
         iterNode->prevNode->nextNode = newNode;
         iterNode->prevNode = newNode;
+        printf("NEW NODE CREATED");
+        return 1;
       }else if (compareReturn == 0) {
         return 0;
       }
