@@ -33,22 +33,29 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  	return slip;
  }
 
- /*To destroy a SortedListIteratorPtr, we just destroy the node then the SLIP
+ /*To destroy a SortedListIteratorPtr, we just destroy the SLIP
   *To do so we use free
  */
 
   void SLDestroyIterator(SortedListIteratorPtr iter) {
- 	 free(iter->startNode);
  	 free(iter);
  }
 
  /*void * SLNextItem(SortedListIteratorPtr iter)
   * SLNextItem just returns the data of the next node in iter
   * If iter->startNode == 0 then returns 0
+  * if startNode->numOfReferences == -1 that means that node has been deleted and iterator is responsible for deleting
  */
   void * SLNextItem(SortedListIteratorPtr iter) {
   	if(iter->startNode == 0) return 0;
-  	iter->startNode = iter->startNode->nextNode;
+    if(iter->startNode->numOfReferences ==-1) {
+      Node tempNode = iter->startNode;
+      iter->startNode = iter->startNode->nextNode;
+      iter->destroy(tempNode->data);
+      free(tempNode);
+    } else {
+      iter->startNode = iter->startNode->nextNode;
+    }
   	if(iter->startNode ==0) return 0;
   	return iter->startNode->data;
   }
@@ -66,10 +73,10 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
 */
 
 void SLDestroy(SortedListPtr list) {
- Node firstNode = list->firstNode;
- while(list->firstNode !=0){
-  Node tempNode = firstNode;
-  firstNode = firstNode->nextNode;
+ Node lastNode = list->lastNode;
+ while(list->lastNode !=0){
+  Node tempNode = lastNode;
+  lastNode = lastNode->prevNode;
   list->destroy(tempNode->data);
   free(tempNode);
  }
@@ -90,5 +97,10 @@ void SLDestroy(SortedListPtr list) {
 */
 
 int SLInsert (SortedListPtr list, void *newObj){
-
+  if(list->firstNode ==0){
+    list->firstNode = (Node)malloc(sizeof(Node));
+    list->firstNode->data = &newObj;
+    list->lastNode = list->firstNode;
+  } else {
+  }
 }

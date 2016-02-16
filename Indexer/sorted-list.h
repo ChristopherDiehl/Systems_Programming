@@ -48,6 +48,8 @@ struct Node_
  struct Node_ *nextNode;
  struct Node_ *prevNode;
  void * data; 
+ int numOfReferences;
+
 };
 typedef struct Node_ * Node;
 
@@ -63,6 +65,7 @@ struct SortedList
   CompareFuncT compare;
   DestructFuncT destroy; 
   Node firstNode;
+  Node lastNode;
 };
 typedef struct SortedList* SortedListPtr;
 /*
@@ -130,6 +133,7 @@ int SLRemove(SortedListPtr list, void *newObj);
 struct SortedListIterator
 {
 	Node startNode;
+	DestructFuncT destroy;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 
