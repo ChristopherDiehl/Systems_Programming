@@ -11,12 +11,9 @@ int compareint(void * num0, void *num1) {
 		return -1;
 	return 0;
 }
-
 void intDestructFunc(void * thingToDestroy){
-	free(thingToDestroy);
+  free(thingToDestroy);
 }
-
-
 int main(){
   int (*compare)(void*,void*);
   compare = &compareint;
@@ -24,13 +21,29 @@ int main(){
   destruct = &intDestructFunc;
   SortedListPtr slp = SLCreate(compare,destruct);
   int i = 0;
-  while(i < 2) {
-	  int * newvalue = (int *) malloc (sizeof(int));
-	  * newvalue = i;
-	  int returnVal = SLInsert(slp,(void*)newvalue);
-	  printf("Test is complete. Return value:  %d\n",returnVal);
-	  i++;
+  while(i < 10) {
+    int * newvalue = (int *) malloc (sizeof(int));
+    * newvalue = i;
+    int returnVal = SLInsert(slp,(void*)newvalue);
+    printf("Test is complete. Return value:  %d\n",returnVal);
+    i+= 2;
   }
+  i =1;
+  while(i < 10) {
+    int * newvalue = (int *) malloc (sizeof(int));
+    * newvalue = i;
+    int returnVal = SLInsert(slp,(void*)newvalue);
+    printf("Test is complete. Return value:  %d\n",returnVal);
+    i+= 2;
+  }
+  while(i < 10) {
+    int * newvalue = (int *) malloc (sizeof(int));
+    * newvalue = i;
+    int returnVal = SLInsert(slp,(void*)newvalue);
+    printf("Test is complete. Return value:  %d\n",returnVal);
+    i+= 2;
+  }
+  CYCLE(slp);
   return 0;
 }
 

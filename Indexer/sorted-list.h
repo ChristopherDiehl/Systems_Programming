@@ -88,6 +88,10 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df);
  */
 void SLDestroy(SortedListPtr list);
 
+/*FUNCTION TO TEST
+ *NEED TO GET RID OF IT
+*/
+void CYCLE(SortedListPtr list);
 
 
 //===0.2: List Insert/Remove
