@@ -184,8 +184,10 @@ int SLRemove(SortedListPtr list, void *newObj) {
   Node head = list->firstNode;
   while(head != 0){
     if (list->compare(head->data,newObj) == 0) {
-      head->prevNode->nextNode = head->nextNode;
-      head->nextNode->prevNode = head->prevNode;
+       if(head->prevNode != 0)
+	 head->prevNode->nextNode = head->nextNode;
+       if(head->nextNode !=0)      
+	head->nextNode->prevNode = head->prevNode;
       if(head->numOfIterators == 0){
          list->destroy(head->data);
 	 free(head);
