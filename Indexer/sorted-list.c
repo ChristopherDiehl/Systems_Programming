@@ -11,7 +11,7 @@
  *
  */
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
- SortedListPtr  list = malloc(sizeof(SortedListPtr));
+ SortedListPtr list = malloc(sizeof(SortedListPtr));
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
@@ -81,6 +81,8 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
 void SLDestroy(SortedListPtr list) {
  Node tempNode = list->lastNode;
  printf("tempNode = lastNode\n");
+ printf("Node:  DATA: %d\n" *(int *)temp->data);
+
  int i =0;
  while(list->lastNode !=0){
   if(list->lastNode->numOfIterators == 0) {
@@ -118,7 +120,7 @@ void SLDestroy(SortedListPtr list) {
 int SLInsert (SortedListPtr list, void *newObj){
   if(list ==0 || newObj ==0) return 0;
   if(list->firstNode == 0){
-    printf("List is created");
+    printf("First node is created");
     list->firstNode = malloc(sizeof(Node));
     list->firstNode->data = newObj;
     list->lastNode = list->firstNode;
@@ -157,7 +159,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           newNode->nextNode = iterNode;
           list->firstNode = newNode;
           return 1;
-          
+
         } else {
           //since not a firstNode and not a lastNode then must be somewhere in the middle
           iterNode->prevNode->nextNode = newNode;
