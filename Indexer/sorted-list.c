@@ -127,7 +127,7 @@ int SLInsert (SortedListPtr list, void *newObj){
     Node newNode = malloc(sizeof(Node));
     if(newNode ==0) return 0;
     newNode->data= newObj;
-    newNode->numOfIterators ==0;
+    newNode->numOfIterators =0;
     Node iterNode = list->firstNode;
 
     while(iterNode != 0){ 
