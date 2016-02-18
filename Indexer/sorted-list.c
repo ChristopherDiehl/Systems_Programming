@@ -114,7 +114,7 @@ void SLDestroy(SortedListPtr list) {
 
 int SLInsert (SortedListPtr list, void *newObj){
   if(list->firstNode == 0){
-    list->firstNode = (Node)malloc(sizeof(Node));
+    list->firstNode = malloc(sizeof(Node));
     list->firstNode->data = newObj;
     list->lastNode = list->firstNode;
     list->firstNode->numOfIterators =0;
@@ -129,7 +129,7 @@ int SLInsert (SortedListPtr list, void *newObj){
       }else if(compareReturn == 1) {
         if(iterNode->nextNode == 0){
           //NEW LASTNODE
-          Node newNode = (Node)malloc(sizeof(Node));
+          Node newNode = malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
           newNode->numOfIterators = 0;
@@ -147,7 +147,7 @@ int SLInsert (SortedListPtr list, void *newObj){
         //else we must be adding someone in the middle of the list
         if(iterNode->prevNode == 0) {
           //need to create new firstNode
-          Node newNode = (Node)malloc(sizeof(Node));
+          Node newNode = malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
           newNode->numOfIterators = 0;
@@ -157,7 +157,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           return 1;
         } else {
           //since not a firstNode and not a lastNode then must be somewhere in the middle
-          Node newNode = (Node)malloc(sizeof(Node));
+          Node newNode = malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
           newNode->numOfIterators = 0;

@@ -46,8 +46,8 @@ int main(){
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
-  CYCLE(slp);
-  SLDestroy(slp);
+  //CYCLE(slp);
+  //SLDestroy(slp);
   return 0;
 }
 
