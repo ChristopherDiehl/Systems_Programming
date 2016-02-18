@@ -25,6 +25,7 @@ int main(){
     int * newvalue = (int *) malloc (sizeof(int));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
+    free(newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
@@ -33,6 +34,7 @@ int main(){
     int * newvalue = (int *) malloc (sizeof(int));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
+    free(newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
@@ -40,10 +42,12 @@ int main(){
     int * newvalue = (int *) malloc (sizeof(int));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
+    free(newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
   CYCLE(slp);
+  SLDestroy(slp);
   return 0;
 }
 

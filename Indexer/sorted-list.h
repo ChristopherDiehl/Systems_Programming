@@ -48,7 +48,7 @@ struct Node_
  struct Node_ *nextNode;
  struct Node_ *prevNode;
  void * data; 
- int numOfReferences;
+ int numOfIterators;
 
 };
 typedef struct Node_ * Node;

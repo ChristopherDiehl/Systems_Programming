@@ -46,11 +46,11 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  /*void * SLNextItem(SortedListIteratorPtr iter)
   * SLNextItem just returns the data of the next node in iter
   * If iter->startNode == 0 then returns 0
-  * if startNode->numOfReferences == -1 that means that node has been deleted and iterator is responsible for deleting
+  * if startNode->numOfIterators == -1 that means that node has been deleted and iterator is responsible for deleting
  */
   void * SLNextItem(SortedListIteratorPtr iter) {
   	if(iter->startNode == 0) return 0;
-    if(iter->startNode->numOfReferences ==1) {
+    if(iter->startNode->numOfIterators ==1) {
       Node tempNode = iter->startNode;
       iter->startNode = iter->startNode->nextNode;
       iter->destroy(tempNode->data);
@@ -59,7 +59,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
       iter->startNode = iter->startNode->nextNode;
     }
   	if(iter->startNode ==0) return 0;
-    iter->startNode->numOfReferences++;
+    iter->startNode->numOfIterators++;
   	return iter->startNode->data;
   }
 
@@ -73,16 +73,20 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
   }
 /*SLDestroy will free all the nodes in the sortedList
  * Once a node == 0 then free the sortedlist 
- * If numOfReferences in Node > 1 then just go through
+ * If numOfIterators in Node > 0 then don't delete iterator
+ * Save Iterator node, but free list
+ *
 */
 
 void SLDestroy(SortedListPtr list) {
- Node lastNode = list->lastNode;
+ Node tempNode = list->lastNode;
  while(list->lastNode !=0){
-  Node tempNode = lastNode;
-  lastNode = lastNode->prevNode;
-  list->destroy(tempNode->data);
-  free(tempNode);
+  if(list->lastNode->numOfIterators == 0) {
+    list->destroy(tempNode->data);
+    free(tempNode);
+  } 
+  list->lastNode= list->lastNode->prevNode;
+  
  }
  free(list);
 }
@@ -99,6 +103,12 @@ void SLDestroy(SortedListPtr list) {
  *if data > newObj then compare == -1
  *if data == newObj then compare == 0
  *if data < newObj then compare == 1
+ *when node is created the numOfIterators++
+ *numOfIterators is for the iterator
+ * - numOfIterators keeps track of how many iterators are pointing at the node,
+ * -this is how we handle if a node gets deleted while iterator is on it
+ * -since no iterators, initialize the numOfIterators ==0
+ *
  *
 */
 
@@ -107,13 +117,13 @@ int SLInsert (SortedListPtr list, void *newObj){
     list->firstNode = (Node)malloc(sizeof(Node));
     list->firstNode->data = newObj;
     list->lastNode = list->firstNode;
-    list->firstNode->numOfReferences++;
+    list->firstNode->numOfIterators =0;
     return 1;
   } else {
     Node iterNode = list->firstNode;
-    while(iterNode !=0){ 
+    while(iterNode != 0){ 
       int compareReturn = list->compare(newObj,iterNode->data);
-      if(compareReturn ==0) {
+      if(compareReturn == 0) {
         //return 0 if data is already in list. LIST IS UNIQUE
         return 0;
       }else if(compareReturn == 1) {
@@ -122,7 +132,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           Node newNode = (Node)malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
-          newNode->numOfReferences ++;
+          newNode->numOfIterators = 0;
           iterNode->nextNode = newNode;
           newNode->prevNode = iterNode;
           list->lastNode = newNode;
@@ -140,6 +150,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           Node newNode = (Node)malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
+          newNode->numOfIterators = 0;
           iterNode->prevNode = newNode;
           newNode->nextNode = iterNode;
           list->firstNode = newNode;
@@ -149,6 +160,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           Node newNode = (Node)malloc(sizeof(Node));
           if(newNode == 0) return 0;
           newNode->data = newObj;
+          newNode->numOfIterators = 0;
           iterNode->prevNode->nextNode = newNode;
           newNode->prevNode = iterNode->prevNode;
           newNode->nextNode = iterNode;
@@ -160,6 +172,7 @@ int SLInsert (SortedListPtr list, void *newObj){
   }
   return 0;
 }
+
 void CYCLE(SortedListPtr list) {
   Node temp = list->firstNode;
   while(temp != 0) {
