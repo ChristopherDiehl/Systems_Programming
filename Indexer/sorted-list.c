@@ -210,7 +210,7 @@ int main(){
   SortedListPtr slp = SLCreate(compare,destruct);
   int i = 0;
   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
+    int * newvalue = (int *) malloc (sizeof(int *));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
@@ -218,14 +218,14 @@ int main(){
   }
   i =1;
   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
+    int * newvalue = (int *) malloc (sizeof(int *));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
+    int * newvalue = (int *) malloc (sizeof(int *));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
