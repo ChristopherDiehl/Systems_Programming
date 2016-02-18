@@ -116,6 +116,7 @@ void SLDestroy(SortedListPtr list) {
 */
 
 int SLInsert (SortedListPtr list, void *newObj){
+  if(list ==0 || newObj ==0) return 0;
   if(list->firstNode == 0){
     printf("List is created");
     list->firstNode = malloc(sizeof(Node));
@@ -124,7 +125,12 @@ int SLInsert (SortedListPtr list, void *newObj){
     list->firstNode->numOfIterators =0;
     return 1;
   } else {
+    Node newNode = malloc(sizeof(Node));
+    if(newNode ==0) return 0;
+    newNode->data= newObj;
+    newNode->numOfIterators ==0;
     Node iterNode = list->firstNode;
+
     while(iterNode != 0){ 
       int compareReturn = list->compare(newObj,iterNode->data);
       if(compareReturn == 0) {
@@ -133,10 +139,6 @@ int SLInsert (SortedListPtr list, void *newObj){
       }else if(compareReturn == 1) {
         if(iterNode->nextNode == 0){
           //NEW LASTNODE
-          Node newNode = malloc(sizeof(Node));
-          if(newNode == 0) return 0;
-          newNode->data = newObj;
-          newNode->numOfIterators = 0;
           iterNode->nextNode = newNode;
           newNode->prevNode = iterNode;
           list->lastNode = newNode;
@@ -151,20 +153,13 @@ int SLInsert (SortedListPtr list, void *newObj){
         //else we must be adding someone in the middle of the list
         if(iterNode->prevNode == 0) {
           //need to create new firstNode
-          Node newNode = malloc(sizeof(Node));
-          if(newNode == 0) return 0;
-          newNode->data = newObj;
-          newNode->numOfIterators = 0;
           iterNode->prevNode = newNode;
           newNode->nextNode = iterNode;
           list->firstNode = newNode;
           return 1;
+          
         } else {
           //since not a firstNode and not a lastNode then must be somewhere in the middle
-          Node newNode = malloc(sizeof(Node));
-          if(newNode == 0) return 0;
-          newNode->data = newObj;
-          newNode->numOfIterators = 0;
           iterNode->prevNode->nextNode = newNode;
           newNode->prevNode = iterNode->prevNode;
           newNode->nextNode = iterNode;
@@ -173,6 +168,7 @@ int SLInsert (SortedListPtr list, void *newObj){
         }
       }
     }
+    free(newNode);
   }
   return 0;
 }
