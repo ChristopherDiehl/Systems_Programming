@@ -114,9 +114,10 @@ void SLDestroy(SortedListPtr list) {
 
 int SLInsert (SortedListPtr list, void *newObj){
   if(list->firstNode == 0){
+    printf("List is created");
     list->firstNode = malloc(sizeof(Node));
     list->firstNode->data = newObj;
-    list->lastNode = list->firstNode;
+   // list->lastNode = list->firstNode;
     list->firstNode->numOfIterators =0;
     return 1;
   } else {
@@ -175,10 +176,11 @@ int SLInsert (SortedListPtr list, void *newObj){
 
 void CYCLE(SortedListPtr list) {
   Node temp = list->firstNode;
+  int i = 1;
   while(temp != 0) {
-     printf("DATA: %d\n", *(int *)temp->data);
+     printf("Node: %d DATA: %d\n",i, *(int *)temp->data);
      temp=temp->nextNode;
-
+    i++;
   }
 }
 int compareint(void * num0, void *num1) {
@@ -225,7 +227,7 @@ int main(){
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
-  //CYCLE(slp);
+  CYCLE(slp);
   //SLDestroy(slp);
   return 0;
 }
