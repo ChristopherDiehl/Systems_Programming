@@ -12,7 +12,7 @@ int compareint(void * num0, void *num1) {
 	return 0;
 }
 void intDestructFunc(void * thingToDestroy){
-  free(thingToDestroy);
+  free((int* )thingToDestroy);
 }
 int main(){
   int (*compare)(void*,void*);

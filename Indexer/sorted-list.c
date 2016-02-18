@@ -86,7 +86,7 @@ void SLDestroy(SortedListPtr list) {
   list->lastNode= list->lastNode->prevNode;
   if(tempNode->numOfIterators == 0) {
     printf("Attempting to destroy %d  stuf \n",i);
-    list->destroy(tempNode->data);
+  //  list->destroy(tempNode->data);
     free(tempNode);
   }   
  }
@@ -200,7 +200,7 @@ int compareint(void * num0, void *num1) {
   return 0;
 }
 void intDestructFunc(void * thingToDestroy){
-  free(thingToDestroy);
+  free((int*)thingToDestroy);
 }
 int main(){
   int (*compare)(void*,void*);
