@@ -156,7 +156,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           newNode->data = newObj;
           newNode->numOfIterators = 0;
           iterNode->prevNode = newNode;
-          newNode->nextNode = iterNode
+          newNode->nextNode = iterNode;
           list->firstNode = newNode;
           return 1;
         } else {
