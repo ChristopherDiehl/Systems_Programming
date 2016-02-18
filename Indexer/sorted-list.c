@@ -79,17 +79,16 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
 */
 
 void SLDestroy(SortedListPtr list) {
- Node tempNode = list->lastNode;
  printf("tempNode = lastNode\n");
  int i =0;
  while(list->lastNode !=0){
-  if(list->lastNode->numOfIterators == 0) {
-    printf("Attempting to destroy %d  stuf \n",i);
-   list->destroy(tempNode->data);
-   free(tempNode);
-  } 
+  Node tempNode = list->lastNode;
   list->lastNode= list->lastNode->prevNode;
-  
+  if(tempNode->numOfIterators == 0) {
+    printf("Attempting to destroy %d  stuf \n",i);
+    list->destroy(tempNode->data);
+    free(tempNode);
+  }   
  }
  free(list);
 }
