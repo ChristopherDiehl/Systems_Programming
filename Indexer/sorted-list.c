@@ -11,7 +11,7 @@
  *
  */
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
- SortedListPtr list = malloc(sizeof(SortedListPtr));
+ SortedListPtr list = malloc(sizeof(struct SortedList));
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
@@ -118,13 +118,13 @@ int SLInsert (SortedListPtr list, void *newObj){
   if(list ==0 || newObj ==0) return 0;
   if(list->firstNode == 0){
     printf("First node is created");
-    list->firstNode = malloc(sizeof(Node));
+    list->firstNode = malloc(sizeof(struct Node_));
     list->firstNode->data = newObj;
     list->lastNode = list->firstNode;
     list->firstNode->numOfIterators =0;
     return 1;
   } else {
-    Node newNode = malloc(sizeof(Node));
+    Node newNode = malloc(sizeof(struct Node_));
     if(newNode ==0) return 0;
     newNode->data= newObj;
     newNode->numOfIterators =0;
