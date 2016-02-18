@@ -15,7 +15,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
-  list->firstNode = 0;
+  	list->firstNode = 0;
 	return list;
  }
  return 0;
@@ -80,10 +80,13 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
 
 void SLDestroy(SortedListPtr list) {
  Node tempNode = list->lastNode;
+ printf("tempNode = lastNode\n");
+ int i =0;
  while(list->lastNode !=0){
   if(list->lastNode->numOfIterators == 0) {
-    list->destroy(tempNode->data);
-    free(tempNode);
+    printf("Attempting to destroy %d  stuf \n",i);
+   list->destroy(tempNode->data);
+   free(tempNode);
   } 
   list->lastNode= list->lastNode->prevNode;
   
@@ -117,7 +120,7 @@ int SLInsert (SortedListPtr list, void *newObj){
     printf("List is created");
     list->firstNode = malloc(sizeof(Node));
     list->firstNode->data = newObj;
-   // list->lastNode = list->firstNode;
+    list->lastNode = list->firstNode;
     list->firstNode->numOfIterators =0;
     return 1;
   } else {
@@ -153,7 +156,7 @@ int SLInsert (SortedListPtr list, void *newObj){
           newNode->data = newObj;
           newNode->numOfIterators = 0;
           iterNode->prevNode = newNode;
-          newNode->nextNode = iterNode;
+          newNode->nextNode = iterNode
           list->firstNode = newNode;
           return 1;
         } else {
@@ -177,57 +180,18 @@ int SLInsert (SortedListPtr list, void *newObj){
 void CYCLE(SortedListPtr list) {
   Node temp = list->firstNode;
   int i = 1;
+  printf("FRONT NODE\n"); 
   while(temp != 0) {
      printf("Node: %d DATA: %d\n",i, *(int *)temp->data);
      temp=temp->nextNode;
     i++;
   }
-}
-int compareint(void * num0, void *num1) {
-  int *compare0 = (int*)num0;
-  int *compare1 = (int*)num1;
-  if(* compare1 > *compare0)
-    return 1;
-  if (*compare1 < *compare0)
-    return -1;
-  return 0;
-}
-void intDestructFunc(void * thingToDestroy){
-  free(thingToDestroy);
-}
-int main(){
-  int (*compare)(void*,void*);
-  compare = &compareint;
-  void (*destruct)(void *);
-  destruct = &intDestructFunc;
-  SortedListPtr slp = SLCreate(compare,destruct);
-  int i = 0;
-  while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
-    * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    free(newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 2;
-  }
-  i =1;
-  while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
-    * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    free(newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 2;
-  }
-  while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int));
-    * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    free(newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 2;
-  }
-  CYCLE(slp);
-  //SLDestroy(slp);
-  return 0;
+  temp = list->lastNode;
+  i--;
+  printf("LAST NODE\n");
+  while (temp!=0){
+   printf("Node: %d DATA: %d\n",i,*(int*)temp->data);
+   temp=temp->prevNode;
+   i--;
+  }   
 }
