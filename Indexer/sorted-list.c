@@ -15,7 +15,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
-  	list->firstNode = 0;
+ 	list->firstNode = 0;
 	return list;
  }
  return 0;
