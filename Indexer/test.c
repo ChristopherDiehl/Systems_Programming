@@ -1,3 +1,7 @@
+/*Test.c will check test cases and be used throughout developement */
+#include <stdio.h>
+#include "sorted-list.h"
+
 int compareint(void * num0, void *num1) {
   int *compare0 = (int*)num0;
   int *compare1 = (int*)num1;
