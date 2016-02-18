@@ -85,6 +85,8 @@ void SLDestroy(SortedListPtr list) {
   if(tempNode->numOfIterators == 0) {
     list->destroy(tempNode->data);
     free(tempNode);
+  } else {
+    tempNode->numOfIterators--;
   }   
  }
  free(list);
@@ -169,6 +171,34 @@ int SLInsert (SortedListPtr list, void *newObj){
   return 0;
 }
 
+/*SLRemove will go through and attempt to locate the node where the object data is stored
+ * If there is no such node, ie. newObj not in list then return 0
+ * If there is an iterator on the node, ie. numOfIterators != 0 then decrement numOfIterators by one. 
+ * NOTE: ONCE numOfIterators == 0 IT IS THE ITERATORS JOB TO FREE IT
+ * If the node is successfully removed return 1
+ * To remove node, we start at the head node and look until newObj == node->data
+ * then make the previousNode->nextNode and vice versa
+*/
+
+int SLRemove(SortedListPtr list, void *newObj) {
+  Node head = list->firstNode;
+  while(head != 0){
+    if (list->compare(head->data,newObj) == 0) {
+      head->prevNode->nextNode = head->nextNode;
+      head->nextNode->prevNode = head->prevNode;
+      if(head->numOfIterators == 0){
+         list->destroy(head->data);
+	 free(head);
+	 return 1;
+      } else {
+         head->numOfIterators --;
+	 return 1;
+      } 		
+    }
+  }
+ return 0;
+}
+/*CYCLE JUST GOES THROUGH AND PRINTS LIST FROM FRONT TO BACK THEN BACK TO FRONT*/
 void CYCLE(SortedListPtr list) {
   Node temp = list->firstNode;
   int i = 1;
