@@ -68,7 +68,7 @@ i =0 ;
    while(i < 10) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
+    int returnVal = SLRemove(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 1;
   }
