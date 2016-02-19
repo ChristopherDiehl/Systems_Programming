@@ -29,18 +29,21 @@ int main(){
     i+= 2;
   }
   i =1;
-  while(i < 10) {
+  while(i < 100) {
     int * newvalue = (int *) malloc (sizeof(int *));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 2;
   }
-  while(i < 10) {
+
+  CYCLE(slp);
+  i = 0;
+  while(i < 100) {
     int * newvalue = (int *) malloc (sizeof(int *));
     * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
+    int returnVal = SLRemove(slp,(void*)newvalue);
+    printf("Removing :  Return value:  %d\n",returnVal);
     i+= 2;
   }
   CYCLE(slp);

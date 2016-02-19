@@ -184,12 +184,21 @@ int SLRemove(SortedListPtr list, void *newObj) {
   Node head = list->firstNode;
   while(head != 0){
     if (list->compare(head->data,newObj) == 0) {
-       if(head->prevNode != 0)
-	 head->prevNode->nextNode = head->nextNode;
-       if(head->nextNode !=0)      
+       if(head->prevNode == 0){
+	 list->firstNode = head->nextNode;
+       
+      }else if (head->nextNode == 0){
+	printf("NEW LAST NODE");
+printf("Destroying DATA: %d\n",*(int*)head->data);  
+	list->lastNode = head->prevNode;
+      } 
+      else {
 	head->nextNode->prevNode = head->prevNode;
-      if(head->numOfIterators == 0){
-         list->destroy(head->data);
+	head->prevNode->nextNode = head->nextNode;
+      }
+	if(head->numOfIterators == 0){
+        printf("Destroying DATA: %d\n",*(int*)head->data); 
+	list->destroy(head->data);
 	 free(head);
 	 return 1;
       } else {
@@ -197,7 +206,8 @@ int SLRemove(SortedListPtr list, void *newObj) {
 	 return 1;
       } 		
     }
-  }
+  head = head->nextNode; 
+ }
  return 0;
 }
 /*CYCLE JUST GOES THROUGH AND PRINTS LIST FROM FRONT TO BACK THEN BACK TO FRONT*/
