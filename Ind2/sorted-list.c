@@ -182,7 +182,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 	 */
 
 	Node * ptr = list->_llist;  // point to start of the list
-	Node * prev = NULL; // Book keeping
+	Node * prev = NULL ; // Book keeping
 
 
 	if(ptr == NULL) // adding the first element to the list
@@ -356,23 +356,26 @@ void * SLNextItem(SortedListIteratorPtr iter)
 			
 		Node * tempElemPtr = iter->_elemPtr; 	 // holds a temporary reference to the ele
 
-
-		// move the iterator to the next element 		
-		iter->_elemPtr = iter->_elemPtr->_next; 
-		
-		// since the iter is now pointing to the next element we increase its reference 
-		iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
+		if(iter->_elemPtr->_next != NULL)
+		{
+			iter->_elemPtr = iter->_elemPtr->_next;  
+			// since the iter is now pointing to the next element we increase its reference 
+			iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
+		}
+		else // if the next node is NULL , we make it point to null and do not change the reference  counter
+		{
+			iter->_elemPtr = NULL;
+		}
 	
-
 		// If the node the iter pointed to before moving to the next node is orphaned meaning the ref == 0 , then we delete it to save memory // WARNING 
 		if(tempElemPtr->_ref == 0 )
 		{
 			tempElemPtr->_next = NULL ; 	
 			// will require changes in strucutr of itreator to get access to the destructor of void *
 			iter->_sortList->DestructFuncT( tempElemPtr->_value ) ; 	
+
+			free(tempElemPtr);
 		}	
-		
-		
 		
 		return res;  // return the element
 	}
@@ -414,12 +417,20 @@ void * SLGetItem( SortedListIteratorPtr iter )
 		Node * tempElemPtr = iter->_elemPtr; 	 // holds a temporary reference to the ele
 
 
-		// move the iterator to the next element 		
-		iter->_elemPtr = iter->_elemPtr->_next; 
+		// move the iterator to the next element if it is not null
+		if(iter->_elemPtr->_next != NULL)
+		{
+			iter->_elemPtr = iter->_elemPtr->_next;  
+
+			// since the iter is now pointing to the next element we increase its reference 
+			iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
 		
-		// since the iter is now pointing to the next element we increase its reference 
-		iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
-	
+		}
+		else // if the next node is NULL , we make it point to null and do not change the reference  counter
+		{
+			iter->_elemPtr = NULL;
+		}
+		
 
 		// If the node the iter pointed to before moving to the next node is orphaned meaning the ref == 0 , then we delete it to save memory // WARNING 
 		if(tempElemPtr->_ref == 0 )
@@ -427,6 +438,7 @@ void * SLGetItem( SortedListIteratorPtr iter )
 			tempElemPtr->_next = NULL ; 	
 			// will require changes in strucutr of itreator to get access to the destructor of void *
 			iter->_sortList->DestructFuncT( tempElemPtr->_value ) ; 	
+			free(tempElemPtr);
 		}	
 
 	return res;  // return the element
