@@ -75,7 +75,7 @@ struct SortedList
 };
 typedef struct SortedList* SortedListPtr;
 
-
+void CYCLE(SortedListPtr slp);
 /*
  * SLCreate creates a new, empty, 'SortedList'.
  *

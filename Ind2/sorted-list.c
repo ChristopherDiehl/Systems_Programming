@@ -35,21 +35,24 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df)
  */
 void SLDestroy(SortedListPtr list) 
 {
-	while(list->_llist != NULL)
+	int i = 0;
+	while(list->_llist != 0)
 	{
-		printf("Freeing stuff\n");
-	
+		printf("Freeing stuff %d \n",i);
+	    i++;
 		if(list->_llist->_value == 0 || list->_llist == 0)break;
 		list->DestructFuncT(list->_llist->_value);
 		Node * toBeDeleted = list->_llist; 
 		if( toBeDeleted->_ref == 0){
-			list->_llist = list->_llist->_next;
 			free(toBeDeleted);
 		} else {
+			printf("THIS IS GETTING DECREMENTED\n");
 			toBeDeleted->_ref--;
 		}
-	}
+		list->_llist = list->_llist->_next;
 
+	}
+	printf("Attempting to free list");
 	free(list);
 }
 
@@ -84,7 +87,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 	Node * prev = NULL ; 
 	Node * newNode = (Node *)malloc(sizeof(Node));		
 	newNode->_value = newObj ; 
-	newNode->_ref = 1;  
+	newNode->_ref = 0;  
 	/*
 	 * The only possibilities are : 
 	 * 	Node added at front
@@ -173,7 +176,9 @@ int SLRemove(SortedListPtr list, void *newObj)
 				else {
 					prev->_next = ptr->_next; 	
 				}
-				ptr->_ref--; 
+				if(ptr->_ref > 0)
+					ptr->_ref--; 
+
 				if(ptr->_ref == 0 ) 
 				{
 					list->DestructFuncT(ptr->_value);	 
@@ -181,7 +186,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 					return 1; 
 				}
 				else {
-					if(ptr->_next != 0)			
+					if(ptr->_next != 0)		
 						ptr->_next->_ref++; 	 
 					return 1; 
 				}
@@ -266,7 +271,7 @@ void * SLNextItem(SortedListIteratorPtr iter)
 	else 
 	{
 		void * res = iter->_elemPtr->_next->_value; 
-		iter->_elemPtr->_ref--; 	
+		
 		Node * tempElemPtr = iter->_elemPtr; 	 
 		if(iter->_elemPtr->_next != NULL)
 		{
@@ -283,11 +288,19 @@ void * SLNextItem(SortedListIteratorPtr iter)
 			iter->destroy( tempElemPtr->_value ) ; 	
 			free(tempElemPtr);
 		}	
-		
+		tempElemPtr->_ref--; 	
 		return res;  
 	}
 }
-
+void CYCLE(SortedListPtr slp){
+	Node * tempNode = slp->_llist;
+	int i =0;
+	while(tempNode != 0){
+		printf("Node: %d Number of iterators : %d\n",i,tempNode->_ref);
+		tempNode = tempNode->_next;
+		i++;
+	}
+}
 
 /*
  * SLGetItem should return a pointer to the current data item
