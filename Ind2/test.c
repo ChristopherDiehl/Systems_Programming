@@ -19,6 +19,7 @@ int IntCmpFun(void * a , void * b)
 
 void IntDesFun(void * a)
 {
+  free ((int *)a);
 }
  
 
@@ -66,8 +67,8 @@ i =0 ;
    while(i < 10) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
-    int returnVal = SLRemove(slp,(void*)newvalue);
-    printf("REMOVE Return value:  %d\n",returnVal);
+    //int returnVal = SLRemove(slp,(void*)newvalue);
+    //printf("REMOVE Return value:  %d\n",returnVal);
     i+= 1;
   }
 SortedListIteratorPtr itr2 = SLCreateIterator(slp);
@@ -82,15 +83,10 @@ for( i = 0 ; i < 10 ; i++ )
 }
 
 
-//SortedListIteratorPtr itr3 = SLCreateIterator(list);
-//
-//for( i = 0 ; i < 1000 ; i++ )
-//{
-//	printf("%d", *  (int *)SLGetItem(itr3));
-//}
-//
 
 	SLDestroy(slp);
+  int * temp =  (int *)SLGetItem(itr2);
+    printf(" INT VALUES : %d\n",  *temp);
 
 	return 0; 
 }

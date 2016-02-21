@@ -52,7 +52,6 @@ void SLDestroy(SortedListPtr list)
 		list->_llist = list->_llist->_next;
 
 	}
-	printf("Attempting to free list");
 	free(list);
 }
 
@@ -318,12 +317,15 @@ void CYCLE(SortedListPtr slp){
 
 void * SLGetItem( SortedListIteratorPtr iter )
 {
+	if(iter==NULL) return NULL;
 	if(iter->_elemPtr == NULL) 
 	{
+		printf("null");
 		return NULL ; 	
 	}
 	else 
 	{
+		printf("Else");
 		return iter->_elemPtr->_value;
 	}		
 		
