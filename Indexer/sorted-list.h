@@ -5,6 +5,30 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+
+
+
+/****************** PERSONAL ADDITION *******************/
+
+
+
+/*
+ * Node to be used by the liked list 
+ *
+ */
+typedef struct node_T
+{
+	size_t _ref; // _reference counter  // destruct called only when _ref = 0 , otherwise more around the pointers
+	void * _value ; 
+	struct node_T * _next ;
+
+} Node; 
+
+
+/****************** PERSONAL ADDITION *******************/
+
+
 
 //======Prototypes for User-Defined Functions==========
 //-=-=-=-You do not need to do anything with these definitions-=-=-=-
@@ -38,36 +62,19 @@ typedef void (*DestructFuncT)( void * );
 //=====0: SortedList=====================================
 //===0.1: List Definition, List Create/Destroy
 
-/*Node Struct which will be used to implement a singly linked list 
- *  * Node will hold the data and point to the next and previous Node
- *  */
-
-
-struct Node_
-{
- struct Node_ *nextNode;
- struct Node_ *prevNode;
- void * data; 
- int numOfIterators;
-
-};
-typedef struct Node_ * Node;
-
-
 /*
  * Sorted list type that will hold all the data to be sorted.
- * Store comparison function pointer
- * Store destruct function pointer
- * Store node for first linked list element
  */
 struct SortedList
 {
-  CompareFuncT compare;
-  DestructFuncT destroy; 
-  Node firstNode;
-  Node lastNode;
+	Node * _llist ; 	 // pointer to the first node of the conceptual linked list
+
+
+	int (*CompareFuncT)( void *, void * ); // used to compare 
+	void (*DestructFuncT)( void * ); // used to destroy 
 };
 typedef struct SortedList* SortedListPtr;
+
 /*
  * SLCreate creates a new, empty, 'SortedList'.
  *
@@ -88,10 +95,6 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df);
  */
 void SLDestroy(SortedListPtr list);
 
-/*FUNCTION TO TEST
- *NEED TO GET RID OF IT
-*/
-void CYCLE(SortedListPtr list);
 
 
 //===0.2: List Insert/Remove
@@ -136,11 +139,13 @@ int SLRemove(SortedListPtr list, void *newObj);
  */
 struct SortedListIterator
 {
-	Node startNode;
+	Node * _elemPtr ; // ptr to the element / node in the linked list 
+
+	// For access to the destructor of void * to be used in SLNextItem
 	DestructFuncT destroy;
+	// Is this enough ? 
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
-
 
 /*
  * SLCreateIterator creates a SortedListIterator for the SortedList pointed to by 'list'.
@@ -174,7 +179,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter);
  *  been iterated through.
  *
  * NB: Be sure to check the length of the list that SortedListIterator holds
- *         efore attempting to access and return an item from it.
+ *         before attempting to access and return an item from it.
  *         If an item is removed from the list, making it shorter, be careful not
  *         to try to read and return an item off the end of the list.
  */

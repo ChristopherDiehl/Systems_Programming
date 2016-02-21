@@ -72,7 +72,7 @@ SortedListPtr slp = SLCreate(structCmpFun , structDesFun);
   }
   SLDestroyIterator(itr);
   SLDestroy(slp);
-
+  printf("TEST 2 IS SUCCESFULL\n");
 
 
   return 0; 

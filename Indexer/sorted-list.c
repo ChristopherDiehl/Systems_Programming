@@ -1,220 +1,323 @@
-/*sorted-list.c*/
 #include "sorted-list.h"
-#include <stdio.h>
+
+ /*
+  * FORWARD DECLERATION 
+  */
 
 
-/*Flesh out SortedList
- * If malloc fails then return 0, else return list pointer
- * storing compare and delete functions in SortedList
- * returns a pointer to the list with firstNode and lastNode null
- * Builds and initializes sortedListPtr struct
+/*
+ * SLCreate creates a new, empty, 'SortedList'.
  *
- */
-SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
- SortedListPtr list = (SortedListPtr)malloc(sizeof(struct SortedList));
- if(list != 0){
-	list->destroy = df;
-	list->compare = cf;
- 	list->firstNode = 0;
-	return list;
- }
- return 0;
-}
-
-
-/*SortedListIteratorPtr SLCreateIterator(SortedListPtr list) 
- * SortedListIteratorPtr will be a node, 
- *starts at firstNode and 'walks' down list until it node.nextNode == 0
- *then returns null
- *sortedLIstIteratorPtr struct contains only a Node struct
-*/
- SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
- 	SortedListIteratorPtr slip = malloc(sizeof(SortedListIteratorPtr));
- 	if(slip ==0) return 0;
- 	slip->startNode = list->firstNode;
- 	return slip;
- }
-
- /*To destroy a SortedListIteratorPtr, we just destroy the SLIP
-  *To do so we use free
+ * SLCreate's parameters will be a comparator (cf) and destructor (df) function.
+ *   Both the comparator and destructor functions will be defined by the user as per
+ *     the prototypes above.
+ *   Both functions must be stored in the SortedList struct.
+ * 
+ * SLCreate must return NULL if it does not succeed, and a non-NULL SortedListPtr
+ *   on success.
  */
 
-  void SLDestroyIterator(SortedListIteratorPtr iter) {
- 	 free(iter);
- }
+SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df)
+{
+	SortedListPtr res = (SortedListPtr)malloc(sizeof(struct SortedList)); 	 
+	res->CompareFuncT = cf;  
+	res->DestructFuncT = df ; 
 
- /*void * SLNextItem(SortedListIteratorPtr iter)
-  * SLNextItem just returns the data of the next node in iter
-  * If iter->startNode == 0 then returns 0
-  * if startNode->numOfIterators == -1 that means that node has been deleted and iterator is responsible for deleting
+	
+	res->_llist = NULL ;	
+	return res;
+}
+
+
+/*
+ * SLDestroy destroys a SortedList, freeing all dynamically-allocated memory.
+ * THIS WILL KEEP NODES WITH ITERATORS ALIVE BUT DELETE THEIR NEXT NODE
  */
-  void * SLNextItem(SortedListIteratorPtr iter) {
-  	if(iter->startNode == 0) return 0;
-    if(iter->startNode->numOfIterators ==1) {
-      Node tempNode = iter->startNode;
-      iter->startNode = iter->startNode->nextNode;
-      iter->destroy(tempNode->data);
-      free(tempNode);
-    } else {
-      iter->startNode = iter->startNode->nextNode;
-    }
-  	if(iter->startNode ==0) return 0;
-    iter->startNode->numOfIterators++;
-  	return iter->startNode->data;
-  }
+void SLDestroy(SortedListPtr list) 
+{
+	int i = 0;
+	while(list->_llist != 0)
+	{
+	    i++;
+		if(list->_llist->_value == 0 || list->_llist == 0)break;
 
-   /*void * SLGetItem(SortedListIteratorPtr iter)
-  * SLNextItem just returns the data of the node in iter
-  * If iter->startNode == 0 then returns 0
+		
+		Node * toBeDeleted = list->_llist; 
+		if( toBeDeleted->_ref == 0){
+			list->DestructFuncT(list->_llist->_value);
+			free(toBeDeleted);
+		} else {
+			toBeDeleted->_ref--;
+		}
+		list->_llist = list->_llist->_next;
+
+	}
+	free(list);
+}
+
+
+//===0.2: List Insert/Remove
+
+/*
+ * SLInsert inserts a given data item 'newObj' into a SortedList while maintaining the
+ *   order and uniqueness of list items.
+ * 
+ * SLInsert should return 1 if 'newObj' is not equal to any other items in the list and
+ *   was successfully inserted.
+ * SLInsert should return 0 if 'newObj' is equal to an item already in the list or it was
+ *   not successfully inserted
+ *
+ * Data item equality should be tested with the user's comparator function *
  */
-  void * SLGetItem(SortedListIteratorPtr iter) {
-  	if(iter->startNode == 0) return 0;
-  	return iter->startNode->data;
-  }
-/*SLDestroy will free all the nodes in the sortedList
- * Once a node == 0 then free the sortedlist 
- * If numOfIterators in Node > 0 then don't delete iterator
- * Save Iterator node, but free list
+
+int SLInsert(SortedListPtr list, void *newObj)
+{
+	/*
+	 * if the same element if to be inserted twice ,do no add the new element 
+
+	 * The smaller element is added after the largert element , this ensures that 
+	 * the larger elements are in the front 
+	 *
+	 * larger large small smaller
+	 *
+	 */
+	if(list == 0 || newObj == 0 ) return 0 ; 
+	Node * ptr = list->_llist; 
+	Node * prev = NULL ; 
+	Node * newNode = malloc(sizeof(Node));		
+	newNode->_value = newObj ; 
+	newNode->_ref = 0;  
+	/*
+	 * The only possibilities are : 
+	 * 	Node added at front
+	 * 	Node added in between 
+	 * 	Node added at end
+	 * 	Node not added as it is a repetition < free the memory here > 
+	 *
+	 */
+
+	if(ptr == NULL) 
+	{
+		newNode->_next = NULL ;  
+		list->_llist = newNode ; 
+		return 1;  
+	}
+	else 
+	{
+		
+		while(ptr != NULL )
+		{
+			int cmpVal = list->CompareFuncT(ptr->_value, newObj);
+			if( cmpVal == -1)
+			{
+				newNode->_next = ptr; 	
+				if(prev == NULL)	
+				{
+					list->_llist = newNode; 
+					newNode->_next = ptr;
+				}
+				else
+				{
+					prev->_next = newNode; 	
+				}
+				return 1; 
+			}
+			else if (cmpVal == 0) 
+			{
+				free(newNode); 
+				return 0 ; 
+			}
+			prev = ptr; 
+			ptr = ptr->_next; 	
+		}	
+
+		newNode->_next = NULL ;
+		list->_llist->_next = newNode; 
+		return 1;
+	}
+}
+
+
+/*
+ * SLRemove should remove 'newObj' from the SortedList in a manner that
+ *   maintains list order.
  *
-*/
-
-void SLDestroy(SortedListPtr list) {
- while(list->lastNode !=0){
-  Node tempNode = list->lastNode;
-  list->lastNode= list->lastNode->prevNode;
-  if(tempNode->numOfIterators == 0) {
-    list->destroy(tempNode->data);
-    free(tempNode);
-  } else {
-    tempNode->numOfIterators--;
-  }   
- }
- free(list);
-}
-/*SLInsert will return 1 if newObj is not equal to any other item in the last/ was inserted
- * returns a 0 if newObj is equal to an item already in the list/ wasn't inserted
- * Start at firstNode and go through list until we get to the last node,
- * in which case we appendto back of list
- * Since we are starting at front, when the compare function gives -1 
- *  or when the object to be added is less than the current node
- *  newNode = obj trying to append.
- *  Then change currentNode.prevNode.nextNode = newNode.
- *   we change the currentNode.prevNode = newNode
- *If we recieve a 0, or obj is currently in list then return a 0
- *if data > newObj then compare == -1
- *if data == newObj then compare == 0
- *if data < newObj then compare == 1
- *when node is created the numOfIterators++
- *numOfIterators is for the iterator
- * - numOfIterators keeps track of how many iterators are pointing at the node,
- * -this is how we handle if a node gets deleted while iterator is on it
- * -since no iterators, initialize the numOfIterators ==0
+ * SLRemove must not modify the data item pointed to by 'newObj'.
  *
+ * SLRemove should return 1 on success, and 0 on failure.
+  * possibilities : 
+ * 	Remove element  [ element found ]
+ * 		> from front
+ * 		> between 
+ * 		> end
+ *	
+ *	Do not remove element [ element not found ]
+ * 		> either list empty
+ * 		> element not found
+ */
+
+
+int SLRemove(SortedListPtr list, void *newObj)
+{
+
+	Node * ptr = list->_llist;  
+	Node * prev = NULL ; 
+	if(ptr == NULL) return 0 ;
+	else 
+	{
+		while(ptr != NULL )
+		{
+			int cmpVal = list->CompareFuncT(ptr->_value, newObj);
+			if( cmpVal == 0 ) { 		
+				if(prev == NULL) {
+					list->_llist = ptr->_next;		
+				}
+				else {
+					prev->_next = ptr->_next; 	
+				}
+				if(ptr->_ref == 0 ) 
+				{
+					list->DestructFuncT(ptr->_value);	
+					free(ptr);
+					return 1; 
+				}
+				else {
+					if(ptr->_next != 0){
+						ptr->_next->_ref++; 	 
+						ptr->_ref--;
+					}		
+ 				return 1; 
+				}
+			}
+			prev = ptr; 
+			ptr = ptr->_next; 
+		} 
+	return 0; 
+	}
+}
+
+
+
+
+
+/*
+ * SLCreateIterator creates a SortedListIterator for the SortedList pointed to by 'list'.
  *
-*/
+ * SLCreateIterator should return a non-NULL SortedListIteratorPtr on success.
+ * SLCreateIterator should return a NULL SortedListIteratorPtr if it could not
+ *  construct a SortedListIterator, or if the SortedListPtr parameter 'list' is NULL.
+ */
 
-int SLInsert (SortedListPtr list, void *newObj){
-  if(list ==0 || newObj ==0) return 0;
-  if(list->firstNode == 0){
-    printf("First node is created");
-    list->firstNode = malloc(sizeof(struct Node_));
-    list->firstNode->data = newObj;
-    list->lastNode = list->firstNode;
-    list->firstNode->numOfIterators =0;
-    return 1;
-  } else {
-    Node newNode = malloc(sizeof(struct Node_));
-    if(newNode ==0) return 0;
-    newNode->data= newObj;
-    newNode->numOfIterators =0;
-    Node iterNode = list->firstNode;
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
+{
+	SortedListIteratorPtr res = (SortedListIteratorPtr)malloc(sizeof( struct SortedListIterator));
+	if(list->_llist != NULL)	
+	{
+		list->_llist->_ref++; 
+	}
+	res->_elemPtr  = list->_llist; 
 
-    while(iterNode != 0){ 
-      int compareReturn = list->compare(newObj,iterNode->data);
-      if(compareReturn == 0) {
-        return 0;
-      }else if(compareReturn == 1) {
-        if(iterNode->nextNode == 0){
-          iterNode->nextNode = newNode;
-          newNode->prevNode = iterNode;
-          list->lastNode = newNode;
-          return 1;
-        }
-        iterNode=iterNode->nextNode;
-      }
-      else if(compareReturn == -1) {
-        if(iterNode->prevNode == 0) {
-          iterNode->prevNode = newNode;
-          newNode->nextNode = iterNode;
-          list->firstNode = newNode;
-          return 1;
-        } else {
-          iterNode->prevNode->nextNode = newNode;
-          newNode->prevNode = iterNode->prevNode;
-          newNode->nextNode = iterNode;
-          iterNode->prevNode = newNode;
-          return 1;
-        }
-      }
-    }
-    free(newNode);
-  }
-  return 0;
+	res->destroy = list->DestructFuncT; 
+	return res ; 
 }
 
-/*SLRemove will go through and attempt to locate the node where the object data is stored
- * If there is no such node, ie. newObj not in list then return 0
- * If there is an iterator on the node, ie. numOfIterators != 0 then decrement numOfIterators by one. 
- * NOTE: ONCE numOfIterators == 0 IT IS THE ITERATORS JOB TO FREE IT
- * If the node is successfully removed return 1
- * To remove node, we start at the head node and look until newObj == node->data
- * then make the previousNode->nextNode and vice versa
-*/
 
-int SLRemove(SortedListPtr list, void *newObj) {
-  Node head = list->firstNode;
-  while(head != 0){
-    if (list->compare(head->data,newObj) == 0) {
-       if(head->prevNode == 0){
-	 list->firstNode = head->nextNode;
-       
-      }else if (head->nextNode == 0){
-	list->lastNode = head->prevNode;
-      } 
-      else {
-	head->nextNode->prevNode = head->prevNode;
-	head->prevNode->nextNode = head->nextNode;
-      }
-	if(head->numOfIterators == 0){
-        printf("Destroying DATA: %d\n",*(int*)head->data); 
-	list->destroy(head->data);
-	 free(head);
-	 return 1;
-      } else {
-         head->numOfIterators --;
-	 return 1;
-      } 		
-    }
-  head = head->nextNode; 
- }
- return 0;
+/*
+ * SLDestroyIterator destroys a SortedListIterator pointed to by parameter 'iter'.
+ *
+ * SLDestroyIterator should destroy the SortedListIterator, but should NOT
+ *  affect the list used to create the SortedListIterator in any way.
+ */
+
+void SLDestroyIterator(SortedListIteratorPtr iter)
+{
+	if(iter == 0) return;
+	if(iter->_elemPtr != 0 ) {
+		if(iter->_elemPtr->_ref == 0) {
+			iter->destroy(iter->_elemPtr->_value);
+			free(iter->_elemPtr);
+		}
+		else {
+			iter->_elemPtr->_ref--; 
+		}
+	}
+	free(iter); 
 }
-/*CYCLE JUST GOES THROUGH AND PRINTS LIST FROM FRONT TO BACK THEN BACK TO FRONT*/
-void CYCLE(SortedListPtr list) {
-  Node temp = list->firstNode;
-  int i = 1;
-  printf("FRONT NODE\n"); 
-  while(temp != 0) {
-     printf("Node: %d DATA: %d\n",i, (char *)temp->data);
-     temp=temp->nextNode;
-    i++;
-  }
-  temp = list->lastNode;
-  i--;
-  printf("LAST NODE\n");
-  while (temp!=0){
-   printf("Node: %d DATA: %d\n",i,*(int*)temp->data);
-   temp=temp->prevNode;
-   i--;
-  }   
+
+
+//===1.2: SortedList Iterator Get/Next Operations
+
+/*
+ * SLNextItem returns a pointer to the data associated with the
+ *  next item in the SortedListIterator's list
+ *
+ * SLNextItem should return a NULL if all of iter's elements have
+ *  been iterated through.
+ *
+ * NB: Be sure to check the length of the list that SortedListIterator holds
+ *         before attempting to access and return an item from it.
+ *         If an item is removed from the list, making it shorter, be careful not
+ *         to try to read and return an item off the end of the list.
+ */
+
+void * SLNextItem(SortedListIteratorPtr iter)
+{
+	if(iter->_elemPtr == NULL || iter->_elemPtr->_next == NULL) 
+	{
+		return NULL ; 	
+	}
+	else 
+	{
+		void * res = iter->_elemPtr->_next->_value; 
+		
+		Node * tempElemPtr = iter->_elemPtr; 	 
+		if(iter->_elemPtr->_next != NULL)
+		{
+			iter->_elemPtr = iter->_elemPtr->_next;  
+			iter->_elemPtr->_ref++;  
+		}
+		else
+		{
+			iter->_elemPtr = NULL;
+		}
+		if(tempElemPtr->_ref == 0 )
+		{
+			tempElemPtr->_next = NULL ; 	
+			iter->destroy( tempElemPtr->_value ) ; 	
+			free(tempElemPtr);
+		}	
+		tempElemPtr->_ref--; 	
+		return res;  
+	}
 }
+
+/*
+ * SLGetItem should return a pointer to the current data item
+ *   The current data item is the item that was most recently returned by SLNextItem
+ *   SLGetItem should not alter the data item that SortedListIterator currently refers to
+ *
+ * SLGetItem should return a NULL pointer if the SortedListIterator has been advanced
+ *  all the way through its list.
+ *
+ * NB: Be sure to check the length of the list that SortedListIterator holds
+ *         before attempting to access and return an item from it.
+ *         If an items are removed from the list, making it shorter, be careful not
+ *         to try to read and return an item off the end of the list.
+ */
+
+void * SLGetItem( SortedListIteratorPtr iter )
+{
+	if(iter==NULL) return NULL;
+	if(iter->_elemPtr == NULL) 
+	{
+		//printf("null");
+		return NULL ; 	
+	}
+	else 
+	{
+		//printf("Else");
+		return iter->_elemPtr->_value;
+	}		
+		
+}
+
