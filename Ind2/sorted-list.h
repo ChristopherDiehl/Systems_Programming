@@ -143,11 +143,10 @@ struct SortedListIterator
 	Node * _elemPtr ; // ptr to the element / node in the linked list 
 
 	// For access to the destructor of void * to be used in SLNextItem
-	SortedListPtr _sortList ;
+	DestructFuncT destroy;
 	// Is this enough ? 
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
-
 
 /*
  * SLCreateIterator creates a SortedListIterator for the SortedList pointed to by 'list'.

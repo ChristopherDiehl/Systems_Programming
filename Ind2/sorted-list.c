@@ -19,35 +19,34 @@
 
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df)
 {
-	SortedListPtr res = (SortedListPtr)malloc(sizeof(struct SortedList)); 	 // Allocate memory for the struct
-	res->CompareFuncT = cf;  // funcptr
+	SortedListPtr res = (SortedListPtr)malloc(sizeof(struct SortedList)); 	 
+	res->CompareFuncT = cf;  
 	res->DestructFuncT = df ; 
 
-	// Create the first null node and make the sortedList have a pointer to it. 
 	
-	res->_llist = NULL ;	 // Nothing to point to right now .. 
+	res->_llist = NULL ;	
 	return res;
 }
 
 
 /*
  * SLDestroy destroys a SortedList, freeing all dynamically-allocated memory.
+ * THIS WILL KEEP NODES WITH ITERATORS ALIVE BUT DELETE THEIR NEXT NODE
  */
-void SLDestroy(SortedListPtr list) // DANGER !!!!!!!!!!!!!
+void SLDestroy(SortedListPtr list) 
 {
 	while(list->_llist != NULL)
 	{
-
-	// call the destructor on each element in the linked list 
+		printf("Freeing stuff\n");
+		if(list->_llist->_value == 0 || list->_llist == 0)break;
 		list->DestructFuncT(list->_llist->_value);
-			
-	// call destructor on each node ? 
 		Node * toBeDeleted = list->_llist; 
-		list->_llist = list->_llist->_next;
-		free(toBeDeleted);
-
-	// start from end and delete the node
-	// have a pointer to the end of the node ? 
+		if( toBeDeleted->_ref == 0){
+			list->_llist = list->_llist->_next;
+			free(toBeDeleted);
+		} else {
+			toBeDeleted->_ref--;
+		}
 	}
 
 	free(list);
@@ -72,10 +71,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 {
 	/*
 	 * if the same element if to be inserted twice ,do no add the new element 
-	 */
 
-
-	/*
 	 * The smaller element is added after the largert element , this ensures that 
 	 * the larger elements are in the front 
 	 *
@@ -83,13 +79,11 @@ int SLInsert(SortedListPtr list, void *newObj)
 	 *
 	 */
 	if(list == 0 || newObj == 0 ) return 0 ; 
-	Node * ptr = list->_llist;  // Point to the start or the 
+	Node * ptr = list->_llist; 
 	Node * prev = NULL ; 
-	// The new Node to be inserted 
 	Node * newNode = (Node *)malloc(sizeof(Node));		
 	newNode->_value = newObj ; 
-	newNode->_ref = 1;  // all the references has a value 1 as it is pointed by something when 
-				// added to the lsit 
+	newNode->_ref = 1;  
 	/*
 	 * The only possibilities are : 
 	 * 	Node added at front
@@ -99,24 +93,21 @@ int SLInsert(SortedListPtr list, void *newObj)
 	 *
 	 */
 
-	if(ptr == NULL) // adding the first element to the list
+	if(ptr == NULL) 
 	{
-		newNode->_next = NULL ;  // show the new end of the linked list 
+		newNode->_next = NULL ;  
 		list->_llist = newNode ; 
-		return 1;  // successfully added to the begining of the list 
+		return 1;  
 	}
-	else // determine the right position to add the element to 
+	else 
 	{
-		// if the element to be added is smaller , keep going froward		
+		
 		while(ptr != NULL )
 		{
 			int cmpVal = list->CompareFuncT(ptr->_value, newObj);
-//			printf(" CMP VAL : %d " , cmpVal);
 			if( cmpVal == -1)
 			{
-				// element to be inserted is larger 
-				newNode->_next = ptr; 	// insert new element in betwen ptr and prev
-				// handle the case when adding the second elemnt when prev == NULL
+				newNode->_next = ptr; 	
 				if(prev == NULL)	
 				{
 					list->_llist = newNode; 
@@ -126,36 +117,22 @@ int SLInsert(SortedListPtr list, void *newObj)
 				{
 					prev->_next = newNode; 	
 				}
-				printf(" INSERTED ELEM %d " , *(int *)newObj) ; 
 				return 1; 
 			}
-			else if (cmpVal == 0) // the newObj is not added to list 
+			else if (cmpVal == 0) 
 			{
-				printf(" REPEAT ELEM %d " , *(int *)newObj) ; 
-				free(newNode); // free the allocated memory as we are not add it to list 
-				return 0 ; // element not added to list  
+				free(newNode); 
+				return 0 ; 
 			}
 			prev = ptr; 
-			ptr = ptr->_next; 	// move to next location 
+			ptr = ptr->_next; 	
 		}	
-		// if we reached this location then we have not added the node in between 
-		// we add at the end
+
 		newNode->_next = NULL ;
-		list->_llist->_next = newNode; // element added at the end 	
+		list->_llist->_next = newNode; 
 		return 1;
 	}
-	// this location is never reached 
 }
-
-/*
- * AMBIGUITY 
- * 	Who does the final delete  ? 
- * 	who delete the node that has been removed from the list ? 
- *
- *
- *
- *
- */
 
 
 /*
@@ -165,117 +142,56 @@ int SLInsert(SortedListPtr list, void *newObj)
  * SLRemove must not modify the data item pointed to by 'newObj'.
  *
  * SLRemove should return 1 on success, and 0 on failure.
+  * possibilities : 
+ * 	Remove element  [ element found ]
+ * 		> from front
+ * 		> between 
+ * 		> end
+ *	
+ *	Do not remove element [ element not found ]
+ * 		> either list empty
+ * 		> element not found
  */
+
 
 int SLRemove(SortedListPtr list, void *newObj)
 {
-	/*
-	 * possibilities : 
-	 * 	Remove element  [ element found ]
-	 * 		> from front
-	 * 		> between 
-	 * 		> end
-	 *	
-	 *	Do not remove element [ element not found ]
-	 * 		> either list empty
-	 * 		> element not found
-	 */
 
-	Node * ptr = list->_llist;  // point to start of the list
-	Node * prev = NULL ; // Book keeping
-
-
-	if(ptr == NULL) // adding the first element to the list
-	{
-		return 0 ; // nothing to delete  FAILED TO DELETE 
-	}
-	else // determine the right position to add the element to 
+	Node * ptr = list->_llist;  
+	Node * prev = NULL ; 
+	if(ptr == NULL) return 0 ;
+	else 
 	{
 		while(ptr != NULL )
 		{
 			int cmpVal = list->CompareFuncT(ptr->_value, newObj);
-
-			if( cmpVal == 0 ) // found the location to delete the obj from 
-			{ 		// the obj at location ptr 
-			
-					// Simple delete			
-				if(prev == NULL) // object found in the first position itself
-				{
-					// The head should point to the next element now
+			if( cmpVal == 0 ) { 		
+				if(prev == NULL) {
 					list->_llist = ptr->_next;		
-					// ptr will be deleted based on the reference count
 				}
-				else
+				else {
+					prev->_next = ptr->_next; 	
+				}
+				ptr->_ref--; 
+				if(ptr->_ref == 0 ) 
 				{
-					// delink the  ptr from the linked list
-					prev->_next = ptr->_next; 	// skip the obj at ptr
+					list->DestructFuncT(ptr->_value);	 
+					free(ptr);
+					return 1; 
 				}
-
-					// since we have delinked the ptr node from the linked list , the number of references to this decreases by 1
-					ptr->_ref--; // decrease the reference
-
-					if(ptr->_ref == 0 ) // not pointed to by any other pointer
-					{
-						// delete value using the caller defined destructor 
-						list->DestructFuncT(ptr->_value);	 
-						
-						// delete the ptr free it as it has been malloced
-						free(ptr);
-						
-						printf(" DELETED ELEM %d " , *(int *)newObj) ; 
-						// delete succeded
-						return 1; 
-					}
-					else // other " things " point to the current node ptr
-					{
-
-						// if there are other pointer to this node 
-						// WHAT TO DO ? 
-						// We delink the node from the list 
-						// but do not delete it so that who ever points to 
-						// this node can still get to it. 
-						//
-						// Also make no changes to the next from the ptr node
-						// as this ensures that the other elements in the list 
-						// can be reached by following this node 
-						
-						// delink the ptr from the linked list
-	//					prev->_next = ptr->_next; 	// skip the obj at ptr
-						// The delinking was done earlier so skip it here
-
-
-						// Now ptr->_next had two " things pointing at it " 
-						//  	1) the node which was decoupled from the lis t
-						//  	2) the previous node to the decoupled node which now points at ptr->next 
-						// Upadat the reference counter for ptr->_next ; 
-						if(ptr->_next != 0)			
-							ptr->_next->_ref++; 	 // to take care of multiple pointers pointing at the node 
-
-						// Nothing more to do 
-						// We have delinked this node and touches nothing else so that 
-						// the " thing " with a reference to this node 
-						// can still access and iterate using this 
-
-						// delete failed  ??  WARNING VERIFY THIS OR SPECIFY IN README 
-						return 0 ; 
-					}
-
-			//		return 1 ; // DELETE SUCCEDED  // OR SHOULD WE NOT RETURN A 1 
+				else {
+					if(ptr->_next != 0)			
+						ptr->_next->_ref++; 	 
+					return 1; 
+				}
 			}
-			
-			// reaching this location means that we have not found the object we were looking for  	
-			// we keep searching 
-
 			prev = ptr; 
-			ptr = ptr->_next; // move along the linked list
-		} // end of while loop 
-			
-	// reaching this location means we have not found the object
-	// we have failed in the delete 	
-	return 0 ; 
+			ptr = ptr->_next; 
+		} 
+	return 0; 
 	}
-
 }
+
 
 
 
@@ -291,15 +207,13 @@ int SLRemove(SortedListPtr list, void *newObj)
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 {
 	SortedListIteratorPtr res = (SortedListIteratorPtr)malloc(sizeof( struct SortedListIterator));
-	// Since an new " thing " is pointing to the first node in the linked list we increment the reference 
-	if(list->_llist != NULL)		// AMBIGUITY WHAT HAPPENS IF LL IS NULL AND WE ADD LATER ON ? HOW WILL WE CHANGE THE REFERENCE COUNT ? 
+	if(list->_llist != NULL)	
 	{
-		list->_llist->_ref++; // increace the reference count 
+		list->_llist->_ref++; 
 	}
-	res->_elemPtr  = list->_llist;  // point to the first element in the linked list
+	res->_elemPtr  = list->_llist; 
 
-	// tentative 
-	res->_sortList = list ; 
+	res->destroy = list->DestructFuncT; 
 	return res ; 
 }
 
@@ -313,11 +227,17 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 
 void SLDestroyIterator(SortedListIteratorPtr iter)
 {
-	// Since a " thing " is no longer pointing to the node , we can decrease the reference . 
-	iter->_elemPtr->_ref--; 
-	// Do not delete the node that the element is pointing to 
-	// but delete the iterator struct 
-	free(iter); // WARNING :: IS THIS RIGHT ? 
+	if(iter == 0) return;
+	if(iter->_elemPtr != 0 ) {
+		if(iter->_elemPtr->_ref == 0) {
+			iter->destroy(iter->_elemPtr->_value);
+			free(iter->_elemPtr);
+		}
+		else {
+			iter->_elemPtr->_ref--; 
+		}
+	}
+	free(iter); 
 }
 
 
@@ -338,46 +258,32 @@ void SLDestroyIterator(SortedListIteratorPtr iter)
 
 void * SLNextItem(SortedListIteratorPtr iter)
 {
-	if(iter->_elemPtr == NULL || iter->_elemPtr->_next == NULL) // REACHED END OF LIST 
+	if(iter->_elemPtr == NULL || iter->_elemPtr->_next == NULL) 
 	{
 		return NULL ; 	
 	}
-	else // WARNING IS THIS ENOUGH ?  // SHOULD THE ITERATOR DELETING ANYTHING , IF IT ALONE POINTS TO THAT THING ? 
+	else 
 	{
-		// get the data in the iterator 
 		void * res = iter->_elemPtr->_next->_value; 
-		
-		// since the iterator moves to be next element 
-		// the current element will have a reduced number of references
 		iter->_elemPtr->_ref--; 	
-		
-		// now if the reference of the current element has become zero we can delete it , as no other object points to it . 
-		// since the iterator cannot move back we this element is no longer needed .. 
-			
-		Node * tempElemPtr = iter->_elemPtr; 	 // holds a temporary reference to the ele
-
+		Node * tempElemPtr = iter->_elemPtr; 	 
 		if(iter->_elemPtr->_next != NULL)
 		{
 			iter->_elemPtr = iter->_elemPtr->_next;  
-			// since the iter is now pointing to the next element we increase its reference 
-			iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
+			iter->_elemPtr->_ref++;  
 		}
-		else // if the next node is NULL , we make it point to null and do not change the reference  counter
+		else
 		{
 			iter->_elemPtr = NULL;
 		}
-	
-		// If the node the iter pointed to before moving to the next node is orphaned meaning the ref == 0 , then we delete it to save memory // WARNING 
 		if(tempElemPtr->_ref == 0 )
 		{
 			tempElemPtr->_next = NULL ; 	
-			// will require changes in strucutr of itreator to get access to the destructor of void *
-			iter->_sortList->DestructFuncT( tempElemPtr->_value ) ; 	
-
+			iter->destroy( tempElemPtr->_value ) ; 	
 			free(tempElemPtr);
 		}	
 		
-		return res;  // return the element
+		return res;  
 	}
 }
 
@@ -398,126 +304,14 @@ void * SLNextItem(SortedListIteratorPtr iter)
 
 void * SLGetItem( SortedListIteratorPtr iter )
 {
-	if(iter->_elemPtr == NULL) // REACHED END OF LIST 
+	if(iter->_elemPtr == NULL) 
 	{
 		return NULL ; 	
 	}
-	else // WARNING IS THIS ENOUGH ?  // SHOULD THE ITERATOR DELETING ANYTHING , IF IT ALONE POINTS TO THAT THING ? 
+	else 
 	{
-		// get the data in the iterator 
-		void * res = iter->_elemPtr->_value; 
-		
-		// since the iterator moves to be next element 
-		// the current element will have a reduced number of references
-		iter->_elemPtr->_ref--; 	
-		
-		// now if the reference of the current element has become zero we can delete it , as no other object points to it . 
-		// since the iterator cannot move back we this element is no longer needed .. 
-			
-		Node * tempElemPtr = iter->_elemPtr; 	 // holds a temporary reference to the ele
-
-
-		// move the iterator to the next element if it is not null
-		if(iter->_elemPtr->_next != NULL)
-		{
-			iter->_elemPtr = iter->_elemPtr->_next;  
-
-			// since the iter is now pointing to the next element we increase its reference 
-			iter->_elemPtr->_ref++;  // note : elemptr now points to the next element 
-		
-		}
-		else // if the next node is NULL , we make it point to null and do not change the reference  counter
-		{
-			iter->_elemPtr = NULL;
-		}
-		
-
-		// If the node the iter pointed to before moving to the next node is orphaned meaning the ref == 0 , then we delete it to save memory // WARNING 
-		if(tempElemPtr->_ref == 0 )
-		{
-			tempElemPtr->_next = NULL ; 	
-			// will require changes in strucutr of itreator to get access to the destructor of void *
-			iter->_sortList->DestructFuncT( tempElemPtr->_value ) ; 	
-			free(tempElemPtr);
-		}	
-
-	return res;  // return the element
+		return iter->_elemPtr->_value;
 	}		
 		
-	// never reach here 	
 }
 
-
-#include "sorted-list.h"
-#include <stdio.h>
-
-
-int IntCmpFun(void * a , void * b)
-{
-	int *aInt = (int *) a ; 
-	int *bInt = (int *) b ; 
-	if(*aInt < *bInt )
-		return -1;
-	if( *aInt > *bInt)
-		return 1; 	
-	return 0 ; 
-}
-
-void IntDesFun(void * a)
-{
-}
- 
-
-int main(int argc , char ** argv)
-{
-
-
-SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
-  int i = 0;
-  while(i <= 10) {
-    int * newvalue = (int *) malloc (sizeof(int ));
-   *  newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 1;
-  }
-  i =0 ;
-   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int ));
-    * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 1;
-  }
- 
-
-for( i = 100 ; i > 0 ; i-- )
-{
-}
-
-
-
-SortedListIteratorPtr itr = SLCreateIterator(slp);
-
-		
-for( i = 0 ; i < 10 ; i++ )
-{
-	int * temp =  (int *)SLGetItem(itr);
-	printf(" HEX VALUES : %p\n",  temp);
-	if(temp != NULL)
-		printf(" INT VALUES : %d\n",  *temp);
-}
-
-i =0 ;
-   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int ));
-  * newvalue = i;
-    int returnVal = SLRemove(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 1;
-  }
-
-	SLDestroy(slp);
-
-	return 0; 
-}

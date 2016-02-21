@@ -19,7 +19,6 @@ int IntCmpFun(void * a , void * b)
 
 void IntDesFun(void * a)
 {
-	// do nothing 
 }
  
 
@@ -63,27 +62,25 @@ for( i = 0 ; i < 10 ; i++ )
 	if(temp != NULL)
 		printf(" INT VALUES : %d\n",  *temp);
 }
-
 i =0 ;
    while(i < 10) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
     int returnVal = SLRemove(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
+    printf("REMOVE Return value:  %d\n",returnVal);
     i+= 1;
   }
-/*
 SortedListIteratorPtr itr2 = SLCreateIterator(slp);
-
+i =0;
 for( i = 0 ; i < 10 ; i++ )
 {
-	int * temp =  (int *)SLNextItem(itr2);
+	int * temp =  (int *)SLGetItem(itr2);
 	//printf(" NEXT HEX VALUES : %p\n",  temp);
 	if(temp != NULL)
 		printf(" INT VALUES : %d\n",  *temp);
 
 }
-*/
+
 
 //SortedListIteratorPtr itr3 = SLCreateIterator(list);
 //

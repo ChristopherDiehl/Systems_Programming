@@ -11,7 +11,7 @@
  *
  */
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df) {
- SortedListPtr list = malloc(sizeof(struct SortedList));
+ SortedListPtr list = (SortedListPtr)malloc(sizeof(struct SortedList));
  if(list != 0){
 	list->destroy = df;
 	list->compare = cf;
@@ -132,11 +132,9 @@ int SLInsert (SortedListPtr list, void *newObj){
     while(iterNode != 0){ 
       int compareReturn = list->compare(newObj,iterNode->data);
       if(compareReturn == 0) {
-        //return 0 if data is already in list. LIST IS UNIQUE
         return 0;
       }else if(compareReturn == 1) {
         if(iterNode->nextNode == 0){
-          //NEW LASTNODE
           iterNode->nextNode = newNode;
           newNode->prevNode = iterNode;
           list->lastNode = newNode;
@@ -144,20 +142,13 @@ int SLInsert (SortedListPtr list, void *newObj){
         }
         iterNode=iterNode->nextNode;
       }
-
       else if(compareReturn == -1) {
-        //this is where we add firstNodes and middleNodes
-        //if prevNode ==0 then iterNode == firstNode
-        //else we must be adding someone in the middle of the list
         if(iterNode->prevNode == 0) {
-          //need to create new firstNode
           iterNode->prevNode = newNode;
           newNode->nextNode = iterNode;
           list->firstNode = newNode;
           return 1;
-
         } else {
-          //since not a firstNode and not a lastNode then must be somewhere in the middle
           iterNode->prevNode->nextNode = newNode;
           newNode->prevNode = iterNode->prevNode;
           newNode->nextNode = iterNode;
@@ -188,8 +179,6 @@ int SLRemove(SortedListPtr list, void *newObj) {
 	 list->firstNode = head->nextNode;
        
       }else if (head->nextNode == 0){
-	printf("NEW LAST NODE");
-printf("Destroying DATA: %d\n",*(int*)head->data);  
 	list->lastNode = head->prevNode;
       } 
       else {
@@ -216,7 +205,7 @@ void CYCLE(SortedListPtr list) {
   int i = 1;
   printf("FRONT NODE\n"); 
   while(temp != 0) {
-     printf("Node: %d DATA: %d\n",i, *(int *)temp->data);
+     printf("Node: %d DATA: %d\n",i, (char *)temp->data);
      temp=temp->nextNode;
     i++;
   }

@@ -1,52 +1,81 @@
-/*Test.c will check test cases and be used throughout developement */
-#include <stdio.h>
+
 #include "sorted-list.h"
+#include <stdio.h>
 
-int compareint(void * num0, void *num1) {
-  int *compare0 = (int*)num0;
-  int *compare1 = (int*)num1;
-  if(* compare1 > *compare0)
-    return 1;
-  if (*compare1 < *compare0)
+
+int IntCmpFun(void * a , void * b)
+{
+  int *aInt = (int *) a ; 
+  int *bInt = (int *) b ; 
+  if(*aInt < *bInt )
     return -1;
-  return 0;
+  if( *aInt > *bInt)
+    return 1;   
+  return 0 ; 
 }
-void intDestructFunc(void * thingToDestroy){
-  free((int*)thingToDestroy);
+
+void IntDesFun(void * a)
+{
 }
-int main(){
-  int (*compare)(void*,void*);
-  compare = &compareint;
-  void (*destruct)(void *);
-  destruct = &intDestructFunc;
-  SortedListPtr slp = SLCreate(compare,destruct);
+ 
+
+int main(int argc , char ** argv)
+{
+
+
+SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
   int i = 0;
-  while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int *));
-    * newvalue = i;
+  while(i <= 10) {
+    int * newvalue = (int *) malloc (sizeof(int ));
+   *  newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 2;
+    i+= 1;
   }
-  i =1;
-  while(i < 100) {
-    int * newvalue = (int *) malloc (sizeof(int *));
+  i =0 ;
+   while(i < 10) {
+    int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
-    i+= 2;
+    i+= 1;
   }
 
-  CYCLE(slp);
-  i = 0;
-  while(i < 100) {
-    int * newvalue = (int *) malloc (sizeof(int *));
+for( i = 100 ; i > 0 ; i-- )
+{
+}
+
+
+
+SortedListIteratorPtr itr = SLCreateIterator(slp);
+
+    
+for( i = 0 ; i < 10 ; i++ )
+{
+  int * temp =  (int *)SLGetItem(itr);
+  //printf(" HEX VALUES : %p\n",  temp);
+  if(temp != NULL)
+    printf(" INT VALUES : %d\n",  *temp);
+}
+i =0 ;
+   while(i < 10) {
+    int * newvalue = (int *) malloc (sizeof(int ));
+
+    printf("Removing: %d I: %d", *newvalue,i);
     * newvalue = i;
     int returnVal = SLRemove(slp,(void*)newvalue);
-    printf("Removing :  Return value:  %d\n",returnVal);
-    i+= 2;
+    printf("Remove COmpleete; Return value:  %d\n",returnVal);
+    i+= 1;
   }
-  CYCLE(slp);
+  for( i = 0 ; i < 10 ; i++ )
+{
+  int * temp =  (int *)SLGetItem(itr);
+  //printf(" HEX VALUES : %p\n",  temp);
+  if(temp != NULL)
+    printf(" INT VALUES : %d\n",  *temp);
+}
+
   SLDestroy(slp);
-  return 0;
+
+  return 0; 
 }
