@@ -71,7 +71,7 @@ SortedListPtr slp = SLCreate(structCmpFun , structDesFun);
   SLDestroyIterator(itr);
   printf("NEW ITERATOR\n");
   //SLDestroy(slp);
-  SortedListIteratorPtr itr2 = SLCreateIterator(slp);
+  //SortedListIteratorPtr itr2 = SLCreateIterator(slp);
   CYCLE(slp);
   SLDestroy(slp);
   printf("STuff is freed\n");

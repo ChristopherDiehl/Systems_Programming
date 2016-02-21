@@ -40,9 +40,11 @@ void SLDestroy(SortedListPtr list)
 	{
 	    i++;
 		if(list->_llist->_value == 0 || list->_llist == 0)break;
-		list->DestructFuncT(list->_llist->_value);
+
+		
 		Node * toBeDeleted = list->_llist; 
 		if( toBeDeleted->_ref == 0){
+			list->DestructFuncT(list->_llist->_value);
 			free(toBeDeleted);
 		} else {
 			toBeDeleted->_ref--;
@@ -168,29 +170,23 @@ int SLRemove(SortedListPtr list, void *newObj)
 			int cmpVal = list->CompareFuncT(ptr->_value, newObj);
 			if( cmpVal == 0 ) { 		
 				if(prev == NULL) {
-					printf("About to make a ne wfirstNode\n");
-
 					list->_llist = ptr->_next;		
 				}
 				else {
 					prev->_next = ptr->_next; 	
 				}
-				if(ptr->_ref > 0)
-					ptr->_ref--; 
-
 				if(ptr->_ref == 0 ) 
 				{
 					list->DestructFuncT(ptr->_value);	
-
-					printf("About to be destroyed\n");
-					printf("PTR : REF %d VALUE %d",ptr->_ref,*(int *)ptr->_value);
 					free(ptr);
 					return 1; 
 				}
 				else {
-					if(ptr->_next != 0)		
+					if(ptr->_next != 0){
 						ptr->_next->_ref++; 	 
-					return 1; 
+						ptr->_ref--;
+					}		
+ 				return 1; 
 				}
 			}
 			prev = ptr; 

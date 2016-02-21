@@ -97,18 +97,23 @@ for( i = 298; i >= 0 ; i--)
   }
 
 }
-CYCLE(slp);
 SortedListIteratorPtr itr3 = SLCreateIterator(slp);
-CYCLE(slp); 
  int * temp =  (int *)SLGetItem(itr3);
   if(*temp != 299)
     printf("Expected 299, recieved %d\n", *temp);
   void * tempInt = (void *)temp;
   SLRemove(slp,tempInt);
-
-  SLDestroyIterator(itr3);
+  temp =  (int *)SLGetItem(itr3);
+  if(*temp != 299)
+    printf("Expected 299, recieved %d\n", *temp);
+  temp =  (int *)SLNextItem(itr3);
+  if(*temp != 298)
+    printf("Expected 299, recieved %d\n", *temp);
   SLDestroyIterator(itr2);
   SLDestroy(slp);
+  temp =  (int *)SLGetItem(itr3);
+  if(*temp != 298)
+    printf("Expected 298, recieved %d\n", *temp);
   printf("Test 1 is succesfull\n");
 
 	return 0; 
