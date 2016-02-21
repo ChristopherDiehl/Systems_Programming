@@ -76,19 +76,7 @@ SortedListPtr slp = SLCreate(structCmpFun , structDesFun);
   SLDestroy(slp);
   printf("STuff is freed\n");
 
-  temp = SLGetItem(itr2);
-  if(temp != 0)
-   printf(" Value VALUES : %s\n",  temp->value);
 
-      
-  /*while(temp !=0)
-  {
-     temp =  SLNextItem(itr1);
-    //printf(" HEX VALUES : %p\n",  temp);
-    if(temp != NULL)
-      printf(" Value VALUES : %s\n",  temp->value);
-  }*/
-  //SLDestroy(slp);
 
   return 0; 
 }
