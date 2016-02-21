@@ -97,9 +97,10 @@ for( i = 298; i >= 0 ; i--)
   }
 
 }
-
+CYCLE(slp);
 SortedListIteratorPtr itr3 = SLCreateIterator(slp);
-  int * temp =  (int *)SLGetItem(itr3);
+CYCLE(slp); 
+ int * temp =  (int *)SLGetItem(itr3);
   if(*temp != 299)
     printf("Expected 299, recieved %d\n", *temp);
   void * tempInt = (void *)temp;
