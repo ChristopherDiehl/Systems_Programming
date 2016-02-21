@@ -26,67 +26,91 @@ void IntDesFun(void * a)
 int main(int argc , char ** argv)
 {
 
-
+printf("Starting first test -test.c-\n");
 SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
   int i = 0;
-  while(i <= 10) {
+  while(i <= 100) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
+    if(returnVal != 1)
+      printf("Insert not working correctly line 37");
     i+= 1;
   }
+  //test for duplicate handling
   i =0 ;
-   while(i < 10) {
+   while(i < 100) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
     int returnVal = SLInsert(slp,(void*)newvalue);
-    printf("Test is complete. Return value:  %d\n",returnVal);
+    if(returnVal != 0)
+      printf("Duplicate not correct line 46\n");
     i+= 1;
   }
  
 
-for( i = 100 ; i > 0 ; i-- )
+for( i = 200 ; i < 300 ; i++ )
 {
-	//SLRemove(slp,(void *)( &i));
+	 int * newvalue = (int *) malloc (sizeof(int ));
+    * newvalue = i;
+    int returnVal = SLInsert(slp,(void*)newvalue);
+    if(returnVal != 1)
+      printf("Insert not correct line 57\n");
 }
 
+for( i = 101; i < 200; i++ )
+{
+   int * newvalue = (int *) malloc (sizeof(int ));
+    * newvalue = i;
+   int returnVal = SLInsert(slp,(void*)newvalue);
+
+    if(returnVal != 1)
+      printf("Insert middle not correct line 66 %d\n",i);
+}
 
 
 SortedListIteratorPtr itr = SLCreateIterator(slp);
 
-		
-for( i = 0 ; i < 10 ; i++ )
+printf("Starting iterator test .. \n");
+for( i = 298; i >= 0 ; i--)
 {
-	int * temp =  (int *)SLGetItem(itr);
-	printf(" HEX VALUES : %p\n",  temp);
-	if(temp != NULL)
-		printf(" INT VALUES : %d\n",  *temp);
-}
-i =0 ;
-   while(i < 10) {
-    int * newvalue = (int *) malloc (sizeof(int ));
-    * newvalue = i;
-    //int returnVal = SLRemove(slp,(void*)newvalue);
-    //printf("REMOVE Return value:  %d\n",returnVal);
-    i+= 1;
+
+   int * temp =  (int *)SLNextItem(itr);
+  
+
+	if(temp != NULL){
+      if(i != *temp){
+        printf("Error getting list values line 86.\n Expected Return: %d, Return Value: %d\n",i,*temp);
+      }
   }
+
+}
+SLDestroyIterator(itr);
 SortedListIteratorPtr itr2 = SLCreateIterator(slp);
-i =0;
-for( i = 0 ; i < 10 ; i++ )
+for( i = 298; i >= 0 ; i--)
 {
-	int * temp =  (int *)SLGetItem(itr2);
-	//printf(" NEXT HEX VALUES : %p\n",  temp);
-	if(temp != NULL)
-		printf(" INT VALUES : %d\n",  *temp);
+  int * temp =  (int *)SLNextItem(itr2);
+  if(temp != NULL){
+    if(i != *temp){
+      printf("Error getting list values line 96.\n Expected Return: %d, Return Value: %d\n",i,*temp);
+    }
+  }
 
 }
 
+SortedListIteratorPtr itr3 = SLCreateIterator(slp);
+  int * temp =  (int *)SLGetItem(itr3);
+  printf("%d \n", *temp);
+while(SLGetItem(itr3) != 0){
+  temp =  SLNextItem(itr3);
+  if(temp != NULL) {
+    printf("%d \n", *temp);
+  }
+}
 
 
 	SLDestroy(slp);
-  int * temp =  (int *)SLGetItem(itr2);
-    printf(" INT VALUES : %d\n",  *temp);
+
 
 	return 0; 
 }

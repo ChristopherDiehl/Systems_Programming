@@ -320,12 +320,12 @@ void * SLGetItem( SortedListIteratorPtr iter )
 	if(iter==NULL) return NULL;
 	if(iter->_elemPtr == NULL) 
 	{
-		printf("null");
+		//printf("null");
 		return NULL ; 	
 	}
 	else 
 	{
-		printf("Else");
+		//printf("Else");
 		return iter->_elemPtr->_value;
 	}		
 		
