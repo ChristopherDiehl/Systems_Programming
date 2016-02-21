@@ -290,15 +290,6 @@ void * SLNextItem(SortedListIteratorPtr iter)
 		return res;  
 	}
 }
-void CYCLE(SortedListPtr slp){
-	Node * tempNode = slp->_llist;
-	int i =0;
-	while(tempNode != 0){
-		printf("Node: %d Number of iterators : %d\n",i,tempNode->_ref);
-		tempNode = tempNode->_next;
-		i++;
-	}
-}
 
 /*
  * SLGetItem should return a pointer to the current data item
