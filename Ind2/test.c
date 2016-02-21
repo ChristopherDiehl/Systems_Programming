@@ -101,15 +101,19 @@ for( i = 298; i >= 0 ; i--)
 SortedListIteratorPtr itr3 = SLCreateIterator(slp);
   int * temp =  (int *)SLGetItem(itr3);
   printf("%d \n", *temp);
-while(SLGetItem(itr3) != 0){
+while(1){
   temp =  SLNextItem(itr3);
   if(temp != NULL) {
     printf("%d \n", *temp);
+  }else{
+    break;
   }
 }
 
 
 	SLDestroy(slp);
+  SLDestroyIterator(itr3);
+  SLDestroyIterator(itr2);
 
 
 	return 0; 
