@@ -38,6 +38,7 @@ void SLDestroy(SortedListPtr list)
 	while(list->_llist != NULL)
 	{
 		printf("Freeing stuff\n");
+	
 		if(list->_llist->_value == 0 || list->_llist == 0)break;
 		list->DestructFuncT(list->_llist->_value);
 		Node * toBeDeleted = list->_llist; 

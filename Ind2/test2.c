@@ -48,6 +48,8 @@ SortedListPtr slp = SLCreate(structCmpFun , structDesFun);
     newvalue->value[1]='\0';
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
+     returnVal = SLRemove(slp,(void*)newvalue);
+    printf("Remove is complete. Return value:  %d\n",returnVal);
     i+= 1;
   }
   SortedListIteratorPtr itr = SLCreateIterator(slp);
@@ -67,7 +69,7 @@ SortedListPtr slp = SLCreate(structCmpFun , structDesFun);
   printf("NEW ITERATOR\n");
   //SLDestroy(slp);
   SortedListIteratorPtr itr1 = SLCreateIterator(slp);
-  SLDestroy(slp);
+//  SLDestroy(slp);
   temp = SLGetItem(itr1);
   printf(" Value VALUES : %s\n",  temp->value);
 
