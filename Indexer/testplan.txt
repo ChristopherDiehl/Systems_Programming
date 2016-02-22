@@ -1,0 +1,72 @@
+﻿TestCases Plan : Chris Sandeep 
+
+
+For the 1 test within main , we created a struct called alacazam with holds two char * and an int *. We create the struct using a function where 1st char * points to a malloced data of 100 bytes  and the 2nd char * points to 1000 bytes and the int * points to a num used to compare two alacazam structs 
+
+
+Tests : 
+* Insert 1000 elemets in the sorted list of alacazams
+* Again insert 1000 elements to ensure that we handle duplicate properly 
+* Point an iterator at the list 
+* Print out the list using the SLNextItem will be get a null 
+* Destroy the List 
+* See if the iterator still works 
+   * SLGetItem works , but SLNextItems returns NULL and using it leads to segfault
+     -      Try inserting into the List even though it has been destroyed, this does not work 
+     -         Create a new list and insert 10000 elements into it
+     -      Create a new iterator into the new list 
+     -      Remove the top 50 elements from it
+                 -        But since the iterator is still pointing at the first element in the list , we should be  able to print out the first 50 elements , even though it had been removed from the sorted list 
+                 -      Verify that this is the case by printing out first 100 elements using the iterator and checking if the removed 50 items are still present 
+                -         Destroy all the list and all the iterators 
+
+
+For the 2 test within main, we wanted to focus on the design of the list and its ability to handle edge cases. So we used ints to really focus on the logic of the list without getting the logic of the test muddled. Our int tests followed these steps
+
+
+-Create the sortedListPtr
+-try to insert 0 - 100 into list 
+        -handles creating and appending to end of list
+-try to insert 0 -100 into list again
+        -handles duplicate entries
+-try to insert 200 - 300 into list
+        -handles appending to end
+        -we also thought that inserting a large amount of nodes would make any memory errors more likely to appear
+-try to insert 101 -199 into list
+        -handles inserting into middle of list
+-create iterator
+        -go through iterator and confirm values are 0-300
+-destroy iterator & make new iterator
+        -confirm that destroying an iterator doesn’t change any node values
+-create third iterator
+        -get current value
+        -delete current value from list
+        -get current value and confirm that iterator is still pointing at the same value
+        -get nextItem to confirm that the iterator will delete nodes that are ‘removed’ from list
+-destroy list
+        -then getItem of the iterator to confirm that although the list is destroyed the iterator still has one valid node
+-destroy iterator
+        -confirm that the node will be freed if the iterator is the only struct that has a reference to it
+
+
+For the 3 rd test  ,we wanted to do further testing with int 
+* insert 100 element into the list 
+* repeat insertion of previous 100 to ensure proper handling of duplicate items
+* Print out the element using the next item function
+* insert 10000 elements into the list 
+* print out 1000 of them out using SLNextItem fn and check that they are properly ordered
+* create multiple iterators and check to make sure that they are functioning properly.
+
+
+
+
+For the 4th test we wanted to make sure that the list could handle complex data types, so we made a struct that holds a char *. This test focused less on the overall logic of the list because we wanted to determine if the list worked for all void * objects, this was to confirm that the memory aspect of our program was correct. Our struct tests followed these steps:
+
+
+-Create a compare function, by comparing the first char in each char *. Destroy function to free struct and value.
+-Create a charArray with the alphabet
+-Add a letter of the alphabet and a \0 to a char * and then insert it into the list
+-Do that for a-u
+-remove elements of the list
+-confirm that the list indeed works
+-iterated through the list then destroyed iterator and list

@@ -1,10 +1,7 @@
 #include "sorted-list.h"
 #include <stdio.h>
 
-//typedef int (*CompareFuncT)( void *, void * );
-//typedef void (*DestructFuncT)( void * );
-
-
+// TEST 4 struct 
 typedef struct testingStruct_{
   char * value;
 } testingStruct;
@@ -27,7 +24,7 @@ void structDesFun(void * a)
   free(test);
 }
  
-
+// TEST 2 + 3 
 int IntCmpFun(void * a , void * b)
 {
 	int *aInt = (int *) a ; 
@@ -41,11 +38,11 @@ int IntCmpFun(void * a , void * b)
 
 void IntDesFun(void * a)
 {
- free ((int *)a);
+
 }
  
 
-// TEST 3 struct alacazam 
+// TEST 1 struct alacazam 
 typedef struct alacazam_
 {
 	char * valc1 ; // malloced string
@@ -82,7 +79,7 @@ int cmpAlaz(void * alazVA , void * alazVB)
 
 	if(*alazA->valNum < *alazB->valNum)
 		return -1;
-	if(*alazA->valNum < *alazB->valNum)
+	if(*alazA->valNum > *alazB->valNum)
 		return 1;
 	return 0 ; 
 }
@@ -114,16 +111,16 @@ int main(int argc , char ** argv)
 	alacazam * tempAlzc = (alacazam *)SLGetItem(itrAlcz);
 	while(tempAlzc != NULL)
 	{
-		printf(" ALAC %i " , *tempAlzc->valNum);
+	//	printf(" ALAC %i " , *tempAlzc->valNum);
 		tempAlzc = (alacazam *)SLNextItem(itrAlcz);	
 	}
 	
 	SLDestroy(alacazamList);
 	
 	
-//	tempAlzc = (alacazam *)SLNextItem(itrAlcz);	 // points to 
-//	printf(" ALAC %i " , *tempAlzc->valNum);
-
+	tempAlzc = (alacazam *)SLGetItem(itrAlcz);	 // points to 
+	//printf(" ALAC %i " , *tempAlzc->valNum);
+	
 
 	for( i = 0 ; i < 1000 ; ++i) // wont work at alacazamList is destoryed 
 	{
@@ -131,64 +128,103 @@ int main(int argc , char ** argv)
 		SLInsert(alacazamList,(void *)tempCr);
 	}
 
-	alacazamList = SLCreate(cmpAlaz, destroyAlaz);
+	SortedListPtr alacazamList2 = SLCreate(cmpAlaz, destroyAlaz);
+	
+	tempAlzc = (alacazam *)SLGetItem(itrAlcz);	 // points to 
+	//printf(" ALAC %i " , *tempAlzc->valNum);
+	
 
 	for( i = 0 ; i < 10000 ; ++i) // works at alacazam not destoryed
 	{
 		alacazam * tempCr = createAlaz(i);
-		SLInsert(alacazamList,(void *)tempCr);
+		SLInsert(alacazamList2,(void *)tempCr);
 	}
 
 
-	itrAlcz = SLCreateIterator(alacazamList);
-	
-	for( i = 950 ; i < 1005 ; ++i)// remove the first 50 items from list  , but the iterator still points to the first
+	SortedListIteratorPtr itrAlcz2 = SLCreateIterator(alacazamList2);
+	tempAlzc = (alacazam *)SLGetItem(itrAlcz2);	 // points to 
+	printf(" ALAC ITERATOR %i \n" , *tempAlzc->valNum);
+
+	tempAlzc = (alacazam *)SLGetItem(itrAlcz);	 // points to 
+	printf(" ALAC ITERATOR %i \n" , *tempAlzc->valNum);
+
+	for( i = 9999 ; i > 9950 ; --i)// remove the first 50 items from list  , but the iterator still points to the first
 	{
 		alacazam * tempCr = createAlaz(i); // try to remove non existant objects too 
-		SLRemove(alacazamList, (void *) tempCr);
+		int removed = SLRemove(alacazamList2, (void *) tempCr);
 	}
 
-		
+	printf(" ITERATOR 1 \n " ) ; 	
 
-	for( i = 0 ; i < 50 ; ++i)  // see if the iterator still gives the first 50 items 
+	for( i = 0 ; i < 100 ; ++i)  // see if the iterator still gives the first 50 items 
 	{
 	//	tempAlzc = (alacazam *)SLGetItem(itrAlcz);	
 //		printf(" ALAC %i " , *tempAlzc->valNum);
 
-		tempAlzc = (alacazam *)SLNextItem(itrAlcz);	
+		tempAlzc = (alacazam *)SLNextItem(itrAlcz2);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
 	}	
 	
-		tempAlzc = (alacazam *)SLGetItem(itrAlcz);	
+		tempAlzc = (alacazam *)SLGetItem(itrAlcz2);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
 
-		tempAlzc = (alacazam *)SLGetItem(itrAlcz);	
+		tempAlzc = (alacazam *)SLGetItem(itrAlcz2);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
 
-		tempAlzc = (alacazam *)SLGetItem(itrAlcz);	
+		tempAlzc = (alacazam *)SLGetItem(itrAlcz2);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
 
-		tempAlzc = (alacazam *)SLGetItem(itrAlcz);	
+		tempAlzc = (alacazam *)SLGetItem(itrAlcz2);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
 
 
 	printf(" 2 ITERATOR \n" ); 	
-
-	SortedListIteratorPtr itrAlcz2 = SLCreateIterator(alacazamList);
+	
+	SortedListIteratorPtr itrAlcz3 = SLCreateIterator(alacazamList2);
 
 	for( i = 0 ; i < 50 ; ++i)  // see if the iterator still gives the first 50 items 
 	{
-		tempAlzc = (alacazam *)SLNextItem(itrAlcz2);	
+		tempAlzc = (alacazam *)SLNextItem(itrAlcz3);	
 		printf(" ALAC %i " , *tempAlzc->valNum);
-
 	}	
 
-
+	SLDestroy(alacazamList);
+	SLDestroy(alacazamList2);
+	
+	SLDestroyIterator(itrAlcz);
+	SLDestroyIterator(itrAlcz2);
+	SLDestroyIterator(itrAlcz3);
 
 	printf( "ALACAZAM ENDED " ) ; 
 
-	return 0 ; 
+// TEST 2 /////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	// TEST 3  Using INTS
 SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
    i = 0;
   while(i <= 100) {
@@ -208,19 +244,11 @@ SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
   }
  
 
-for( i = 100 ; i > 0 ; i-- )
-{
-	SLRemove(slp,(void *)( &i));
-}
-
-
-
 SortedListIteratorPtr itr = SLCreateIterator(slp);
-
-		
+	
 for( i = 0 ; i < 100 ; i++ )
 {
-	int * temp =  (int *)SLGetItem(itr);
+	int * temp =  (int *)SLNextItem(itr);
 	printf(" HEX VALUES : %p",  temp);
 	if(temp != NULL)
 		printf(" INT VALUES : %d",  *temp);
@@ -302,100 +330,6 @@ SortedListPtr slp3 =  SLCreate(structCmpFun , structDesFun);
   SLDestroyIterator(itr);
   SLDestroy(slp);
   printf("TEST 2 IS SUCCESFULL\n");
-
-
-
-printf("Starting final test\n");
-SortedListPtr slpt1 = SLCreate(IntCmpFun , IntDesFun);
-  int i = 0;
-  while(i <= 100) {
-    int * newvalue2 = (int *) malloc (sizeof(int ));
-    * newvalue2 = i;
-    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
-    if(returnVal2 != 1)
-      printf("Insert not working correctly line 37");
-    i+= 1;
-  }
-  //test for duplicate handling
-  i =0 ;
-   while(i < 100) {
-    int * newvalue2 = (int *) malloc (sizeof(int ));
-    * newvalue2 = i;
-    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
-    if(returnVal2 != 0)
-      printf("Duplicate not correct line 46\n");
-    i+= 1;
-  }
- 
-
-for( i = 200 ; i < 300 ; i++ )
-{
-	 int * newvalue2 = (int *) malloc (sizeof(int ));
-    * newvalue2 = i;
-    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
-    if(returnVal2 != 1)
-      printf("Insert not correct line 57\n");
-}
-
-for( i = 101; i < 200; i++ )
-{
-   int * newvalue2 = (int *) malloc (sizeof(int ));
-    * newvalue2 = i;
-   int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
-
-    if(returnVal2 != 1)
-      printf("Insert middle not correct line 66 %d\n",i);
-}
-
-
-SortedListIteratorPtr itrt = SLCreateIterator(slpt1);
-
-printf("Starting iterator test .. \n");
-for( i = 298; i >= 0 ; i--)
-{
-
-   int * tempt =  (int *)SLNextItem(itrt);
-  
-
-	if(tempt != NULL){
-      if(i != *tempt){
-        printf("Error getting list values line 86.\n Expected Return: %d, Return Value: %d\n",i,*tempt);
-      }
-  }
-
-}
-SLDestroyIterator(itrt);
-SortedListIteratorPtr itrt2 = SLCreateIterator(slpt1);
-for( i = 298; i >= 0 ; i--)
-{
-  int * tempt =  (int *)SLNextItem(itrt2);
-  if(tempt != NULL){
-    if(i != *tempt){
-      printf("Error getting list values line 96.\n Expected Return: %d, Return Value: %d\n",i,*tempt);
-    }
-  }
-
-}
-SortedListIteratorPtr itrt3 = SLCreateIterator(slpt1);
- int * tempt =  (int *)SLGetItem(itrt3);
-  if(*tempt != 299)
-    printf("Expected 299, recieved %d\n", *tempt);
-  void * temptInt = (void *)tempt;
-  SLRemove(slpt1,temptInt);
-  tempt =  (int *)SLGetItem(itrt3);
-  if(*tempt != 299)
-    printf("Expected 299, recieved %d\n", *tempt);
-  tempt =  (int *)SLNextItem(itrt3);
-  if(*tempt != 298)
-    printf("Expected 299, recieved %d\n", *tempt);
-  SLDestroyIterator(itrt2);
-  SLDestroy(slpt1);
-  tempt =  (int *)SLGetItem(itrt3);
-  if(*tempt != 298)
-    printf("Expected 298, recieved %d\n", *tempt);
-  printf("Test is succesfull\n");
-  SLDestroy(itrt3);
-
 
 
 	return 0; 
