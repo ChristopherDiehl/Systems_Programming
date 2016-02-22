@@ -1,6 +1,18 @@
-all: sorted-list.h sorted-list.c
-	gcc -c sorted-list.c
-	gcc -Wall -g -o test1 test.c sorted-list.o
-	gcc -Wall -g -o test2 test2.c sorted-list.o
+CC = gcc
+OBJECTS = main.o sorted-list.o
+CFLAGS = -g -c 
+OUTPUT=sl
+LIB=libsa
+all: $(OUTPUT) $(LIB)
+
+sl: $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@
+
+%.o : %.c
+	$(CC) $(CFLAGS) $<
+
+$(LIB): $(OBJECTS)
+	ar crs $(LIB) sorted-list.o
+
 clean:
-	rm *.c
+	rm $(LIB) $(OUTPUT) $(OBJECTS)

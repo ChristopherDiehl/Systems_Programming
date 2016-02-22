@@ -115,6 +115,6 @@ SortedListIteratorPtr itr3 = SLCreateIterator(slp);
   if(*temp != 298)
     printf("Expected 298, recieved %d\n", *temp);
   printf("Test 1 is succesfull\n");
-
+  SLDestroy(itr3);
 	return 0; 
 }

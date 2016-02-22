@@ -84,7 +84,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 	if(list == 0 || newObj == 0 ) return 0 ; 
 	Node * ptr = list->_llist; 
 	Node * prev = NULL ; 
-	Node * newNode = malloc(sizeof(Node));		
+	Node * newNode = (Node *)malloc(sizeof(Node));		
 	newNode->_value = newObj ; 
 	newNode->_ref = 0;  
 	/*
@@ -177,7 +177,7 @@ int SLRemove(SortedListPtr list, void *newObj)
 				}
 				if(ptr->_ref == 0 ) 
 				{
-					list->DestructFuncT(ptr->_value);	
+		//			list->DestructFuncT(ptr->_value);	 // DO not modify anything for remove 
 					free(ptr);
 					return 1; 
 				}
