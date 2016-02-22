@@ -41,7 +41,7 @@ int IntCmpFun(void * a , void * b)
 
 void IntDesFun(void * a)
 {
-
+ free ((int *)a);
 }
  
 
@@ -302,6 +302,100 @@ SortedListPtr slp3 =  SLCreate(structCmpFun , structDesFun);
   SLDestroyIterator(itr);
   SLDestroy(slp);
   printf("TEST 2 IS SUCCESFULL\n");
+
+
+
+printf("Starting final test\n");
+SortedListPtr slpt1 = SLCreate(IntCmpFun , IntDesFun);
+  int i = 0;
+  while(i <= 100) {
+    int * newvalue2 = (int *) malloc (sizeof(int ));
+    * newvalue2 = i;
+    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
+    if(returnVal2 != 1)
+      printf("Insert not working correctly line 37");
+    i+= 1;
+  }
+  //test for duplicate handling
+  i =0 ;
+   while(i < 100) {
+    int * newvalue2 = (int *) malloc (sizeof(int ));
+    * newvalue2 = i;
+    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
+    if(returnVal2 != 0)
+      printf("Duplicate not correct line 46\n");
+    i+= 1;
+  }
+ 
+
+for( i = 200 ; i < 300 ; i++ )
+{
+	 int * newvalue2 = (int *) malloc (sizeof(int ));
+    * newvalue2 = i;
+    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
+    if(returnVal2 != 1)
+      printf("Insert not correct line 57\n");
+}
+
+for( i = 101; i < 200; i++ )
+{
+   int * newvalue2 = (int *) malloc (sizeof(int ));
+    * newvalue2 = i;
+   int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
+
+    if(returnVal2 != 1)
+      printf("Insert middle not correct line 66 %d\n",i);
+}
+
+
+SortedListIteratorPtr itrt = SLCreateIterator(slpt1);
+
+printf("Starting iterator test .. \n");
+for( i = 298; i >= 0 ; i--)
+{
+
+   int * tempt =  (int *)SLNextItem(itrt);
+  
+
+	if(tempt != NULL){
+      if(i != *tempt){
+        printf("Error getting list values line 86.\n Expected Return: %d, Return Value: %d\n",i,*tempt);
+      }
+  }
+
+}
+SLDestroyIterator(itrt);
+SortedListIteratorPtr itrt2 = SLCreateIterator(slpt1);
+for( i = 298; i >= 0 ; i--)
+{
+  int * tempt =  (int *)SLNextItem(itrt2);
+  if(tempt != NULL){
+    if(i != *tempt){
+      printf("Error getting list values line 96.\n Expected Return: %d, Return Value: %d\n",i,*tempt);
+    }
+  }
+
+}
+SortedListIteratorPtr itrt3 = SLCreateIterator(slpt1);
+ int * tempt =  (int *)SLGetItem(itrt3);
+  if(*tempt != 299)
+    printf("Expected 299, recieved %d\n", *tempt);
+  void * temptInt = (void *)tempt;
+  SLRemove(slpt1,temptInt);
+  tempt =  (int *)SLGetItem(itrt3);
+  if(*tempt != 299)
+    printf("Expected 299, recieved %d\n", *tempt);
+  tempt =  (int *)SLNextItem(itrt3);
+  if(*tempt != 298)
+    printf("Expected 299, recieved %d\n", *tempt);
+  SLDestroyIterator(itrt2);
+  SLDestroy(slpt1);
+  tempt =  (int *)SLGetItem(itrt3);
+  if(*tempt != 298)
+    printf("Expected 298, recieved %d\n", *tempt);
+  printf("Test is succesfull\n");
+  SLDestroy(itrt3);
+
 
 
 	return 0; 
