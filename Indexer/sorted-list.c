@@ -130,10 +130,10 @@ int SLInsert(SortedListPtr list, void *newObj)
 			prev = ptr; 
 			ptr = ptr->_next; 	
 		}	
-
-		newNode->_next = NULL ;
-		list->_llist->_next = newNode; 
-		return 1;
+		free(newNode);
+		//newNode->_next = NULL ;
+		//list->_llist->_next = newNode; 
+		return 0;
 	}
 }
 
