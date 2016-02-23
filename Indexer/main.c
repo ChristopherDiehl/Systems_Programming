@@ -38,7 +38,7 @@ int IntCmpFun(void * a , void * b)
 
 void IntDesFun(void * a)
 {
-
+	free(a);
 }
  
 
@@ -330,7 +330,8 @@ SortedListPtr slp = SLCreate(IntCmpFun , IntDesFun);
    while(i < 100) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
-    int returnVal = SLInsert(slp,(void*)newvalue);
+    printf("VALUE TO BE INSERTED %d",i);
+	int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 1;
   }
@@ -350,6 +351,9 @@ i =0 ;
    while(i < 10000) {
     int * newvalue = (int *) malloc (sizeof(int ));
     * newvalue = i;
+    
+    printf("VALUE TO BE INSERTED %d",i);
+    if(i==197) printf("BREAKME");
     int returnVal = SLInsert(slp,(void*)newvalue);
     printf("Test is complete. Return value:  %d\n",returnVal);
     i+= 1;
