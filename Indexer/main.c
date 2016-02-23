@@ -352,8 +352,8 @@ SortedListPtr slp3 =  SLCreate(structCmpFun , structDesFun);
       i--;      
     }
   }
-  SLDestroyIterator(itr);
-  SLDestroy(slp);
+SLDestroy(slp3);
+SLDestroyIterator(itr4);
   printf("TEST 2 IS SUCCESFULL\n");
 
 
