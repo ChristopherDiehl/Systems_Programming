@@ -46,6 +46,8 @@ int main() {
       printf("Insert not working correctly line 37");
     i+= 2;
   }
+
+SortedListIteratorPtr itrt1 = SLCreateIterator(slpt1);
 SortedListIteratorPtr itrt = SLCreateIterator(slpt1);
 SLDestroy(slpt1);
 printf("Starting iterator test .. \n");
@@ -59,6 +61,19 @@ for( i = 298; i >= 0 ; i--)
    }
   
 
+}
+
+for( i = 298; i >= 0 ; i--)
+{
+   printf("DATA: %d\n",*(int* )SLGetItem(itrt1));
+   int * tempt =  (int *)SLNextItem(itrt1);
+   if(tempt == 0){
+	  // printf("HERE");
+   	   if(SLGetItem(itrt1) ==0){
+		printf("WORKING");
+		break;  
+	}
+   }
 }
 return 0;
 }

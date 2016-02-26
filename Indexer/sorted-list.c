@@ -48,7 +48,7 @@ void SLDestroy(SortedListPtr list)
 			free(toBeDeleted);
 		} else {
 			toBeDeleted->_ref--;
-			//toBeDeleted->_next =0;
+			toBeDeleted->_next =0;
 		}
 		list->_llist = list->_llist->_next;
 
@@ -313,12 +313,10 @@ void * SLGetItem( SortedListIteratorPtr iter )
 	if(iter==NULL) return NULL;
 	if(iter->_elemPtr == NULL) 
 	{
-		printf("null");
 		return NULL ; 	
 	}
 	else 
 	{
-		printf("Else");
 		return iter->_elemPtr->_value;
 	}		
 		
