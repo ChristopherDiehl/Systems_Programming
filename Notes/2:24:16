@@ -1,0 +1,90 @@
+Review:
+cat - dump to screen .. don't stop for anything
+more - holds output at one screenful... can advance by line or by screen
+less - all of more, plus you can scroll up
+| -pipe - redirects stdout to stdin
+> send output to file
+>> appends to file
+kill -9
+ - kill with !
+
+=================
+Files:
+Different IO devices
+
+get file desciptor when trying to access part of device
+-returns a number (used to access device)
+fopen -opens a file
+
+fid = fopen(resource,options..)
+ .. errno
+ .. perror errno
+ .. strerror(errno)
+read(fid,buffer..)
+write(fid,buffer..)
+fclose(fid)
+======================
+Assignment 2 NOTES:
+
+-Need to implement malloc and free
+
+void* <- malloc(volume)
+free(address)
+
+Malloc returns
+-live pointer(succedeed)
+-Null
+-give it an integer (a size)
+-return pointer to that much memory
+
+FREE
+
+
+errcode<-free(address)
+
+ALWAYS INITIALIZE POINTER TO NULL
+-TOTAL MEMORY CAPACITY == 5k
+  - need to take into account bookeeping structs
+
+void * mallocReturn = malloc(sizeof(int)+sizeof(char)+sizeof(float));
+*((int*)odd) =5;
+-to move size of int, cast to int
+((int *) odd)++;
+((char *)odd)++;
+
+basically a struct
+-multiple types in same place
+-we are doing it manually-- not a struct
+
+-note how much memory is used up
+-before each allocation - store the size of the allocation
+-custom struct in linked-list?
+-need to figure out how to specify start
+-need linked list to figure out next request
+-MemEntryStruct
+ -contains sizeOfAllocation (DATA NEEDED BY USER + MEMENTRY STRUCT SIZE)
+ -nextPointer
+ -free (1 if was freed, 0 if not);
+ -typeDef struct,
+ *((mementry)allofmemory) = ..
+ -stuff mementry insto memory chunk
+ -Special code (something that can be used to determine that it is within legal range)
+
+ -EXTRA CREDIT-
+ -sbrk
+
+ FREE
+ -given pointer to data allocated
+ -need to modify the mementry struct
+ -need to move pointer back length of the struct
+ -decrement by length of a memset struct
+ -need to check the pointer is available
+ -STATIC GLOBAL VARIABLES
+ -find address of the base pointer
+ -if pointer - mementry struct within range (then free it)
+ -need to make sure pointer is right before mementry struct
+ -check if spot you went to is mementry struct
+ -if freeing last node, then you can free that shiz completely. Delete memEntry struct and data
+
+-Build linked list in memory we are allocating
+-Pointer return to data user asked for, skips over 

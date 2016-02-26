@@ -1,5 +1,5 @@
 #include "sorted-list.h"
-
+#include <stdio.h>
  /*
   * FORWARD DECLERATION 
   */
@@ -48,6 +48,7 @@ void SLDestroy(SortedListPtr list)
 			free(toBeDeleted);
 		} else {
 			toBeDeleted->_ref--;
+			//toBeDeleted->_next =0;
 		}
 		list->_llist = list->_llist->_next;
 
@@ -261,14 +262,14 @@ void SLDestroyIterator(SortedListIteratorPtr iter)
 
 void * SLNextItem(SortedListIteratorPtr iter)
 {
-	if(iter->_elemPtr == NULL || iter->_elemPtr->_next == NULL) 
+	if(iter->_elemPtr == 0) 
 	{
-		return NULL ; 	
+		printf("0000");
+		return 0 ; 	
 	}
-	else 
+	else if(iter->_elemPtr->_next != 0)
 	{
 		void * res = iter->_elemPtr->_next->_value; 
-		
 		Node * tempElemPtr = iter->_elemPtr; 	 
 		if(iter->_elemPtr->_next != NULL)
 		{
@@ -287,6 +288,9 @@ void * SLNextItem(SortedListIteratorPtr iter)
 		}	
 		tempElemPtr->_ref--; 	
 		return res;  
+	} else{
+		iter->_elemPtr = NULL;
+		return NULL;
 	}
 }
 
@@ -309,12 +313,12 @@ void * SLGetItem( SortedListIteratorPtr iter )
 	if(iter==NULL) return NULL;
 	if(iter->_elemPtr == NULL) 
 	{
-		//printf("null");
+		printf("null");
 		return NULL ; 	
 	}
 	else 
 	{
-		//printf("Else");
+		printf("Else");
 		return iter->_elemPtr->_value;
 	}		
 		
