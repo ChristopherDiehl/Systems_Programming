@@ -75,5 +75,76 @@ for( i = 298; i >= 0 ; i--)
 	}
    }
 }
+SLDestroyIterator(itrt1);
+SLDestroyIterator(itrt);
+
+SortedListPtr slpt = SLCreate(IntCmpFun , IntDesFun);
+i = 1;
+while(i <= 50) {
+    int * newvalue2 = (int *) malloc (sizeof(int ));
+    * newvalue2 = i;
+    int returnVal2 = SLInsert(slpt1,(void*)newvalue2);
+    if(returnVal2 != 1)
+      printf("Insert not working correctly line 37");
+    i+= 1;
+  }
+SortedListIteratorPtr itr = SLCreateIterator(slpt);
+for( i = 298; i >= 0 ; i--)
+{
+   printf("DATA: %d\n",*(int* )SLGetItem(itr));
+   int * tempt =  (int *)SLNextItem(itr);
+   if(tempt == 0){
+     printf("HERE");
+     break;
+   }
+}
+SortedListIteratorPtr itr2 = SLCreateIterator(slpt);
+
+SLRemove(slpt,SLGetItem(itr2));
+SortedListIteratorPtr itr3 = SLCreateIterator(slpt);
+
+for( i = 298; i >= 0 ; i--)
+{
+   printf("DATA: %d\n",*(int* )SLGetItem(itr2));
+   int * tempt =  (int *)SLNextItem(itr2);
+   if(tempt == 0){
+     printf("HERE");
+     break;
+   }
+}
+SortedListIteratorPtr itr4 = SLCreateIterator(slpt);
+SLRemove(slpt,SLGetItem(itr4));
+SLRemove(slpt,SLNextItem(itr4));
+
+for( i = 298; i >= 0 ; i--)
+{
+   printf("DATA: %d\n",*(int* )SLGetItem(itr3));
+   void * data =SLGetItem(itr3);
+   int * tempt =  (int *)SLNextItem(itr3);
+   if(tempt == 0){
+     printf("HERE");
+     SLRemove(slpt,data);
+     break;
+   }
+}
+SortedListIteratorPtr itr5 = SLCreateIterator(slpt);
+
+for( i = 298; i >= 0 ; i--)
+{
+   printf("DATA: %d\n",*(int* )SLGetItem(itr5));
+   void * data =SLGetItem(itr5);
+   int * tempt =  (int *)SLNextItem(itr5);
+   if(tempt == 0){
+     printf("HERE");
+     SLRemove(slpt,data);
+     break;
+   }
+}
+
+
 return 0;
 }
+
+
+
+
