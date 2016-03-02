@@ -1,0 +1,15 @@
+we keep track of the memory allocated or taken up by mymalloc with the static var memAllocated
+
+if the MemEntry gets destroyed then memAllocated gets deleted
+--however if the data is freed but the MemEntry is not destroyed
+-ie MemEntry in middle, and user deleted
+  -memAllocated is not updated because the MemEntry is still in use
+
+-If two freed blocks in a row
+ -get rid of second memStruct and size
+ -add to size in first memStruct the size of a memStruct + size of data stored in second memStruct
+
+
+ When freeing
+ -check if blocks on either side are free
+ -if free then combine them
