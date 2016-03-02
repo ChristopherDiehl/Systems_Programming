@@ -23,7 +23,7 @@
 typedef struct memEntry_ {
   struct memEntry_ * next;
   int free;
-  unsigned int sizeOfData;
+  size_t dataStored;
 } MemEntry;
 
 /*static variables 
@@ -35,16 +35,16 @@ typedef struct memEntry_ {
 static char ALLMEM [5000];
 char * head = ALLMEM;
 static int numOfMallocs = 0;
-static unsigned int memAllocated;
-static unsigned int freeMemEntries; 
+static size_t memAllocated;
+static size_t freeMemEntries; 
 static MemEntry rootMem;
 static SortedListPtr list;
 
 /*actual malloc and free functions*/
-void * mymalloc(size_t size, char * file, int line);
+void * mymalloc(size_t  size, char * file, int line);
 void myfree(void * pointerToFree, char * file, int line);
-void * lookForFreeMem(size_t size);
+void * lookForFreeMem(size_t  size);
 int (*CompareFunct)( void *, void * );
 void (*DestructFunct)( void * );
-
+void appendToList(MemEntry * head, MemEntry * nodeToAdd);
 #endif

@@ -20,7 +20,7 @@ void * mymalloc (size_t size,char * file, int line) {
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
-		construct->memAfterStruct = size;
+		construct->dataStored = size;
 		memAllocated = MEMENTRYSIZE + size;
 	} else {
 		if( (size + memAllocated + MEMENTRYSIZE) > max_size){
@@ -31,7 +31,7 @@ void * mymalloc (size_t size,char * file, int line) {
 			void * lookReturn = lookForFreeMem(size);
 			if(lookReturn != 0){
 				MemEntry * skipAhead= (MemEntry *)lookReturn;
-				lookReturn = (char *)lookReturn+(skipAhead->memAfterStruct);
+				lookReturn = (char *)lookReturn+(skipAhead->dataStored);
 				return (void *) lookReturn;
 			} else {
 				//this and first memEntry are only time a new MemEntry is made
@@ -39,9 +39,9 @@ void * mymalloc (size_t size,char * file, int line) {
 			     MemEntry * construct = (MemEntry *) endOfData;
 			     construct->free =1;
 			     construct->next=0;
-			     construct->memAfterStruct = size;
+			     construct->dataStored = size;
 			     memAllocated = MEMENTRYSIZE + size;
-			     appendToList((MenEntry *)head,construct);
+			     appendToList((MemEntry *)head, construct);
 			}
 		}
 	}
@@ -49,14 +49,40 @@ void * mymalloc (size_t size,char * file, int line) {
 	return returnPtr;
 }
 
+
+/*FREE
+ *First checks if valid pointer
+ *By decrementing pointer by one memEntry struct, we should be able to determine if the pointer is viable
+ * if free != 1 then something is wrong... because the memEntry struct should equal 0. So print error
+ *then checks if in list
+ *if in list, but freed, then skipped over
+ *returns 0 and prints an error message if something fails
+ */
+
+void myfree(void * pointerToFree, char * file, int line) {
+	if(pointerToFree == 0 ){
+		printf("Attempted to free a null pointer");
+		return;
+	}
+	MemEntry * construct = (MemEntry *) pointerToFree -1;
+	if(construct->free != 1){
+		printf("Invalid pointer\n");
+		return;
+	}
+
+
+
+}
+
 /*look for free mem tries to find an already free chunk of memory to place the data into
  *RETURNS THE MemEntry STRUCT
  *THE POINTER NEEDS INCREMENTED TO START OF DATA
  */
-void * lookForFreeMem(size_t size) {
+void * lookForFreeMem(size_t  size) {
 	MemEntry * memEntry = (MemEntry *)head;
 	while(memEntry != 0){
-		if(memEntry->free=0 && memEntry->memAfterStruct == size) {
+		if(memEntry->free=0 && memEntry->dataStored == size) {
+			memEntry->free=1;
 			return (void *) memEntry;
 		}
 	}
