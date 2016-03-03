@@ -5,7 +5,7 @@
 /*
  *Christopher && Sandeep
  * MYMALLOC
- * Smarter Malloc
+ * A Smarter Malloc
  * Gives Errors and stuff
  */
 

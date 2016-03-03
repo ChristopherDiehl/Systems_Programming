@@ -65,9 +65,13 @@ void * mymalloc (size_t size,char * file, int line) {
  */
 
 void myfree(void * pointerToFree, char * file, int line) {
-	if(pointerToFree == 0 || pointerToFree < (void *) head || pointerToFree > (void *)head){
-		printf("Attempted to free a null pointer");
+	if(pointerToFree == 0){
+		printf("Attempted to free a null pointer\n");
 		return;
+	}
+	if ( pointerToFree < (void *) head || pointerToFree > (void *)head)
+	{
+		printf("Attempted to free pointer not allocated by malloc\n");
 	}
 	MemEntry * construct = (MemEntry *) pointerToFree -1;
 	if(construct->free != 1){
@@ -76,7 +80,6 @@ void myfree(void * pointerToFree, char * file, int line) {
 	}else {
 		construct->free =0;
 		defragment(construct);
-
 	}
 
 }
@@ -84,6 +87,8 @@ void myfree(void * pointerToFree, char * file, int line) {
 /*look for free mem tries to find an already free chunk of memory to place the data into
  *RETURNS THE MemEntry STRUCT
  *THE POINTER NEEDS INCREMENTED TO START OF DATA
+ *If no memEntrys found that are the same size as the size requested && memAllocated at capacity
+ *look for any memEntrys that are > then size looking for. Return that.
  */
 void * lookForFreeMem(size_t  size) {
 	MemEntry * memEntry = (MemEntry *)head;
@@ -93,6 +98,16 @@ void * lookForFreeMem(size_t  size) {
 			return (void *) memEntry;
 		}
 	}
+	if(memAllocated == max_size){
+     memEntry = (MemEntry *)head;
+     while(memEntry != 0){
+		if(memEntry->free=0 && memEntry->size > size) {
+			memEntry->free=1;
+			return (void *) memEntry;
+		}
+	 }
+	}
+
 	return 0;
 }
 
@@ -105,7 +120,6 @@ void * lookForFreeMem(size_t  size) {
  */
 void defragment(MemEntry * construct){
 	if(construct->next ==0){
-		construct->free = 0;
 		memAllocated -= (MEMENTRYSIZE+construct->size);
 		tail= construct->prev;
 	} else if(construct->next->free ==0 && construct->prev->free ==0){
