@@ -22,6 +22,7 @@
  */
 typedef struct memEntry_ {
   struct memEntry_ * next;
+  struct memEntry_ * prev;
   int free;
   size_t dataStored;
 } MemEntry;
@@ -37,8 +38,7 @@ char * head = ALLMEM;
 static int numOfMallocs = 0;
 static size_t memAllocated;
 static size_t freeMemEntries; 
-static MemEntry rootMem;
-static SortedListPtr list;
+static MemEntry * tail;
 
 /*actual malloc and free functions*/
 void * mymalloc(size_t  size, char * file, int line);
@@ -46,5 +46,5 @@ void myfree(void * pointerToFree, char * file, int line);
 void * lookForFreeMem(size_t  size);
 int (*CompareFunct)( void *, void * );
 void (*DestructFunct)( void * );
-void appendToList(MemEntry * head, MemEntry * nodeToAdd);
+void defragment(MemEntry * construct);
 #endif

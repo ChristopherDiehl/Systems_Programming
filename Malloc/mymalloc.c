@@ -21,6 +21,7 @@ void * mymalloc (size_t size,char * file, int line) {
 		construct->free =1;
 		construct->next =0;
 		construct->dataStored = size;
+		tail = construct;
 		memAllocated = MEMENTRYSIZE + size;
 	} else {
 		if( (size + memAllocated + MEMENTRYSIZE) > max_size){
@@ -38,10 +39,12 @@ void * mymalloc (size_t size,char * file, int line) {
 			     char * endOfData = head+memAllocated;
 			     MemEntry * construct = (MemEntry *) endOfData;
 			     construct->free =1;
-			     construct->next=0;
 			     construct->dataStored = size;
-			     memAllocated = MEMENTRYSIZE + size;
-			     appendToList((MemEntry *)head, construct);
+			     construct->next=0;
+			     tail->next = construct;
+			     construct->prev = tail;
+			     tail = construct;
+			     memAllocated += (MEMENTRYSIZE + size);
 			}
 		}
 	}
@@ -60,7 +63,7 @@ void * mymalloc (size_t size,char * file, int line) {
  */
 
 void myfree(void * pointerToFree, char * file, int line) {
-	if(pointerToFree == 0 ){
+	if(pointerToFree == 0 || pointerToFree < (void *) head || pointerToFree > (void *)head){
 		printf("Attempted to free a null pointer");
 		return;
 	}
@@ -68,9 +71,11 @@ void myfree(void * pointerToFree, char * file, int line) {
 	if(construct->free != 1){
 		printf("Invalid pointer\n");
 		return;
+	}else {
+		construct->free =0;
+		defragment(construct);
+
 	}
-
-
 
 }
 
@@ -89,14 +94,13 @@ void * lookForFreeMem(size_t  size) {
 	return 0;
 }
 
-/*book keeps the memEntry next, appends the back
- *At most O(n) iterations
-*/
-void appendToList(MemEntry * head, MemEntry * nodeToAdd){
-	MemEntry * prev;
-	while (head != 0){
-		head = head->next;
-		prev = head;
-	}
-	prev->next = nodeToAdd;
+/*defragment handles fragmentation
+ *4 cases
+ *1)node->next ==0 then freeing last node, can be deleted
+ *2)next node is freed
+ *3)prev node is freed
+ *4) prev and next node are already freed
+ */
+void defgrament(MemEntry * construct){
+
 }

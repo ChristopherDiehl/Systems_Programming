@@ -13,3 +13,6 @@ if the MemEntry gets destroyed then memAllocated gets deleted
  When freeing
  -check if blocks on either side are free
  -if free then combine them
+
+Basically add new MemEntrys to end of list
+-this allows us to add on to the end
