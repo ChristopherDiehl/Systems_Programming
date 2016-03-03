@@ -24,7 +24,7 @@ typedef struct memEntry_ {
   struct memEntry_ * next;
   struct memEntry_ * prev;
   int free;
-  size_t dataStored;
+  size_t size;
 } MemEntry;
 
 /*static variables 

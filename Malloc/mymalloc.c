@@ -20,8 +20,9 @@ void * mymalloc (size_t size,char * file, int line) {
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
-		construct->dataStored = size;
+		construct->size = size;
 		tail = construct;
+		numOfMallocs++;
 		memAllocated = MEMENTRYSIZE + size;
 	} else {
 		if( (size + memAllocated + MEMENTRYSIZE) > max_size){
@@ -32,19 +33,20 @@ void * mymalloc (size_t size,char * file, int line) {
 			void * lookReturn = lookForFreeMem(size);
 			if(lookReturn != 0){
 				MemEntry * skipAhead= (MemEntry *)lookReturn;
-				lookReturn = (char *)lookReturn+(skipAhead->dataStored);
+				lookReturn = (char *)lookReturn+(skipAhead->size);
 				return (void *) lookReturn;
 			} else {
 				//this and first memEntry are only time a new MemEntry is made
 			     char * endOfData = head+memAllocated;
 			     MemEntry * construct = (MemEntry *) endOfData;
 			     construct->free =1;
-			     construct->dataStored = size;
+			     construct->size = size;
 			     construct->next=0;
 			     tail->next = construct;
 			     construct->prev = tail;
 			     tail = construct;
 			     memAllocated += (MEMENTRYSIZE + size);
+			     numOfMallocs++;
 			}
 		}
 	}
@@ -86,7 +88,7 @@ void myfree(void * pointerToFree, char * file, int line) {
 void * lookForFreeMem(size_t  size) {
 	MemEntry * memEntry = (MemEntry *)head;
 	while(memEntry != 0){
-		if(memEntry->free=0 && memEntry->dataStored == size) {
+		if(memEntry->free=0 && memEntry->size == size) {
 			memEntry->free=1;
 			return (void *) memEntry;
 		}
@@ -101,6 +103,22 @@ void * lookForFreeMem(size_t  size) {
  *3)prev node is freed
  *4) prev and next node are already freed
  */
-void defgrament(MemEntry * construct){
-
+void defragment(MemEntry * construct){
+	if(construct->next ==0){
+		construct->free = 0;
+		memAllocated -= (MEMENTRYSIZE+construct->size);
+		tail= construct->prev;
+	} else if(construct->next->free ==0 && construct->prev->free ==0){
+		MemEntry * root = construct->prev;
+		size_t sizeToAddToRoot = construct->next->size + (2 * MEMENTRYSIZE)+construct->size;
+		root->next = construct->next->next;
+		root->next->prev = root;
+		root->size += sizeToAddToRoot;
+	} else if(construct->next->free ==0){
+		construct->size += (construct->next->size +MEMENTRYSIZE);
+		construct->next = construct->next->next;
+		construct->next->prev = construct;
+	} else if(construct->prev->free ==0){
+		defragment(construct->prev);
+	}
 }
