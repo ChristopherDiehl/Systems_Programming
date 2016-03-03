@@ -33,12 +33,7 @@ typedef struct memEntry_ {
  *freeMemEntrys keeps track of how many memEntries are freed
  *if == 0 then no need to look for free memEntries with size == size needed by user
 */
-static char ALLMEM [5000];
-char * head = ALLMEM;
-static int numOfMallocs = 0;
-static size_t memAllocated;
-static size_t freeMemEntries; 
-static MemEntry * tail;
+
 
 /*actual malloc and free functions*/
 void * mymalloc(size_t  size, char * file, int line);

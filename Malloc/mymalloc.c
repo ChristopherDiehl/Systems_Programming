@@ -5,9 +5,17 @@
 #define max_size 5000
 
 
-/*
- *head is a pointer for the memory
- */
+
+/*Static Variables*/
+static char ALLMEM [5000];
+char * head = ALLMEM;
+static int numOfMallocs = 0;
+static size_t memAllocated;
+static size_t freeMemEntries; 
+static MemEntry * tail;
+
+
+
 void * mymalloc (size_t size,char * file, int line) {
 
 	//checks is user asks for too much space
@@ -72,6 +80,7 @@ void myfree(void * pointerToFree, char * file, int line) {
 	if ( pointerToFree < (void *) head || pointerToFree > (void *)head)
 	{
 		printf("Attempted to free pointer not allocated by malloc\n");
+		return;
 	}
 	MemEntry * construct = (MemEntry *) pointerToFree -1;
 	if(construct->free != 1){
@@ -93,7 +102,7 @@ void myfree(void * pointerToFree, char * file, int line) {
 void * lookForFreeMem(size_t  size) {
 	MemEntry * memEntry = (MemEntry *)head;
 	while(memEntry != 0){
-		if(memEntry->free=0 && memEntry->size == size) {
+		if((memEntry->free=0) && (memEntry->size == size)) {
 			memEntry->free=1;
 			return (void *) memEntry;
 		}
@@ -101,7 +110,7 @@ void * lookForFreeMem(size_t  size) {
 	if(memAllocated == max_size){
      memEntry = (MemEntry *)head;
      while(memEntry != 0){
-		if(memEntry->free=0 && memEntry->size > size) {
+	  if((memEntry->free=0) && (memEntry->size > size)) {
 			memEntry->free=1;
 			return (void *) memEntry;
 		}
