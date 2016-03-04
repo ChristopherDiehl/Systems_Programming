@@ -19,5 +19,6 @@ int main( ) {
    printf( "data.str : %s\n", data.str);
    char * c = 4;
    printf("%c\n",*c );
+
    return 0;
 }

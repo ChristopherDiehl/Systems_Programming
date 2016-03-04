@@ -23,8 +23,15 @@ void * mymalloc (size_t size,char * file, int line) {
 		printf("Insufficient space available. Asked for in %s Line %d",file,line);
 		return 0;
 	}
+	printf("Current space: %d\n",memAllocated);
+	printf("Space taken by MemEntry: %d\n",MEMENTRYSIZE);
+	printf("User asking for: %d\n",size);
+
+
+	printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
 	//first time malloc called
 	if(numOfMallocs ==0) {
+		printf("called once");
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
@@ -33,30 +40,35 @@ void * mymalloc (size_t size,char * file, int line) {
 		numOfMallocs++;
 		memAllocated = MEMENTRYSIZE + size;
 	} else {
+		//printf("Current space: %d\n",memAllocated);
+		//printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
 		if( (size + memAllocated + MEMENTRYSIZE) > max_size){
 			printf("Insufficient space available. Asked for in %s Line %d",file,line);
 			return 0;
 		}
 		if(freeMemEntries>0){
+			//there are free memEntries.. look and see if any fit the bill
 			void * lookReturn = lookForFreeMem(size);
 			if(lookReturn != 0){
 				MemEntry * skipAhead= (MemEntry *)lookReturn;
 				lookReturn = (char *)lookReturn+(skipAhead->size);
 				return (void *) lookReturn;
-			} else {
-				//this and first memEntry are only time a new MemEntry is made
-			     char * endOfData = head+memAllocated;
-			     MemEntry * construct = (MemEntry *) endOfData;
-			     construct->free =1;
-			     construct->size = size;
-			     construct->next=0;
-			     tail->next = construct;
-			     construct->prev = tail;
-			     tail = construct;
-			     memAllocated += (MEMENTRYSIZE + size);
-			     numOfMallocs++;
-			}
+			} 
 		}
+		else {
+			//this and first memEntry are only time a new MemEntry is made
+		     char * endOfData = head+memAllocated;
+		     MemEntry * construct = (MemEntry *) endOfData;
+		     construct->free =1;
+		     construct->size = size;
+		     construct->next=0;
+		     tail->next = construct;
+		     construct->prev = tail;
+		     tail = construct;
+		     memAllocated = (memAllocated +MEMENTRYSIZE + size);
+		     numOfMallocs++;
+		     printf("LEAVING ELSE\n");
+			}
 	}
 	void * returnPtr = head+(memAllocated-size);
 	return returnPtr;
@@ -77,8 +89,9 @@ void myfree(void * pointerToFree, char * file, int line) {
 		printf("Attempted to free a null pointer\n");
 		return;
 	}
-	if ( pointerToFree < (void *) head || pointerToFree > (void *)head)
+	if ( pointerToFree < (void *) head || pointerToFree > ((void *)head+max_size))
 	{
+
 		printf("Attempted to free pointer not allocated by malloc\n");
 		return;
 	}

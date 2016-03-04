@@ -23,12 +23,15 @@ int main() {
 	printf("%f\n",data.val);
 	printf("%ld\n",data.val2);
 
-	char cs = '5';
+	//char * cs = &'5';
 	//int * p = 5;
+	//float * p1 = &a;
+	int * p2 = &b;
 	int myarray[5];
 	myarray[1]=5;
 	int * mypointer = myarray;
 	mypointer++;
-	printf("%d\n",*mypointer );
+	printf("%d\n",*p2);
+	return 0;
 //	printf("\n%c, %d",cs,p);
 }
