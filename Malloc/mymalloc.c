@@ -20,7 +20,7 @@ void * mymalloc (size_t size,char * file, int line) {
 
 	//checks is user asks for too much space
 	if(size > (max_size+MEMENTRYSIZE)|| size <= 0){
-		printf("Insufficient space available. Asked for in %s Line %d",file,line);
+		printf("Insufficient space available. Asked for in %s Line %d\n",file,line);
 		return 0;
 	}
 	printf("Current space: %d\n",memAllocated);
@@ -29,12 +29,14 @@ void * mymalloc (size_t size,char * file, int line) {
 
 
 	printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
+		printList((MemEntry *) head);
+	
 	//first time malloc called
 	if(numOfMallocs ==0) {
-		printf("called once");
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
+		construct->prev =0;
 		construct->size = size;
 		tail = construct;
 		numOfMallocs++;
@@ -43,7 +45,7 @@ void * mymalloc (size_t size,char * file, int line) {
 		//printf("Current space: %d\n",memAllocated);
 		//printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
 		if( (size + memAllocated + MEMENTRYSIZE) > max_size){
-			printf("Insufficient space available. Asked for in %s Line %d",file,line);
+			printf("Insufficient space available. Asked for in %s Line %d\n",file,line);
 			return 0;
 		}
 		if(freeMemEntries>0){
@@ -67,7 +69,6 @@ void * mymalloc (size_t size,char * file, int line) {
 		     tail = construct;
 		     memAllocated = (memAllocated +MEMENTRYSIZE + size);
 		     numOfMallocs++;
-		     printf("LEAVING ELSE\n");
 			}
 	}
 	void * returnPtr = head+(memAllocated-size);
@@ -100,6 +101,7 @@ void myfree(void * pointerToFree, char * file, int line) {
 		printf("Invalid pointer\n");
 		return;
 	}else {
+		printList((MemEntry *) head);
 		construct->free =0;
 		defragment(construct);
 	}
@@ -142,19 +144,33 @@ void * lookForFreeMem(size_t  size) {
  */
 void defragment(MemEntry * construct){
 	if(construct->next ==0){
-		memAllocated -= (MEMENTRYSIZE+construct->size);
+		printf("DELETING TAIL");
+		memAllocated = (memAllocated-(MEMENTRYSIZE+construct->size));
 		tail= construct->prev;
-	} else if(construct->next->free ==0 && construct->prev->free ==0){
+	} else if(construct->next->free ==0 && construct->prev != 0 && construct->prev->free ==0){
 		MemEntry * root = construct->prev;
 		size_t sizeToAddToRoot = construct->next->size + (2 * MEMENTRYSIZE)+construct->size;
 		root->next = construct->next->next;
-		root->next->prev = root;
+		if(root->next->prev != 0)
+			root->next->prev = root;
 		root->size += sizeToAddToRoot;
 	} else if(construct->next->free ==0){
 		construct->size += (construct->next->size +MEMENTRYSIZE);
 		construct->next = construct->next->next;
-		construct->next->prev = construct;
-	} else if(construct->prev->free ==0){
+		if(construct->next->prev != 0)
+			construct->next->prev = construct;
+	} else if(construct->prev != 0 && construct->prev->free ==0){
 		defragment(construct->prev);
 	}
+}
+
+void printList (MemEntry * construct)
+{
+	int i = 0;
+	while(construct!=0){
+		printf("ENTRY %d SIZE: %d\n", i, construct->size );
+		construct = construct->next;
+		i++;
+	}
+	printf("END PRINT LIST");
 }

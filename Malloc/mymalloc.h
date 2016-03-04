@@ -39,7 +39,6 @@ typedef struct memEntry_ {
 void * mymalloc(size_t  size, char * file, int line);
 void myfree(void * pointerToFree, char * file, int line);
 void * lookForFreeMem(size_t  size);
-int (*CompareFunct)( void *, void * );
-void (*DestructFunct)( void * );
 void defragment(MemEntry * construct);
+void printList (MemEntry * construct);
 #endif
