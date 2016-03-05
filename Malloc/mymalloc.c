@@ -71,6 +71,7 @@ void * mymalloc (size_t size,char * file, int line) {
 		     numOfMallocs++;
 			}
 	}
+	printFromTail(tail);
 	void * returnPtr = head+(memAllocated-size);
 	return returnPtr;
 }
@@ -86,6 +87,9 @@ void * mymalloc (size_t size,char * file, int line) {
  */
 
 void myfree(void * pointerToFree, char * file, int line) {
+	printf("TRYING TO FREE\n");
+	printf("LIST:\n");
+	printFromTail(tail);
 	if(pointerToFree == 0){
 		printf("Attempted to free a null pointer\n");
 		return;
@@ -141,36 +145,78 @@ void * lookForFreeMem(size_t  size) {
  *2)next node is freed
  *3)prev node is freed
  *4) prev and next node are already freed
+ * NEED TO DECREASE MEMALLOCATED IF CONSTRUCT->NEXT ==0 BECAUSE END NODE
  */
 void defragment(MemEntry * construct){
-	if(construct->next ==0){
-		printf("DELETING TAIL");
-		memAllocated = (memAllocated-(MEMENTRYSIZE+construct->size));
-		tail= construct->prev;
-	} else if(construct->next->free ==0 && construct->prev != 0 && construct->prev->free ==0){
-		MemEntry * root = construct->prev;
-		size_t sizeToAddToRoot = construct->next->size + (2 * MEMENTRYSIZE)+construct->size;
-		root->next = construct->next->next;
-		if(root->next->prev != 0)
-			root->next->prev = root;
-		root->size += sizeToAddToRoot;
-	} else if(construct->next->free ==0){
-		construct->size += (construct->next->size +MEMENTRYSIZE);
+
+	if(construct->next != 0 && construct->next->free ==0 && construct->prev != 0 && construct->prev->free == 0) {
+		printf("First if\n");
+		construct->size += (construct->next->size+MEMENTRYSIZE);
 		construct->next = construct->next->next;
-		if(construct->next->prev != 0)
+		if(construct->next != 0){ //if == 0 then construct is new tail node and  can be deleted
 			construct->next->prev = construct;
-	} else if(construct->prev != 0 && construct->prev->free ==0){
-		defragment(construct->prev);
+
+		} else {
+			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
+			if(construct->prev != 0)
+				construct->prev->next = 0;
+		}
+		construct->size += (construct->prev->size + MEMENTRYSIZE);
+		construct->prev=construct->prev->prev;
+		if(construct->prev != 0) //construct is new head
+			construct->prev->next = construct;
 	}
+	else if (construct->next != 0 && construct->next->free == 0){
+		printf("Second  if\n");
+
+		construct->size += (construct->next->size + MEMENTRYSIZE);
+		construct->next = construct->next->next;
+		if(construct->next != 0){
+			construct->next->prev = construct;
+		} else {
+			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
+			if(construct->prev != 0)
+				construct->prev->next = 0;
+		}
+
+	} else if(construct->prev != 0 && construct->prev->free ==0){
+		printf("Third if\n");
+
+		construct->size += (construct->prev->size +MEMENTRYSIZE);
+		construct->prev = construct->prev->prev;
+		if(construct->prev != 0){
+			construct->prev->next = construct;
+		}
+		if(construct->next == 0){ // then construct is tail node and can be deleted
+			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
+			if(construct->prev != 0)
+				construct->prev->next = 0;
+		}
+	} 
 }
 
 void printList (MemEntry * construct)
 {
 	int i = 0;
 	while(construct!=0){
-		printf("ENTRY %d SIZE: %d\n", i, construct->size );
+		printf("ENTRY %d SIZE: %d  Free:%d\n", i, construct->size, construct->free );
 		construct = construct->next;
 		i++;
 	}
-	printf("END PRINT LIST");
+	printf("END PRINT LIST\n");
+}
+
+void printFromTail ()
+{
+	printf("MemAllocated %d\n",memAllocated);
+	if(tail == 0)
+		return;
+	MemEntry * construct = tail;
+	int i = 0;
+	while(construct!=0){
+		printf("ENTRY %d SIZE: %d  Free:%d\n", i, construct->size, construct->free );
+		construct = construct->prev;
+		i++;
+	}
+	printf("END PRINT LIST\n");
 }

@@ -41,4 +41,5 @@ void myfree(void * pointerToFree, char * file, int line);
 void * lookForFreeMem(size_t  size);
 void defragment(MemEntry * construct);
 void printList (MemEntry * construct);
+void printFromTail ();
 #endif
