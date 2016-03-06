@@ -9,8 +9,7 @@
 /*Static Variables*/
 static char ALLMEM [5000];
 char * head = ALLMEM;
-static int numOfMallocs = 0;
-static size_t memAllocated;
+static size_t memAllocated = 0;
 static size_t freeMemEntries; 
 static MemEntry * tail;
 
@@ -32,14 +31,13 @@ void * mymalloc (size_t size,char * file, int line) {
 		printList((MemEntry *) head);
 	
 	//first time malloc called
-	if(numOfMallocs ==0) {
+	if(memAllocated ==0) {
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
 		construct->prev =0;
 		construct->size = size;
 		tail = construct;
-		numOfMallocs++;
 		memAllocated = MEMENTRYSIZE + size;
 	} else {
 		//printf("Current space: %d\n",memAllocated);
@@ -68,7 +66,6 @@ void * mymalloc (size_t size,char * file, int line) {
 		     construct->prev = tail;
 		     tail = construct;
 		     memAllocated = (memAllocated +MEMENTRYSIZE + size);
-		     numOfMallocs++;
 			}
 	}
 	printFromTail(tail);
@@ -105,7 +102,6 @@ void myfree(void * pointerToFree, char * file, int line) {
 		printf("Invalid pointer\n");
 		return;
 	}else {
-		printList((MemEntry *) head);
 		construct->free =0;
 		defragment(construct);
 	}
@@ -148,9 +144,9 @@ void * lookForFreeMem(size_t  size) {
  * NEED TO DECREASE MEMALLOCATED IF CONSTRUCT->NEXT ==0 BECAUSE END NODE
  */
 void defragment(MemEntry * construct){
+	printf("DEFRAG MemAllocated %d\n",memAllocated);
 
 	if(construct->next != 0 && construct->next->free ==0 && construct->prev != 0 && construct->prev->free == 0) {
-		printf("First if\n");
 		construct->size += (construct->next->size+MEMENTRYSIZE);
 		construct->next = construct->next->next;
 		if(construct->next != 0){ //if == 0 then construct is new tail node and  can be deleted
@@ -167,20 +163,19 @@ void defragment(MemEntry * construct){
 			construct->prev->next = construct;
 	}
 	else if (construct->next != 0 && construct->next->free == 0){
-		printf("Second  if\n");
 
 		construct->size += (construct->next->size + MEMENTRYSIZE);
 		construct->next = construct->next->next;
 		if(construct->next != 0){
 			construct->next->prev = construct;
 		} else {
+			tail = construct->prev;
 			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
 			if(construct->prev != 0)
 				construct->prev->next = 0;
 		}
 
 	} else if(construct->prev != 0 && construct->prev->free ==0){
-		printf("Third if\n");
 
 		construct->size += (construct->prev->size +MEMENTRYSIZE);
 		construct->prev = construct->prev->prev;
@@ -188,10 +183,16 @@ void defragment(MemEntry * construct){
 			construct->prev->next = construct;
 		}
 		if(construct->next == 0){ // then construct is tail node and can be deleted
+			tail = construct->prev;
 			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
 			if(construct->prev != 0)
 				construct->prev->next = 0;
 		}
+	} else if(construct->next ==0 ){
+		tail = construct->prev;
+		if(tail != 0)
+			tail->next = 0;
+		memAllocated= memAllocated- (construct->size +MEMENTRYSIZE);
 	} 
 }
 
