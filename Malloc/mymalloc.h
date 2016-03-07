@@ -1,7 +1,7 @@
 #ifndef MY_MALLOC_H
 #define MY_MALLOC_H
-#include "sorted-list.h"
 #include <stdlib.h>
+#include <stdio.h>
 /*
  *Christopher && Sandeep
  * MYMALLOC
