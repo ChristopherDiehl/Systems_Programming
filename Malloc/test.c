@@ -211,5 +211,17 @@ int main(int argc, char*argv[]){
         free(x); 
         printFromTail();       
     }
+    else if(casenum == 12){
+        //   10.  A trickier set of malloc's and free's.
+        int *x;
+        int *y;
+        printf("\tTA: Mallocing pointer\n");
+        x = malloc(sizeof(int));
+        printf("\tTA: Mallocing pointer\n");
+        y = malloc(4*sizeof(int));
+        free(x);
+        free(y); 
+        printFromTail();       
+    }
     return 0;
 }
