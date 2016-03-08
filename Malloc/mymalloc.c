@@ -4,7 +4,8 @@
 #define MEMENTRYSIZE sizeof(MemEntry)
 #define max_size 5000
 
-
+//need to 'slice' mementries if user asked for less than a free one
+//check if have option to make one free mementry into 2
 
 /*Static Variables*/
 static char ALLMEM [5000];
@@ -89,7 +90,7 @@ void * mymalloc (size_t size,char * file, int line) {
  * if free != 1 then something is wrong... because the memEntry struct should equal 0. So print error
  *then checks if in list
  *if in list, but freed, then skipped over
- *returns 0 and prints an error message if something fails
+ *prints an error message if something fails
  */
 
 void myfree(void * pointerToFree, char * file, int line) {

@@ -225,7 +225,29 @@ int main(int argc, char*argv[]){
         //shouldn't break
         int *x = malloc(sizeof(int));
         free((MemEntry*)x-1);
-        printf("Done");
+        printf("attempting to free\n");
+        free(x);
+        printf("Done\n");
+    } else if (casenum==14) {
+        int *x = malloc(sizeof(int) *14);
+        int *y = malloc(sizeof(int));
+        int *j = malloc(sizeof(int) *2);
+        int *i = malloc(sizeof(int) *4);
+        int *z = malloc(sizeof(int) *3);
+        free(j);
+        printFromTail();
+        free(z);
+        printFromTail();
+        free(x);
+        printFromTail();
+        free(y);
+        free(x);
+        free(z);
+        free(i);
+        printFromTail();
+
+
+
     }
     return 0;
 }
