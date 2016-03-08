@@ -209,7 +209,6 @@ int main(int argc, char*argv[]){
         y = malloc(4*sizeof(int));
         free(y);
         free(x); 
-        printFromTail();       
     }
     else if(casenum == 12){
         //   10.  A trickier set of malloc's and free's.
@@ -221,7 +220,12 @@ int main(int argc, char*argv[]){
         y = malloc(4*sizeof(int));
         free(x);
         free(y); 
-        printFromTail();       
+    } else if(casenum == 13) {
+        //check if data from head - mementry can be free
+        //shouldn't break
+        int *x = malloc(sizeof(int));
+        free((MemEntry*)x-1);
+        printf("Done");
     }
     return 0;
 }

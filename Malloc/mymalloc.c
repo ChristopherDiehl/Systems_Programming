@@ -18,24 +18,33 @@ static MemEntry * tail;
 void * mymalloc (size_t size,char * file, int line) {
 
 	//checks is user asks for too much space
-	if(size > (max_size+MEMENTRYSIZE)|| size <= 0){
+	if(size<=0) {
+		printf("Please ask for a valid amount of data\n");
+		return 0;
+	} else if(size > (max_size+MEMENTRYSIZE) && freeMemEntries == 0){
 		printf("Insufficient space available. Asked for in %s Line %d\n",file,line);
 		return 0;
+	} else if(freeMemEntries > 0){
+		void * lookReturn = lookForFreeMem(size);
+			if(lookReturn != 0){
+				MemEntry * skipAhead= (MemEntry *)lookReturn;
+				lookReturn = (char *)lookReturn+(skipAhead->size);
+				return (void *) lookReturn;
+			} else{
+				printf("Not enough memory avaialble");
+			}
 	}
-	printf("Current space: %d\n",memAllocated);
-	printf("Space taken by MemEntry: %d\n",MEMENTRYSIZE);
-	printf("User asking for: %d\n",size);
-
-
-	printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
-		printList((MemEntry *) head);
-	
+	//printf("Current space: %d\n",memAllocated);
+	//printf("Space taken by MemEntry: %d\n",MEMENTRYSIZE);
+	//printf("User asking for: %d\n",size);
+	//printf("Space taken after storage: %d\n",(size + memAllocated + MEMENTRYSIZE));
 	//first time malloc called
 	if(memAllocated ==0) {
 		MemEntry * construct =(MemEntry *)head;
 		construct->free =1;
 		construct->next =0;
 		construct->prev =0;
+		construct->code =CODE;
 		construct->size = size;
 		tail = construct;
 		memAllocated = MEMENTRYSIZE + size;
@@ -62,13 +71,13 @@ void * mymalloc (size_t size,char * file, int line) {
 		     construct->free =1;
 		     construct->size = size;
 		     construct->next=0;
+		     construct->code=CODE;
 		     tail->next = construct;
 		     construct->prev = tail;
 		     tail = construct;
 		     memAllocated = (memAllocated +MEMENTRYSIZE + size);
 			}
 	}
-	printFromTail(tail);
 	void * returnPtr = head+(memAllocated-size);
 	return returnPtr;
 }
@@ -84,21 +93,17 @@ void * mymalloc (size_t size,char * file, int line) {
  */
 
 void myfree(void * pointerToFree, char * file, int line) {
-	printf("TRYING TO FREE\n");
-	printf("LIST:\n");
-	printFromTail(tail);
 	if(pointerToFree == 0){
 		printf("Attempted to free a null pointer\n");
 		return;
 	}
-	if ( pointerToFree < (void *) head || pointerToFree > ((void *)head+max_size))
+	if ( pointerToFree < (void *) head || pointerToFree > (((void *)head+max_size)+MEMENTRYSIZE))
 	{
-
 		printf("Attempted to free pointer not allocated by malloc\n");
 		return;
 	}
 	MemEntry * construct = (MemEntry *) pointerToFree -1;
-	if(construct->free != 1){
+	if(construct->free != 1 || construct->code != CODE){
 		printf("Invalid pointer\n");
 		return;
 	}else {
@@ -144,7 +149,6 @@ void * lookForFreeMem(size_t  size) {
  * NEED TO DECREASE MEMALLOCATED IF CONSTRUCT->NEXT ==0 BECAUSE END NODE
  */
 void defragment(MemEntry * construct){
-	printf("DEFRAG MemAllocated %d\n",memAllocated);
 
 	if(construct->next != 0 && construct->next->free ==0 && construct->prev != 0 && construct->prev->free == 0) {
 		construct->size += (construct->next->size+MEMENTRYSIZE);

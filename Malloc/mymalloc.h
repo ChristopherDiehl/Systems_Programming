@@ -8,12 +8,12 @@
  * A Smarter Malloc
  * Gives Errors and stuff
  */
-
+//if we free a data 
 
 /*Macros given to us to use by prof*/
 #define malloc( x ) mymalloc( x, __FILE__, __LINE__ )
 #define free( x ) myfree( x, __FILE__, __LINE__ )
-
+#define CODE 314159265
 /* free is an int which determines if the data the MemEntry is keeping track of has been freed
  * 1 = data is in use. 0 = data is available
  * Struct memEntry_ *next points to next memory struct
@@ -24,6 +24,7 @@ typedef struct memEntry_ {
   struct memEntry_ * next;
   struct memEntry_ * prev;
   int free;
+  int code;
   size_t size;
 } MemEntry;
 
