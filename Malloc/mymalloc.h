@@ -41,6 +41,7 @@ void * mymalloc(size_t  size, char * file, int line);
 void myfree(void * pointerToFree, char * file, int line);
 void * lookForFreeMem(size_t  size);
 void defragment(MemEntry * construct);
+int slice(MemEntry * construct, size_t size);
 void printList (MemEntry * construct);
 void printFromTail ();
 #endif

@@ -20,20 +20,21 @@ void * mymalloc (size_t size,char * file, int line) {
 
 	//checks is user asks for too much space
 	if(size<=0) {
-		printf("Please ask for a valid amount of data\n");
+		printf("Invalid amount of data requested %d\n",file,line);
 		return 0;
 	} else if(size > (max_size+MEMENTRYSIZE) && freeMemEntries == 0){
 		printf("Insufficient space available. Asked for in %s Line %d\n",file,line);
 		return 0;
-	} else if(freeMemEntries > 0){
+	} else if(freeMemEntries > 0 && (memAllocated+size) >= max_size){
 		void * lookReturn = lookForFreeMem(size);
-			if(lookReturn != 0){
-				MemEntry * skipAhead= (MemEntry *)lookReturn;
-				lookReturn = (char *)lookReturn+(skipAhead->size);
-				return (void *) lookReturn;
-			} else{
-				printf("Not enough memory avaialble");
-			}
+		if(lookReturn != 0){
+			MemEntry * skipAhead= (MemEntry *)lookReturn;
+			lookReturn = (char *)lookReturn+(skipAhead->size);
+			return (void *) lookReturn;
+		} else{
+			printf("Not enough memory avaialble. Asked for in %s Line %d\n",file,line);
+			return 0;
+		}
 	}
 	//printf("Current space: %d\n",memAllocated);
 	//printf("Space taken by MemEntry: %d\n",MEMENTRYSIZE);
@@ -95,20 +96,21 @@ void * mymalloc (size_t size,char * file, int line) {
 
 void myfree(void * pointerToFree, char * file, int line) {
 	if(pointerToFree == 0){
-		printf("Attempted to free a null pointer\n");
+		printf("Attempted to free a null pointer in %s Line %d\n",file,line);
 		return;
 	}
 	if ( pointerToFree < (void *) head || pointerToFree > (((void *)head+max_size)+MEMENTRYSIZE))
 	{
-		printf("Attempted to free pointer not allocated by malloc\n");
+		printf("Attempted to free pointer not allocated by malloc in %s Line %d\n",file,line);
 		return;
 	}
 	MemEntry * construct = (MemEntry *) pointerToFree -1;
 	if(construct->free != 1 || construct->code != CODE){
-		printf("Invalid pointer\n");
+		printf("Invalid pointer in %s Line %d\n",file,line);
 		return;
 	}else {
 		construct->free =0;
+		freeMemEntries++;
 		defragment(construct);
 	}
 
@@ -121,25 +123,65 @@ void myfree(void * pointerToFree, char * file, int line) {
  *look for any memEntrys that are > then size looking for. Return that.
  */
 void * lookForFreeMem(size_t  size) {
-	MemEntry * memEntry = (MemEntry *)head;
+	MemEntry * memEntry =  tail;
 	while(memEntry != 0){
-		if((memEntry->free=0) && (memEntry->size == size)) {
+		if((memEntry->free==0) && (memEntry->size == size)) {
 			memEntry->free=1;
+			freeMemEntries--;
 			return (void *) memEntry;
+		} else{
+			memEntry = memEntry->prev;
 		}
 	}
-	if(memAllocated == max_size){
-     memEntry = (MemEntry *)head;
-     while(memEntry != 0){
-	  if((memEntry->free=0) && (memEntry->size > size)) {
+
+	memEntry =  tail;
+	while(memEntry != 0){
+		if((memEntry->free==0) && (memEntry->size > size)) {
 			memEntry->free=1;
+			freeMemEntries--;
+			printf("MEMENTRY BEFORE %d\n", memEntry->size);
+			slice(memEntry,size);
+			printf("MEMENTRY After %d\n", memEntry->size);
+
 			return (void *) memEntry;
+		} else{
+			memEntry = memEntry->prev;
 		}
-	 }
 	}
 
 	return 0;
 }
+
+/*slice is only used when the list is full, and a free node with a size >= to the size of data user requested
+ *check if MemEntry has enough size to segment a new MemEntry while still returning a pointer to the size of
+ *data user requested. 
+ *If the there is < 10 bytes that a new MemEntry would have inside it, then don't slice because it is not worth computations
+ *to go through list just for an additional MemEntry with 10 bytes, which wouldnt be asked for often
+ *If not enough space then return pointer to more data than user needs
+ *IN ORDER TO SLICE, THE NEW MEMENTRY MUST HAVE AT LEAST 10 bytes
+ *Returns 1 if sliced
+ *Returns 0 if not sliced
+ */
+ int slice(MemEntry * construct, size_t size) {
+ 	if(construct->size < (size+MEMENTRYSIZE+10)){
+ 		return 0;
+ 	} else {
+ 		char * newEntry = (char*)construct;
+		newEntry = newEntry +(MEMENTRYSIZE+size);
+ 		MemEntry * newConstruct = (MemEntry *) newEntry;
+ 		newConstruct->size = (construct->size - size);
+		construct->size = size;
+ 		newConstruct->free = 0;
+ 		newConstruct->code =CODE;
+ 		newConstruct->next = construct->next;
+ 		newConstruct->prev = construct;
+ 		construct->next = newConstruct;
+ 		if(newConstruct->next !=0)
+ 			newConstruct->next->prev = newConstruct;
+ 		return 1;
+ 	}
+ }
+
 
 /*defragment handles fragmentation
  *4 cases
@@ -152,28 +194,34 @@ void * lookForFreeMem(size_t  size) {
 void defragment(MemEntry * construct){
 
 	if(construct->next != 0 && construct->next->free ==0 && construct->prev != 0 && construct->prev->free == 0) {
+		freeMemEntries--;
+
 		construct->size += (construct->next->size+MEMENTRYSIZE);
 		construct->next = construct->next->next;
 		if(construct->next != 0){ //if == 0 then construct is new tail node and  can be deleted
 			construct->next->prev = construct;
 
 		} else {
+			freeMemEntries--;
 			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
 			if(construct->prev != 0)
 				construct->prev->next = 0;
 		}
 		construct->size += (construct->prev->size + MEMENTRYSIZE);
+		freeMemEntries--;
 		construct->prev=construct->prev->prev;
 		if(construct->prev != 0) //construct is new head
 			construct->prev->next = construct;
 	}
 	else if (construct->next != 0 && construct->next->free == 0){
+		freeMemEntries--;
 
 		construct->size += (construct->next->size + MEMENTRYSIZE);
 		construct->next = construct->next->next;
 		if(construct->next != 0){
 			construct->next->prev = construct;
 		} else {
+			freeMemEntries--;
 			tail = construct->prev;
 			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
 			if(construct->prev != 0)
@@ -181,6 +229,7 @@ void defragment(MemEntry * construct){
 		}
 
 	} else if(construct->prev != 0 && construct->prev->free ==0){
+		freeMemEntries--;
 
 		construct->size += (construct->prev->size +MEMENTRYSIZE);
 		construct->prev = construct->prev->prev;
@@ -188,6 +237,7 @@ void defragment(MemEntry * construct){
 			construct->prev->next = construct;
 		}
 		if(construct->next == 0){ // then construct is tail node and can be deleted
+			freeMemEntries--;
 			tail = construct->prev;
 			memAllocated = memAllocated - (construct->size +MEMENTRYSIZE);
 			if(construct->prev != 0)
@@ -195,6 +245,7 @@ void defragment(MemEntry * construct){
 		}
 	} else if(construct->next ==0 ){
 		tail = construct->prev;
+		freeMemEntries--;
 		if(tail != 0)
 			tail->next = 0;
 		memAllocated= memAllocated- (construct->size +MEMENTRYSIZE);
@@ -214,7 +265,9 @@ void printList (MemEntry * construct)
 
 void printFromTail ()
 {
+
 	printf("MemAllocated %d\n",memAllocated);
+	printf("freeMemEntries %d\n",freeMemEntries);
 	if(tail == 0)
 		return;
 	MemEntry * construct = tail;

@@ -92,7 +92,7 @@ int main(int argc, char*argv[]){
         int pcount = 0;
         int**doubleip;
         int **dip_leftover = 0;
-        while(ip = malloc(TA_TEST_BLOCKSIZE*sizeof(int))){
+        while(ip = malloc((TA_TEST_BLOCKSIZE*sizeof(int)))){
             pcount++;
             if(pcount == 1){
                 doubleip = calloc(1,sizeof(int*));
@@ -122,7 +122,7 @@ int main(int argc, char*argv[]){
         for(i = 0; i < cap; i++){
       free(doubleip[i]);
     }
-
+        printFromTail();
         //malloc again
         printf("Second round\n");
         int secondpcount = 0;
