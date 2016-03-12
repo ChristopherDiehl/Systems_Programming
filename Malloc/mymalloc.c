@@ -139,9 +139,9 @@ void * lookForFreeMem(size_t  size) {
 		if((memEntry->free==0) && (memEntry->size > size)) {
 			memEntry->free=1;
 			freeMemEntries--;
-			printf("MEMENTRY BEFORE %d\n", memEntry->size);
+			//printf("MEMENTRY BEFORE %d\n", memEntry->size);
 			slice(memEntry,size);
-			printf("MEMENTRY After %d\n", memEntry->size);
+			//printf("MEMENTRY After %d\n", memEntry->size);
 
 			return (void *) memEntry;
 		} else{
@@ -169,7 +169,7 @@ void * lookForFreeMem(size_t  size) {
  		char * newEntry = (char*)construct;
 		newEntry = newEntry +(MEMENTRYSIZE+size);
  		MemEntry * newConstruct = (MemEntry *) newEntry;
- 		newConstruct->size = (construct->size - size);
+ 		newConstruct->size = (construct->size - size -MEMENTRYSIZE);
 		construct->size = size;
  		newConstruct->free = 0;
  		newConstruct->code =CODE;

@@ -9,6 +9,7 @@ all:
 	gcc -g -o test1 test1.c mymalloc.o
 	gcc -g -o test2 test2.c mymalloc.o
 	gcc -g -o test3 test3.c mymalloc.o
+	gcc -g -o test4 test4.c mymalloc.o
 
 
 clean :
