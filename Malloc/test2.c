@@ -34,7 +34,6 @@ int main (int argc, char*argv[]){
 	}
 	//10 * 500 == 5000.. full  before ptr9 because not enough space
 	
-	printFromTail();
 
 
 	return 0;

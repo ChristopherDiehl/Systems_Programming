@@ -105,8 +105,11 @@ void myfree(void * pointerToFree, char * file, int line) {
 		return;
 	}
 	MemEntry * construct = (MemEntry *) pointerToFree -1;
-	if(construct->free != 1 || construct->code != CODE){
+	if(construct->code != CODE){
 		printf("Invalid pointer in %s Line %d\n",file,line);
+		return;
+	}else if(construct->free != 1){
+		printf("Trying to free already freed pointer in %s Line %d\n",file,line);
 		return;
 	}else {
 		construct->free =0;
@@ -176,6 +179,7 @@ void * lookForFreeMem(size_t  size) {
  		newConstruct->next = construct->next;
  		newConstruct->prev = construct;
  		construct->next = newConstruct;
+ 		freeMemEntries++;
  		if(newConstruct->next !=0)
  			newConstruct->next->prev = newConstruct;
  		return 1;

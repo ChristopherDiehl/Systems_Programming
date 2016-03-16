@@ -24,13 +24,10 @@ int main (int argc, char*argv[]){
 	printf("FREEING\n");
 	char * testForSlice = malloc(PTRSIZE/2);
 
-
-	printFromTail();
-	
+	//should have a free mementry struct with 218 left
 	printf("Shouldn't get an error message\n");
-	char * ptrLess = malloc(PTRSIZE -100);
-	printFromTail();
-
+	char * ptrLess = malloc(218);
+	printf("DONE\n");
 
 	return 0;
 }

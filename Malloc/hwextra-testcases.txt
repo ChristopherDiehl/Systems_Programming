@@ -1,0 +1,262 @@
+INPUT:
+int  * ptr;
+free(ptr);
+OUTPUT:
+Attempted to free a null pointer in test.c Line 25
+INPUT:
+char * c = malloc(BLOCK);
+free(c-(BLOCK/2))
+OUTPUT:
+Attempted to free pointer not allocated by malloc in test.c Line 29
+INPUT:
+char * c = malloc(BLOCK);
+free(c);
+free(c);
+OUTPUT:
+Trying to free already freed pointer in test.c Line 35
+INPUT:
+char * c = malloc(BLOCK);
+free(c+12);
+OUTPUT:
+Invalid pointer in test.c Line 41
+INPUT:
+char * c = malloc(BLOCK);
+free(c-2);
+OUTPUT:
+Invalid pointer in test.c Line 55
+INPUT:
+char * ptr0 = malloc(BLOCK);
+char * ptr1 = malloc(BLOCK);
+char * ptr2 = malloc(BLOCK);
+free(ptr0);
+free(ptr1);
+free(ptr2);
+free(ptr2);
+OUTPUT:
+Trying to free already freed pointer in test.c Line 64
+INPUT:
+int *a1;
+int *a2;
+a1 = malloc(sizeof(int));
+a2 = malloc(sizeof(int));
+*a1 = 123;
+*a2 = 512;
+int temp;
+temp = *a1;
+*a1 = *a2;
+*a2 = temp;
+printf("a1 = %d, a2 = %d\n",*a1,*a2);
+free(a1);
+free(a2);
+printf("Done\n");
+OUTPUT:
+a1 = 512, a2 = 123
+INPUT:
+char ** m;
+int count = 0;
+m = malloc(10*sizeof(char*));
+count ++;
+int i = 0;
+for(i = 0; i < 10; i++){
+m[i]=malloc(sizeof(char) *500);
+if(m[i]!=0){
+    count++;
+}
+}
+i = 0;
+for(i = 0; i < 10; i ++){
+free(m[i]);
+
+}
+free(m);
+int count1 = 0;
+m = malloc(10*sizeof(char*));
+count1 ++;
+i = 0;
+for(i = 0; i < 10; i++){
+m[i]=malloc(sizeof(char) *500);
+if(m[i]!=0){
+    count1++;
+}
+}
+i = 0;
+for(i = 0; i < 10; i ++){
+free(m[i]);
+}
+free(m);
+if(count1 == count){
+printf("PASSED\n");
+}else{
+printf("FAILED\n" );
+}
+OUTPUT:
+Insufficient space available. Asked for in test.c Line 89
+Attempted to free a null pointer in test.c Line 96
+Insufficient space available. Asked for in test.c Line 105
+Attempted to free a null pointer in test.c Line 112
+PASSED
+INPUT:
+int *x = malloc(sizeof(int));
+free((MemEntry*)x-1);
+printf("attempting to free\n");
+free(x);
+printf("Done\n");
+OUTPUT:
+Invalid pointer in test.c Line 145
+attempting to free
+Done
+INPUT:
+int *x = malloc(sizeof(int) *14);
+int *y = malloc(sizeof(int));
+int *j = malloc(sizeof(int) *2);
+int *i = malloc(sizeof(int) *4);
+int *z = malloc(sizeof(int) *3);
+free(j);
+free(z);
+free(x);
+free(y);
+free(x);
+free(z);
+free(i);
+OUTPUT:
+Trying to free already freed pointer in test.c Line 159
+Trying to free already freed pointer in test.c Line 160
+INPUT:
+//ask for 5000
+char * ptr0 = malloc(PTRSIZE);
+char * ptr1 = malloc(PTRSIZE);
+char * ptr2 = malloc(PTRSIZE);
+char * ptr3 = malloc(PTRSIZE);
+char * ptr4 = malloc(PTRSIZE);
+char * ptr5 = malloc(PTRSIZE);
+char * ptr6 = malloc(PTRSIZE);
+char * ptr7 = malloc(PTRSIZE);
+char * ptr8 = malloc(PTRSIZE);
+char * ptr9 = malloc(PTRSIZE);
+//10 * 500 == 5000.. full  before ptr9 because not enough space
+free(ptr4); //free middle node
+
+printf("FREEING\n");
+char * testForSlice = malloc(PTRSIZE);
+free(ptr3);
+free(ptr5);
+free(ptr4);
+printf("Shouldn't get an error message\n");
+char * ptrLess = malloc(PTRSIZE -100);
+OUTPUT:
+Insufficient space available. Asked for in test1.c Line 19
+FREEING
+Shouldn't get an error message
+INPUT:
+char  alphabet [] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y', 'z'};
+//ask for 5000
+char * ptr0 = (char *)malloc(PTRSIZE);
+//char * ptr1 = malloc(PTRSIZE);
+int i =0;
+int a =0;
+while(i < PTRSIZE){
+	ptr0[i] = alphabet[a];
+	if(a >=26){
+		a= -1;
+	}
+	i++;
+	a++;
+}
+i = 0;
+a=0;
+while(i <PTRSIZE){
+	if(ptr0[i]!=alphabet[a]){
+		printf("WHATS HAPPENING\n");
+	}
+	if(a >=26){
+		a= -1;
+	}
+	printf("%c",ptr0[i] );
+	i++;
+	a++;
+}
+OUTPUT:
+abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn
+INPUT:
+int a = 5;
+int b = 6;
+int c = 7;
+int * ptra = malloc(sizeof(int));
+int * ptrb = malloc(sizeof(int));
+int * ptrc = malloc(sizeof(int));
+
+* ptra = 2134;
+* ptrb = 5123;
+* ptrc= 8952;
+if(*ptra != 2134 || *ptrb != 5123|| *ptrc != 8952){
+	printf("FAILED\n");
+}
+
+printf("DONE\n");
+OUTPUT:
+DONE
+INPUT:
+char * ptr0 = malloc(PTRSIZE);
+char * ptr1 = malloc(PTRSIZE);
+char * ptr2 = malloc(PTRSIZE);
+char * ptr3 = malloc(PTRSIZE);
+char * ptr4 = malloc(PTRSIZE);
+char * ptr5 = malloc(PTRSIZE);
+char * ptr6 = malloc(PTRSIZE);
+char * ptr7 = malloc(PTRSIZE);
+char * ptr8 = malloc(PTRSIZE);
+printf("ERROR MESSAGE?:\n");
+char * ptr9 = malloc(PTRSIZE);
+//10 * 500 == 5000.. full  before ptr9 because not enough space
+free(ptr4); //free middle node
+printf("FREEING\n");
+char * testForSlice = malloc(PTRSIZE/2);
+printf("Shouldn't get an error message\n");
+char * ptrLess = malloc(PTRSIZE -100);
+OUTPUT:
+ERROR MESSAGE?
+Freeing
+INPUT:
+char * ptr0 = malloc(PTRSIZE);
+char * ptr1 = malloc(PTRSIZE);
+char * ptr2 = malloc(PTRSIZE);
+char * ptr3 = malloc(PTRSIZE);
+char * ptr4 = malloc(PTRSIZE);
+char * ptr5 = malloc(PTRSIZE);
+char * ptr6 = malloc(PTRSIZE);
+char * ptr7 = malloc(PTRSIZE);
+char * ptr8 = malloc(PTRSIZE);
+printf("ERROR MESSAGE?:\n");
+char * ptr9 = malloc(PTRSIZE);
+//10 * 500 == 5000.. full  before ptr9 because not enough space
+free(ptr4); //free middle node
+printf("FREEING\n");
+char * testForSlice = malloc(PTRSIZE/2);
+//should have a free mementry struct with 218 left
+printf("Shouldn't get an error message\n");
+char * ptrLess = malloc(218);
+printf("DONE\n");
+return 0;
+OUTPUT:
+ERROR MESSAGE?:
+Insufficient space available. Asked for in test4.c Line 20
+FREEING
+Shouldn't get an error message
+DONE
+INPUT:
+int *ptr;
+free(ptr);
+char * ptr0 = malloc(PTRSIZE);
+char * ptr1 = malloc(PTRSIZE);
+char * ptr2 = malloc(PTRSIZE);
+free(ptr0);
+free(ptr1);
+printf("Freed ptr1 and ptr0\n");
+*ptr2 = 'a';
+printf("%c\n", *ptr2);
+OUTPUT:
+Attempted to free a null pointer in test5.c Line 9
+Freed ptr1 and ptr0
+a
+
+

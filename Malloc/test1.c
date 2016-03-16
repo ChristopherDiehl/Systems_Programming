@@ -16,7 +16,6 @@ int main (int argc, char*argv[]){
 	char * ptr6 = malloc(PTRSIZE);
 	char * ptr7 = malloc(PTRSIZE);
 	char * ptr8 = malloc(PTRSIZE);
-	printf("ERROR MESSAGE?:\n");
 	char * ptr9 = malloc(PTRSIZE);
 	//10 * 500 == 5000.. full  before ptr9 because not enough space
 	free(ptr4); //free middle node
@@ -26,10 +25,8 @@ int main (int argc, char*argv[]){
 	free(ptr3);
 	free(ptr5);
 	free(ptr4);
-	printFromTail();
 	printf("Shouldn't get an error message\n");
 	char * ptrLess = malloc(PTRSIZE -100);
-	printFromTail();
 
 
 	return 0;
