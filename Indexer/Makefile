@@ -1,18 +1,13 @@
-CC = gcc
-OBJECTS = main.o sorted-list.o
-CFLAGS = -g -c 
-OUTPUT=sl
-LIB=libsa
-all: $(OUTPUT) $(LIB)
+CC= gcc
+CFLAGS= -g -o
+DEPS = fileTokenizer.c fileTokenizer.h
+OBJECTS = fileTokenizer.o
+EXECS = test
 
-sl: $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@
-
-%.o : %.c
-	$(CC) $(CFLAGS) $<
-
-$(LIB): $(OBJECTS)
-	ar crs $(LIB) sorted-list.o
+all: 
+	$(CC) -c fileTokenizer.c
+	$(CC) $(CFLAGS) test0 tokenizingTest.c $(OBJECTS)
 
 clean:
-	rm $(LIB) $(OUTPUT) $(OBJECTS)
+	rm *.o $(EXECS)
+
