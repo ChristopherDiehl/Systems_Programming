@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
 		//printf("%s\n",res);
 
 	}	
+	addToList("Bacon3 Me","Bacon", fList);
+
 	printf("=======================\n");
 	printList(fList);
 
