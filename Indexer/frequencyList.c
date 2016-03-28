@@ -25,17 +25,13 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 	temp->prev = 0;
 
 	if(fList->head == 0){
-		printf("head == 0\n");
 		fList->head = temp;
 		fList->tail = temp;
 		fList->numOfNodes++;
 		return 1;
 	} 
 	Node * currNode = fList->head;
-	printf("currNode: %s\n", fList->head->token);
-	printf("temp: %s\n", temp->token);
 	while(currNode != 0){
-		printf("Entering while\n");
 		if(strcmp(currNode->token,token) == 0){
 			if(strcmp(currNode->filename, filename) == 0 ){
 				currNode->frequency++;
@@ -66,7 +62,7 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 void printList(FrequencyList * fList) {
 	Node * temp = fList->head;
 	while(temp != 0){
-		printf("%s\n", temp->token);
+		printf("token: %s frequency: %d filename: %s \n", temp->token, temp->frequency, temp->filename);
 		temp = temp->next;
 	}
 }
