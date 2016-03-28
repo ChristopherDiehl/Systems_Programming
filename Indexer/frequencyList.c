@@ -44,6 +44,8 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 			if(currNode->prev != 0){
 				temp->prev = currNode->prev;
 				temp->prev->next = temp;
+			} else{
+				fList->head = temp;
 			}
 			currNode->prev = temp;
 			fList->numOfNodes++;
@@ -67,6 +69,18 @@ void printList(FrequencyList * fList) {
 	}
 }
 
+char * removeFromHead(FrequencyList * fList){
+	Node * temp = fList->head;
+	if(temp != 0){
+		fList->head = temp->next;
+		if(fList->head != 0){
+			fList->head->prev = temp;
+		}
+		char * tempStr = temp->token;
+		free(temp);
+		return tempStr;
+	}
+}
 int deleteList (FrequencyList * fList) {
 	Node * temp = fList->head; 
 	while(temp != 0) {

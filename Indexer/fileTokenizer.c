@@ -13,7 +13,7 @@
  *
  *
  */
-/*REDO THIS*/
+/*NEED TO MAKE STRINGS LOWERCASE*/
 TokenizerT * Tokenize( char * filename) {
 	TokenizerT *res  = (TokenizerT *)malloc(sizeof(TokenizerT)); 
 	if( res == 0)
@@ -89,19 +89,16 @@ char * GetToken( TokenizerT * tk ) {
 	STATE prevState ;
 	while(*p != '\0')
 	{
-		//printf("%c\n", *p);
 		tk->_state = stateAndCharTest(p,tk);	
 
 		if(tk->_state == INDEF){
 				int tokenLen =	tk->_processedLen - tokenBeg ;  
 				if(tokenLen == 0)
 				{
-				//	printf("%c\n", *p);
 					++p;	
 					++tk->_processedLen; // we disregard this character during the next try
 					++tokenBeg; // next token begins after this
 					tk->_state = START;
-				//	printf("%c\n", *p);
 
 					continue;
 				}
@@ -109,13 +106,12 @@ char * GetToken( TokenizerT * tk ) {
 				char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
 				__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);
 
-
 				++tk->_processedLen; // we disregard this character during the next try
-
 				if(tokenLen != 0){
 					return token;		
 				}
 		}
+		* p = tolower(*p);
 		prevState = tk->_state;
 		++tk->_processedLen;
 		++p;

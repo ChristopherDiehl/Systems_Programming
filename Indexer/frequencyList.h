@@ -33,5 +33,5 @@ FrequencyList * getFrequencyList();
 int addToList(char * filename, char * token, FrequencyList * fList);
 int deleteList(FrequencyList * fList);
 void printList(FrequencyList * fList);
-
+char * removeFromHead(FrequencyList * fList);
 #endif

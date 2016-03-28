@@ -14,16 +14,19 @@ int main(int argc, char **argv) {
 	while(1)
 	{
 		char * res = GetToken(tk);
-		if(res != 0){
+		if(res != 0 && strcmp(res, "") != 0){
 			printf("Trying to add \"%s\" from %s to list\n", res, argv[1]);
 			printf("Return VAL %d\n",addToList(argv[1], res, fList));
+			//printf("==========\n");
+			//printList(fList);
+			//printf("==========\n");
+			
 		}
 		if(res == 0)
 			break ; 
 		//printf("%s\n",res);
 
 	}	
-	addToList("Bacon3 Me","Bacon", fList);
 
 	printf("=======================\n");
 	printList(fList);
