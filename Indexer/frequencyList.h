@@ -15,8 +15,8 @@
 
 typedef struct Node_ Node;
 struct Node_ {
-	Node_ * next;
-	Node_ * prev;
+	struct Node_ * next;
+	struct Node_ * prev;
 	int frequency;
 	char * filename;
 	char * token;
@@ -24,13 +24,14 @@ struct Node_ {
 
 typedef struct FrequencyList_ FrequencyList;
 struct FrequencyList_ {
-	Node head;
-	Node tail;
+	Node * head;
+	Node * tail;
 	int numOfNodes;
 };
 
 FrequencyList * getFrequencyList();
-int addToList(char * filename, char * token, FrequencyList * fLIst);
-int deleteList(FrequencyList fList);
+int addToList(char * filename, char * token, FrequencyList * fList);
+int deleteList(FrequencyList * fList);
+void printList(FrequencyList * fList);
 
 #endif
