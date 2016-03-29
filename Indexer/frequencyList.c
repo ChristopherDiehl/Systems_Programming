@@ -37,6 +37,17 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				currNode->frequency++;
 				free(temp);
 				return 1;
+			} else if(strcmp(filename, currNode->filename) > 0) {
+				temp->next = currNode;
+				if(currNode->prev != 0){
+					temp->prev = currNode->prev;
+					temp->prev->next = temp;
+				} else{
+					fList->head = temp;
+				}
+				currNode->prev = temp;
+				fList->numOfNodes++;
+				return 1;
 			}
 		} else if(strcmp(token,currNode->token) < 0){
 			//currNode is greater than prev Node
