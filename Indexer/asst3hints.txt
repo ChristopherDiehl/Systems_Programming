@@ -2,3 +2,9 @@ Make program to find directories
 -find subdirectories
 -find files
 -struct dirent * stuff <..readdir(dirfd..)
+
+
+THINGS NEED TO KEEP TRACK OF
+-JSON NEEDS DELETED
+-JSON WRITER NEEDS TO FREE STRINGS IT WRITES
+-NEED TO FREE THE CHAR * RETURNED BY GETFREQUENCY

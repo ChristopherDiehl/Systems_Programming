@@ -37,6 +37,7 @@ TokenizerT * Tokenize( char * filename) {
 	res->_str = buffer;
 	if(res->_str == 0)
 		return 0;
+	fclose(file);
 	//PreprocessesString(res->_str);
 	res->_processedLen = 0; 
 	res->_state = START;

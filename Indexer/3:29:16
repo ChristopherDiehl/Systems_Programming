@@ -1,0 +1,89 @@
+int dirfd = diropen(..)
+
+struct dirent* athing = null;
+readdir(dirfd,athing ..)
+
+athing:
+	file type
+	file name
+
+if(athing ->d_type == DT_REG){
+	fopen("concatenate path so far"+'/'+athing->"name"..)
+}
+
+__FILE__ gives full path for file
+
+realloc filename?
+
+char * mydir = "./";
+..read in new dir name
+..find out size
+
+mynewdir = realloc(mydir,strlen(mydir)+'length of new name')
+
+read(filedescriptor, buffer, sizeofbuffer)
+
+char * buffer = malloc(256);
+//calloc that shiz
+
+enum:
+
+enum boolean= {TRUE,FALSE};
+boolean flag == TRUE;
+
+all:
+	command
+
+clean:
+	takes in no dependency
+
+mainfile:
+	mainfile.c archive.a
+	gcc ...
+
+archive.a:
+	....
+
+file descr
+file handle
+
+fopen: returns to you a file descriptor
+int fd = fopen()
+read(fd)
+write(fd)
+fclose(fd)
+
+int fd = fopen(..)
+read(fd,buffer,20);
+	printf("%s\n",buffer);
+read(fd,buffer,20);
+	printf("%s\n",buffer);
+read(fd,buffer,20);
+	printf("%s\n",buffer);
+
+filedescr: array name /pointer name
+filehandle: array index /pointer increment
+
+lseek..
+repositions file
+lseek(filehandle,offset);
+
+
+where do little process come from? fork()
+
+***fork duplicates the current process EXCEPT FOR: **
+	-pid
+	-ppid
+	-live in different places in memory 
+
+fork called once, returns on parent proc and to child proc
+	-returns 0 to child
+	-returns child's pid to parent
+
+	init
+	pid 0  pid 1
+		   ppid 2
+
+exec:
+	wipes process and changes it 
+

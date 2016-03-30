@@ -1,5 +1,6 @@
 #include "frequencyList.h"
 #include "fileTokenizer.h"
+#include "jsonWriter.h"
 
 int main(int argc, char **argv) {
 

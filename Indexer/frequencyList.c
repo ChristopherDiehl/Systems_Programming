@@ -23,6 +23,7 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 	temp->frequency = 1;
 	temp->next = 0;
 	temp->prev = 0;
+	temp->trailingNodes = 0;
 
 	if(fList->head == 0){
 		fList->head = temp;
@@ -37,17 +38,20 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				currNode->frequency++;
 				free(temp);
 				return 1;
-			} else if(strcmp(filename, currNode->filename) > 0) {
-				temp->next = currNode;
-				if(currNode->prev != 0){
-					temp->prev = currNode->prev;
-					temp->prev->next = temp;
-				} else{
-					fList->head = temp;
+			} else{
+				currNode->trailingNodes++;
+				if(strcmp(filename, currNode->filename) > 0) {
+					temp->next = currNode;
+					if(currNode->prev != 0){
+						temp->prev = currNode->prev;
+						temp->prev->next = temp;
+					} else{
+						fList->head = temp;
+					}
+					currNode->prev = temp;
+					fList->numOfNodes++;
+					return 1;
 				}
-				currNode->prev = temp;
-				fList->numOfNodes++;
-				return 1;
 			}
 		} else if(strcmp(token,currNode->token) < 0){
 			//currNode is greater than prev Node
@@ -80,18 +84,24 @@ void printList(FrequencyList * fList) {
 	}
 }
 
-char * removeFromHead(FrequencyList * fList){
+Json * removeFromHead(FrequencyList * fList){
 	Node * temp = fList->head;
 	if(temp != 0){
 		fList->head = temp->next;
 		if(fList->head != 0){
 			fList->head->prev = temp;
 		}
-		char * tempStr = temp->token;
+		Json * returnVal = malloc(sizeof(Json));
+		returnVal->filename = temp->filename;
+		returnVal->token = temp->token;
+		returnVal->frequency = temp->frequency;
+		returnVal->trailingNodes = temp->trailingNodes;
+		fList->numOfNodes--;
 		free(temp);
-		return tempStr;
+		return returnVal;
 	}
 }
+
 int deleteList (FrequencyList * fList) {
 	Node * temp = fList->head; 
 	while(temp != 0) {
@@ -102,4 +112,16 @@ int deleteList (FrequencyList * fList) {
 	}
 	free(fList);
 	return 1;
+}
+
+int isEmpty(FrequencyList * fList) {
+	if(fList->numOfNodes > 0){
+		return 1;
+	}
+	return 0;
+}
+
+int destroyJson (Json * json){
+	free(json->token);
+	free(json);
 }
