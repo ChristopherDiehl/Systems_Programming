@@ -72,11 +72,13 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 	fList->tail->next = temp;
 	temp->prev = fList->tail;
 	fList->tail = temp;
+	fList->numOfNodes++;
 	return 1;
 
 }
 
 void printList(FrequencyList * fList) {
+	printf("NumOfNodes: %d\n", fList->numOfNodes);
 	Node * temp = fList->head;
 	while(temp != 0){
 		printf("token: %s frequency: %d filename: %s \n", temp->token, temp->frequency, temp->filename);

@@ -29,6 +29,9 @@ int main(int argc, char **argv) {
 		//printf("%s\n",res);
 
 	}	
+	printList(fList);
+	jsonWrite(fList,"output.txt");
+
 	printf("=======================\n");
 	printList(fList);
 

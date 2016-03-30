@@ -6,7 +6,7 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   	printf("Please enter valid input\n");
   	return 1;
   }
-  printf("[-] writing to file");
+  printf("[-] writing to file\n");
 
   FILE * file = fopen(filename,"w");
   if(file == 0){
@@ -14,17 +14,18 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   	return 1;
   }
   char * start = "{\"list\" : [";
-  fwrite(start, 1 , sizeof(start) , file);
+  fwrite(start, 1 , strlen(start) , file);
+  
   while(isEmpty(fList) == 1){
   	Json * temp = removeFromHead(fList);
 
     char * formattedtoken = getJsonToken(temp->token);
 
-  	fwrite(formattedtoken,1,sizeof(formattedtoken),file);
+  	fwrite(formattedtoken,1,strlen(formattedtoken),file);
   	free(formattedtoken);
 
-  	char * record = getJsonRecord(temp->token, getFrequency(temp->frequency));
-  	fwrite(record,1,sizeof(record),file);
+  	char * record = getJsonRecord(temp->filename, getFrequency(temp->frequency));
+  	fwrite(record,1,strlen(record),file);
   	free(record);
   	destroyJson(temp);
   	if(temp == 0) 
@@ -34,23 +35,24 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   	//take care of nodes with same token but different filenames & frequencies
   	for(i = 0; i < trailing; i ++) {
   		Json * trailingNode = removeFromHead(fList);
-  		char * trailingRecord = getJsonRecord(trailingNode->token, getFrequency(trailingNode->frequency));
-		fwrite(trailingRecord,1,sizeof(trailingRecord),file);
+  		char * trailingRecord = getJsonRecord(trailingNode->filename, getFrequency(trailingNode->frequency));
+		fwrite(trailingRecord,1,strlen(trailingRecord),file);
   		free(trailingRecord);
   		destroyJson(trailingRecord);
   	}
 
   	if(isEmpty(fList) != 1){
-  		char endFileRecord [] = "\t]},";
-  		fwrite(endFileRecord,1, sizeof(endFileRecord),file);
+  		char endFileRecord [] = "\t]},\n";
+  		fwrite(endFileRecord,1, strlen(endFileRecord),file);
   	} else {
-  		char endFileRecord []= "\t]}";
-  		fwrite(endFileRecord,1, sizeof(endFileRecord),file);
+  		char endFileRecord []= "\t]}\n";
+  		fwrite(endFileRecord,1, strlen(endFileRecord),file);
   	}
 
   }
-  printf("[-] changes to the file have been written");
-
+  printf("[-] changes to the file have been written\n");
+  //close file
+  fclose(file);
 }
 
 char * getJsonToken (char * file){
