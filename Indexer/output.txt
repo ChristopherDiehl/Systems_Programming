@@ -1,33 +1,35 @@
-{"list" : [	{"america"[
-		{"bacon2.txt" :1}
-	]}
-	{"bacon"[
-		{"bacon2.txt" :1}
-	]}
-	{"bro"[
-		{"bacon2.txt" :1}
-	]}
-	{"capain"[
-		{"bacon2.txt" :1}
-	]}
-	{"file"[
-		{"bacon2.txt" :1}
-	]}
-	{"fireme"[
-		{"bacon2.txt" :1}
-	]}
-	{"free"[
-		{"bacon2.txt" :1}
-	]}
-	{"great"[
-		{"bacon2.txt" :2}
-	]}
-	{"is"[
-		{"bacon2.txt" :2}
-	]}
-	{"up"[
-		{"bacon2.txt" :1}
-	]}
-	{"zeta"[
+{"list" : [
+	{"america"[
 		{"bacon2.txt" :1}
 	]},
+	{"bacon"[
+		{"bacon2.txt" :1}
+	]},
+	{"bro"[
+		{"bacon2.txt" :1}
+	]},
+	{"capain"[
+		{"bacon2.txt" :1}
+	]},
+	{"file"[
+		{"bacon2.txt" :1}
+	]},
+	{"fireme"[
+		{"bacon2.txt" :1}
+	]},
+	{"free"[
+		{"bacon2.txt" :1}
+	]},
+	{"great"[
+		{"bacon2.txt" :2}
+	]},
+	{"is"[
+		{"bacon2.txt" :2}
+	]},
+	{"up"[
+		{"bacon2.txt" :1}
+	]},
+	{"zeta"[
+		{"bacon2.txt" :1}
+	]}
+]}

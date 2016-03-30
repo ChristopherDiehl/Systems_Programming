@@ -9,7 +9,7 @@ int main(){
 	int anINt = 89;
 
 	char * inter = getFrequency(anINt);
-	char * temper = getJsonRecord("bacon.txt",inter);
+	char * temper = getJsonRecord("bacon.txt",inter,0);
 	printf("%s", temper);
 	free(temper);
 

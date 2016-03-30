@@ -12,7 +12,7 @@
  */
 int jsonWrite(FrequencyList * fList, char * filename);
 char * getJsonToken (char * file);
-char * getJsonRecord (char * token, char * frequency);
+char * getJsonRecord (char * token, char * frequency, int trailing);
 char * getFrequency (int frequency);
 
 #define LEN (CHAR_BIT * sizeof(int) - 1) / 3 + 2;

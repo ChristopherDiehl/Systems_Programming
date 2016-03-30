@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 
 	}	
 	printList(fList);
-	jsonWrite(fList,"output.txt");
+	jsonWrite(fList,"output1.txt");
 
 	printf("=======================\n");
 	printList(fList);
