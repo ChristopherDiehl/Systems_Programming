@@ -38,7 +38,7 @@ int jsonWrite(FrequencyList * fList, char * filename) {
 
   		Json * trailingNode = removeFromHead(fList);
   		char * trailingRecord = getJsonRecord(trailingNode->filename, getFrequency(trailingNode->frequency),trailing-i);
-		fwrite(trailingRecord,1,strlen(trailingRecord),file);
+		  fwrite(trailingRecord,1,strlen(trailingRecord),file);
   		free(trailingRecord);
   		destroyJson(trailingRecord);
   	}

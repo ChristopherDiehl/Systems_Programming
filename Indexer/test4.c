@@ -29,6 +29,24 @@ int main(int argc, char **argv) {
 		//printf("%s\n",res);
 
 	}	
+	printf("Second time around\n");
+	tk = Tokenize("bacon1.txt");
+	while(1)
+	{
+		char * res = GetToken(tk);
+		if(res != 0 && strcmp(res, "") != 0){
+			printf("Trying to add \"%s\" from %s to list\n", res, argv[1]);
+			printf("Return VAL %d\n",addToList("cabla.txt", res, fList));
+			//printf("==========\n");
+			//printList(fList);
+			//printf("==========\n");
+			
+		}
+		if(res == 0)
+			break ; 
+		//printf("%s\n",res);
+
+	}	
 	printList(fList);
 	jsonWrite(fList,"output1.txt");
 

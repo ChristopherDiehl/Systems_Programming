@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdio.h>
-
+/*This is a simple file writing program to play with the mechanics*/
 int main(){
 	  FILE * file = fopen("output.txt","w");
 	  char * start = "{\"list\" : [";
