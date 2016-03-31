@@ -23,7 +23,7 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 	temp->frequency = 1;
 	temp->next = 0;
 	temp->prev = 0;
-	temp->trailingNodes = 0;
+	temp->isTrailing = FALSE;
 
 	if(fList->head == 0){
 		fList->head = temp;
@@ -38,21 +38,21 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				currNode->frequency++;
 				free(temp);
 				return 1;
-			} else{
-				currNode->trailingNodes++;
-				if(strcmp(filename, currNode->filename) > 0) {
-					temp->next = currNode;
-					if(currNode->prev != 0){
-						temp->prev = currNode->prev;
-						temp->prev->next = temp;
-					} else{
-						fList->head = temp;
-					}
-					currNode->prev = temp;
-					fList->numOfNodes++;
-					return 1;
-				}
 			}
+			else if(strcmp(filename, currNode->filename) > 0) {
+				temp->isTrailing = TRUE;
+				temp->next = currNode;
+				if(currNode->prev != 0){
+					temp->prev = currNode->prev;
+					temp->prev->next = temp;
+				} else{
+					fList->head = temp;
+				}
+				currNode->prev = temp;
+				fList->numOfNodes++;
+				return 1;
+			}
+			
 		} else if(strcmp(token,currNode->token) < 0){
 			//currNode is greater than prev Node
 			temp->next = currNode;
@@ -97,7 +97,7 @@ Json * removeFromHead(FrequencyList * fList){
 		returnVal->filename = temp->filename;
 		returnVal->token = temp->token;
 		returnVal->frequency = temp->frequency;
-		returnVal->trailingNodes = temp->trailingNodes;
+		returnVal->isTrailing = temp->isTrailing;
 		fList->numOfNodes--;
 		free(temp);
 		return returnVal;

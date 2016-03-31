@@ -14,7 +14,8 @@
  *remember that token needs freed when it's all said and done
  *run destroy on Json struct
  */
-
+#define TRUE 1
+#define FALSE 0
 typedef struct Node_ Node;
 struct Node_ {
 	struct Node_ * next;
@@ -22,7 +23,7 @@ struct Node_ {
 	int frequency;
 	char * filename;
 	char * token;
-	int trailingNodes; //keeps track of how many Nodes have the same token just different file name
+	int isTrailing; //Node will know if it is trailing. If it is trailing then format record differently
 };
 
 typedef struct Json_ Json;
@@ -30,7 +31,7 @@ struct Json_ {
 	char * filename;
 	char * token;
 	int frequency;
-	int trailingNodes;
+	int isTrailing;
 };
 
 typedef struct FrequencyList_ FrequencyList;

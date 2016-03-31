@@ -1,12 +1,71 @@
 {"list" : [
 	{"a"[
-		{"bacon0.txt" :1}
+		{"cabla.txt" :1}
 	]},
-	{"ad"[
-		{"cabla.txt" :6}
+	{"america"[
+		{"bacon2.txt" :1}
 	]},
-	{"adipisicing"[
-		{"cabla.txt" :7}
+	{"and"[
+		{"cabla.txt" :1}
 	]},
-	{"adipisicing"[
-		{"bacon0.txt" :2,		{"cabla.txt" :2,
+	{"bacon"[
+		{"cabla.txt" :1},
+		{"bacon2.txt" :1}
+	]},
+	{"bro"[
+		{"cabla.txt" :1},
+		{"bacon2.txt" :1}
+	]},
+	{"capain"[
+		{"bacon2.txt" :1}
+	]},
+	{"correspond"[
+		{"cabla.txt" :1}
+	]},
+	{"file"[
+		{"cabla.txt" :1},
+		{"bacon2.txt" :1}
+	]},
+	{"find"[
+		{"cabla.txt" :1}
+	]},
+	{"fireme"[
+		{"bacon2.txt" :1}
+	]},
+	{"free"[
+		{"bacon2.txt" :1}
+	]},
+	{"great"[
+		{"cabla.txt" :2},
+		{"bacon2.txt" :2}
+	]},
+	{"is"[
+		{"cabla.txt" :3},
+		{"bacon2.txt" :2}
+	]},
+	{"nodes"[
+		{"cabla.txt" :1}
+	]},
+	{"second"[
+		{"cabla.txt" :1}
+	]},
+	{"test"[
+		{"cabla.txt" :1}
+	]},
+	{"this"[
+		{"cabla.txt" :1}
+	]},
+	{"to"[
+		{"cabla.txt" :1}
+	]},
+	{"trailing"[
+		{"cabla.txt" :1}
+	]},
+	{"up"[
+		{"bacon2.txt" :1}
+	]},
+	{"zeta"[
+		{"cabla.txt" :1},
+		{"bacon2.txt" :1}
+	]}
+]}

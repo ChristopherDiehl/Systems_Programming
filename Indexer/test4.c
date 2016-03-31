@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 
 	}	
 	printf("Second time around\n");
-	tk = Tokenize("bacon1.txt");
+	tk = Tokenize("cable.txt");
 	while(1)
 	{
 		char * res = GetToken(tk);

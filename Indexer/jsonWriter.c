@@ -1,5 +1,9 @@
 #include "jsonWriter.h"
 
+/* Writes a frequency list to a file given into it by filename
+ *BY CALLING jsonWRITE YOU DELETE THE FREQUENCY LIST
+ *DO NOT CALL THEN EXPECT TO use Frequency List later
+ */
 int jsonWrite(FrequencyList * fList, char * filename) {
 
   if(filename == 0 || fList == 0){
@@ -8,48 +12,45 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   }
   printf("[-] writing to file\n");
 
+  //open up the file
   FILE * file = fopen(filename,"w");
   if(file == 0){
   	printf("[-] error opening file\n");
   	return 1;
   }
+  //write starting part of file
   char * start = "{\"list\" : [\n";
   fwrite(start, 1 , strlen(start) , file);
-  
+  int trailing = 0;
+
   while(isEmpty(fList) == 1){
+    //start removing from list
   	Json * temp = removeFromHead(fList);
-
-    char * formattedtoken = getJsonToken(temp->token);
-
-  	fwrite(formattedtoken,1,strlen(formattedtoken),file);
-  	free(formattedtoken);
-  	int trailing = temp->trailingNodes;
+    if(trailing == 0){
+      char * formattedtoken = getJsonToken(temp->token);
+      fwrite(formattedtoken,1,strlen(formattedtoken),file);
+      free(formattedtoken);
+    }
+    //see if node has any trailing nodes
+    trailing = temp->isTrailing;
 
   	char * record = getJsonRecord(temp->filename, getFrequency(temp->frequency),trailing);
   	fwrite(record,1,strlen(record),file);
   	free(record);
+
   	destroyJson(temp);
   	if(temp == 0) 
   		break;
+    if(trailing == 0){
+      if(isEmpty(fList) == 1){
+        char endFileRecord [] = "\t]},\n";
+        fwrite(endFileRecord,1, strlen(endFileRecord),file);
+      } else {
+        char endFileRecord []= "\t]}\n]}";
+        fwrite(endFileRecord,1, strlen(endFileRecord),file);
+      }
 
-  	int i = 0;
-  	//take care of nodes with same token but different filenames & frequencies
-  	for(i = 0; i < trailing; i ++) {
-
-  		Json * trailingNode = removeFromHead(fList);
-  		char * trailingRecord = getJsonRecord(trailingNode->filename, getFrequency(trailingNode->frequency),trailing-i);
-		  fwrite(trailingRecord,1,strlen(trailingRecord),file);
-  		free(trailingRecord);
-  		destroyJson(trailingRecord);
-  	}
-
-  	if(isEmpty(fList) == 1){
-  		char endFileRecord [] = "\t]},\n";
-  		fwrite(endFileRecord,1, strlen(endFileRecord),file);
-  	} else {
-  		char endFileRecord []= "\t]}\n]}";
-  		fwrite(endFileRecord,1, strlen(endFileRecord),file);
-  	}
+    }
 
   }
   printf("[-] changes to the file have been written\n");
@@ -57,6 +58,7 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   fclose(file);
 }
 
+//formats the Json token :  {"token"[
 char * getJsonToken (char * file){
   	char * filename = calloc((sizeof(file) +10),1);
   	int filesize= strlen (file);
@@ -75,8 +77,9 @@ char * getJsonToken (char * file){
 
 }
 
-char * getFrequency (int frequency){
 
+//parses int frequency int o char *
+char * getFrequency (int frequency){
 	char str[15];
 	sprintf(str, "%d", frequency);
 	char * returnval = malloc(strlen(str));
@@ -85,11 +88,19 @@ char * getFrequency (int frequency){
 }
 //sample record {"baa" : 1}
 //trailing appends , to baa
+//returns a record
 char * getJsonRecord (char * token, char * frequency, int trailing){
+  char * entry = 0;
 	if(trailing == 0){
-	  	char * entry = calloc((sizeof(token) + sizeof(frequency) +11),1);
-	  	int tokensize= strlen (token);
-	  	int freqsize = strlen(frequency);
+      //this handles the 
+   entry = calloc((sizeof(token) + sizeof(frequency) +11),1);
+  }else {
+      //make room for extra comma
+   entry = calloc((sizeof(token) + sizeof(frequency) +12),1);
+  }
+
+  	int tokensize= strlen (token);
+  	int freqsize = strlen(frequency);
 		entry[0] = '\t';
 		entry[1] = '\t';
 		entry[2] = '{';
@@ -100,32 +111,20 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
 		entry[6+tokensize] = ':'; 
 		strcat(entry,frequency);
 		entry[7+tokensize+freqsize] = '}'; 
-		entry[8+tokensize+freqsize] = '\n';
-		entry[9+tokensize+freqsize] = '\0';
+
+    if(trailing == 0){
+     //dont add that extra comma
+     entry[8+tokensize+freqsize] = '\n';
+     entry[9+tokensize+freqsize] = '\0';
+
+    } else {
+      //put that extra comma in
+      entry[8+tokensize+freqsize] = ',';
+      entry[9+tokensize+freqsize] = '\n';
+      entry[10+tokensize+freqsize] = '\0';
+    }
+
 		free(frequency);
-	    return entry;
-
-	} else{
-	  	char * entry = calloc((sizeof(token) + sizeof(frequency) +12),1);
-	  	int tokensize= strlen (token);
-	  	int freqsize = strlen(frequency);
-		entry[0] = '\t';
-		entry[1] = '\t';
-		entry[2] = '{';
-		entry[3] = '\"';
-		strcat(entry,token);
-		entry[4+tokensize] = '\"';
-		entry[5+tokensize] = ' ';
-		entry[6+tokensize] = ':'; 
-		strcat(entry,frequency);
-		entry[7+tokensize+freqsize] = '}'; 
-		entry[7+tokensize+freqsize] = ',';
-		entry[9+tokensize+freqsize] = '\n';
-		entry[10+tokensize+freqsize] = '\0';
-		free(frequency);
-	    return entry;
-
-
-	}
+    return entry;
 
 }

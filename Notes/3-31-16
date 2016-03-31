@@ -1,0 +1,25 @@
+3:21:16
+
+how to handle stuf:
+
+
+directory_handle(char * name)
+{
+	to get list of everything inside directory, use dirent
+	opendir - opens directory
+	readdir - gets object in directory
+	so:
+	opendir(name)
+	while (readdir != 0){
+		test dirent for null
+		if dirent != null: get type of entry:
+
+		if entry is a file: call file handle
+		if directory: call directory_handle
+	}
+}
+
+file_handler(char * name)
+{
+	essentially call tokenizer and add tokenized contents to list.	
+}
