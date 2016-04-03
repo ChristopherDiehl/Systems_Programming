@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     printf("Writing\n");
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
-	//delete_file_paths();
+	delete_file_paths();
 
 }	
 
