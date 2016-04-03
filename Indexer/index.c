@@ -30,6 +30,7 @@ int main(int argc, char **argv) {
     	printf("Not a valid directory or file name\n");
     	return -1;
     }
+    printf("Writing\n");
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
 
@@ -45,10 +46,13 @@ void directory_handle(char * name, FrequencyList * fList)
 	}
 	struct dirent * fDirent;
     while ((fDirent = readdir(fDir)) != NULL) {
+
 		char * fullPath = strcat(name,fDirent->d_name);
+		printf("fullpath %s, fDirent->type %d fDirent->name %s\n",fullPath, fDirent->d_type, fDirent->d_name);
     	if(fDirent->d_type == DT_REG){
     		file_handler(fullPath,fList);
     	} else if(fDirent->d_type == DT_DIR){
+    		printf("Calling directory_handle\n");
     		directory_handle(fullPath,fList);
     	}
     }
@@ -58,6 +62,7 @@ void directory_handle(char * name, FrequencyList * fList)
 
 void file_handler(char * name, FrequencyList * fList)
 {
+	printf("File Handler name: %s\n",name );
 	if(name == 0 || fList == 0){
 		printf("Error in file_handler\n");
 		exit(0);
