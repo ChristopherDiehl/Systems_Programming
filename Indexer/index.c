@@ -65,6 +65,7 @@ void directory_handle(char * name, FrequencyList * fList)
     	//path can't be longer than 1024 bytes
 		char * fullpath = calloc(1,1024);
 		if((strcmp(fDirent->d_name, ".") == 0) || (strcmp (fDirent->d_name,"..") ==0)){
+			free(fullpath);
 			continue;
 		}
 		strcpy(fullpath,name);
