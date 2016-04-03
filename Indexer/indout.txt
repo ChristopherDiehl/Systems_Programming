@@ -1,392 +1,272 @@
 {"list" : [
-	{"ad"[
-		{"bacon1.txt" :6}
+	{"a"[
+		{"bacon0.txt" :1}
 	]},
 	{"adipisicing"[
-		{"bacon1.txt" :7}
-	]},
-	{"alcatra"[
-		{"bacon1.txt" :2}
-	]},
-	{"aliqua"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :2}
 	]},
 	{"aliquip"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :3}
+	]},
+	{"am"[
+		{"bacon0.txt" :1}
 	]},
 	{"amet"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"andouille"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :2}
 	]},
 	{"anim"[
-		{"bacon1.txt" :9}
-	]},
-	{"aute"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"bacon"[
-		{"bacon1.txt" :4}
-	]},
-	{"ball"[
-		{"bacon1.txt" :3}
-	]},
-	{"beef"[
-		{"bacon1.txt" :8}
+		{"bacon0.txt" :2}
 	]},
 	{"belly"[
-		{"bacon1.txt" :2}
-	]},
-	{"biltong"[
-		{"bacon1.txt" :4}
-	]},
-	{"bone"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"boudin"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
-	{"bresaola"[
-		{"bacon1.txt" :4}
+	{"br"[
+		{"bacon0.txt" :1}
 	]},
-	{"brisket"[
-		{"bacon1.txt" :5}
+	{"bs"[
+		{"bacon0.txt" :1}
 	]},
 	{"capicola"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"chicken"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"chop"[
-		{"bacon1.txt" :4}
-	]},
-	{"chuck"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"cillum"[
-		{"bacon1.txt" :5}
-	]},
-	{"commodo"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"consectetur"[
-		{"bacon1.txt" :7}
-	]},
-	{"consequat"[
-		{"bacon1.txt" :5}
-	]},
-	{"corned"[
-		{"bacon1.txt" :1}
-	]},
-	{"cow"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"culpa"[
-		{"bacon1.txt" :2}
-	]},
-	{"cupidatat"[
-		{"bacon1.txt" :6}
+		{"bacon0.txt" :3}
 	]},
 	{"cupim"[
-		{"bacon1.txt" :1}
-	]},
-	{"deserunt"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"do"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"dolor"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]},
 	{"dolore"[
-		{"bacon1.txt" :17}
+		{"bacon0.txt" :1}
 	]},
 	{"doner"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"drumstick"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"duis"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"ea"[
-		{"bacon1.txt" :6}
-	]},
-	{"eiusmod"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"elit"[
-		{"bacon1.txt" :6}
+		{"bacon0.txt" :1}
 	]},
 	{"enim"[
-		{"bacon1.txt" :8}
+		{"bacon0.txt" :1}
 	]},
 	{"esse"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
-	{"est"[
-		{"bacon1.txt" :2}
-	]},
-	{"et"[
-		{"bacon1.txt" :3}
-	]},
-	{"eu"[
-		{"bacon1.txt" :5}
-	]},
-	{"ex"[
-		{"bacon1.txt" :3}
-	]},
-	{"excepteur"[
-		{"bacon1.txt" :1}
-	]},
-	{"exercitation"[
-		{"bacon1.txt" :7}
-	]},
-	{"fatback"[
-		{"bacon1.txt" :4}
+	{"file"[
+		{"bacon0.txt" :1}
 	]},
 	{"filet"[
-		{"bacon1.txt" :4}
-	]},
-	{"flank"[
-		{"bacon1.txt" :7}
+		{"bacon0.txt" :2}
 	]},
 	{"frankfurter"[
-		{"bacon1.txt" :6}
-	]},
-	{"fugiat"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]},
 	{"ground"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]},
 	{"ham"[
-		{"bacon1.txt" :8}
+		{"bacon0.txt" :1}
 	]},
 	{"hamburger"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
-	{"hock"[
-		{"bacon1.txt" :4}
+	{"help"[
+		{"bacon0.txt" :1}
 	]},
-	{"id"[
-		{"bacon1.txt" :5}
+	{"i"[
+		{"bacon0.txt" :1}
 	]},
 	{"in"[
-		{"bacon1.txt" :11}
-	]},
-	{"incididunt"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :4}
 	]},
 	{"ipsum"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
-	{"irure"[
-		{"bacon1.txt" :6}
+	{"is"[
+		{"bacon0.txt" :1}
 	]},
 	{"jerky"[
-		{"bacon1.txt" :7}
-	]},
-	{"jowl"[
-		{"bacon1.txt" :2}
-	]},
-	{"kevin"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]},
 	{"kielbasa"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"labore"[
-		{"bacon1.txt" :2}
-	]},
-	{"laboris"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"laborum"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"landjaeger"[
-		{"bacon1.txt" :3}
-	]},
-	{"leberkas"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"loin"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
-	{"lorem"[
-		{"bacon1.txt" :2}
+	{"m3"[
+		{"bacon0.txt" :1}
 	]},
 	{"magna"[
-		{"bacon1.txt" :2}
-	]},
-	{"meatball"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"meatloaf"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"mignon"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :2}
 	]},
 	{"minim"[
-		{"bacon1.txt" :2}
-	]},
-	{"mollit"[
-		{"bacon1.txt" :7}
-	]},
-	{"nisi"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
 	{"non"[
-		{"bacon1.txt" :2}
-	]},
-	{"nostrud"[
-		{"bacon1.txt" :11}
-	]},
-	{"nulla"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"occaecat"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
-	{"officia"[
-		{"bacon1.txt" :4}
+	{"p0gram"[
+		{"bacon0.txt" :1}
 	]},
 	{"pancetta"[
-		{"bacon1.txt" :4}
-	]},
-	{"pariatur"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"pastrami"[
-		{"bacon1.txt" :4}
-	]},
-	{"picanha"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"pig"[
-		{"bacon1.txt" :5}
-	]},
-	{"porchetta"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"pork"[
-		{"bacon1.txt" :10}
-	]},
-	{"proident"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :2}
 	]},
 	{"prosciutto"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :3}
 	]},
 	{"qui"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"quis"[
-		{"bacon1.txt" :6}
+		{"bacon0.txt" :1}
 	]},
 	{"reprehenderit"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
-	{"ribeye"[
-		{"bacon1.txt" :2}
+	{"ri"[
+		{"bacon0.txt" :1}
 	]},
 	{"ribs"[
-		{"bacon1.txt" :12}
+		{"bacon0.txt" :3}
 	]},
 	{"round"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]},
 	{"rump"[
-		{"bacon1.txt" :2}
-	]},
-	{"salami"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"sausage"[
-		{"bacon1.txt" :6}
-	]},
-	{"sed"[
-		{"bacon1.txt" :4}
+		{"bacon0.txt" :1}
 	]},
 	{"shank"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"shankle"[
-		{"bacon1.txt" :8}
+		{"bacon0.txt" :2}
 	]},
 	{"short"[
-		{"bacon1.txt" :6}
-	]},
-	{"shoulder"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :2}
 	]},
 	{"sint"[
-		{"bacon1.txt" :6}
+		{"bacon0.txt" :1}
 	]},
 	{"sirloin"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"spare"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :3}
 	]},
 	{"steak"[
-		{"bacon1.txt" :7}
+		{"bacon0.txt" :1}
 	]},
 	{"strip"[
-		{"bacon1.txt" :7}
+		{"bacon0.txt" :1}
 	]},
-	{"swine"[
-		{"bacon1.txt" :8}
-	]},
-	{"t"[
-		{"bacon1.txt" :1}
+	{"sunt"[
+		{"bacon0.txt" :1}
 	]},
 	{"tail"[
-		{"bacon1.txt" :9}
+		{"bacon0.txt" :1}
 	]},
 	{"tempor"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :1}
 	]},
-	{"tenderloin"[
-		{"bacon1.txt" :5}
+	{"test"[
+		{"bacon0.txt" :2}
+	]},
+	{"this"[
+		{"bacon0.txt" :1}
 	]},
 	{"tip"[
-		{"bacon1.txt" :8}
+		{"bacon0.txt" :3}
 	]},
 	{"tongue"[
-		{"bacon1.txt" :1}
+		{"bacon0.txt" :2}
 	]},
 	{"tri"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :3}
 	]},
 	{"turducken"[
-		{"bacon1.txt" :6}
+		{"bacon0.txt" :1}
 	]},
-	{"turkey"[
-		{"bacon1.txt" :3}
-	]},
-	{"ullamco"[
-		{"bacon1.txt" :5}
+	{"uh"[
+		{"bacon0.txt" :1}
 	]},
 	{"ut"[
-		{"bacon1.txt" :14}
+		{"bacon0.txt" :4}
 	]},
 	{"velit"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :3}
 	]},
 	{"veniam"[
-		{"bacon1.txt" :3}
+		{"bacon0.txt" :1}
 	]},
 	{"venison"[
-		{"bacon1.txt" :5}
+		{"bacon0.txt" :2}
 	]},
 	{"voluptate"[
-		{"bacon1.txt" :2}
+		{"bacon0.txt" :1}
 	]}
 ]}

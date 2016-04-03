@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
 		}
 		if(res == 0)
 			break ; 
-		free(res);
 		//printf("%s\n",res);
 
 	}	

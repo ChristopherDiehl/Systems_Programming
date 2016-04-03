@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     	printf("Not a valid directory or file name\n");
     	return -1;
     }
-    closedir(fDir);
+    //closedir(fDir);
     printf("Writing\n");
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
@@ -47,7 +47,6 @@ int main(int argc, char **argv) {
 void delete_file_paths() {
 	int i = 0;
 	for (i = 0; i < filepath_index; i ++){
-		printf("%s\n", filepaths[i]);
 		free(filepaths[i]);
 	}
 	free(filepaths);
