@@ -49,14 +49,15 @@ void directory_handle(char * name, FrequencyList * fList)
     	//path can't be longer than 1024 bytes
 		char * fullpath = malloc(1024);
 		strcat(fullpath,name);
-		//strcat(fullpath,fDirent->dname);
+		strcat(fullpath,"/");
+		strcat(fullpath,fDirent->d_name);
 		printf("fullpath %s, fDirent->type %d fDirent->name %s name: %s\n",fullpath, fDirent->d_type, fDirent->d_name, name);
     	if(fDirent->d_type == DT_REG){
     		file_handler(fullpath,fList);
-    	} //else if(fDirent->d_type == DT_DIR){
-    		//printf("Calling directory_handle\n");
-    	//	directory_handle(fullpath,fList);
-    	//}
+    	} else if(fDirent->d_type == DT_DIR){
+    		printf("Calling directory_handle\n");
+    		directory_handle(fullpath,fList);
+    	}
     }
     
     closedir(fDir);
