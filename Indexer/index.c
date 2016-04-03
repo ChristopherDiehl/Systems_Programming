@@ -8,6 +8,7 @@
  void directory_handle(char * name, FrequencyList * fList);
  void file_handler(char * name, FrequencyList * fList);
  void delete_file_paths();
+
 char ** filepaths;
 int filepath_count;
 int filepath_index;
@@ -95,10 +96,10 @@ void file_handler(char * name, FrequencyList * fList)
 		int i = 0;
 		printf("filepath_count %d\n", filepath_count );
 		for (i = 0; i < filepath_count; i ++){
-			printf("%d filepath: %s\n",i, filepaths[i]);
+			//printf("%d filepath: %s\n",i, filepaths[i]);
 			temp[i] = malloc(strlen(filepaths[i])+1);
 			strcpy(temp[i],filepaths[i]);
-			//free(filepaths[i]);
+			free(filepaths[i]);
 		}
 		printf("out of for loop\n");
 		free(filepaths);
