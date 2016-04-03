@@ -24,8 +24,7 @@ TokenizerT * Tokenize( char * filename) {
 	size_t length = file_length(filename) +1;
 	FILE * file = fopen(filename,"r");
 	if(file == 0){
-		printf("[-] Invalid file name : %s\n",filename);
-		printf("[-] Terminating\n");
+		printf("[-] Invalid file name passed to tokenizer: %s\n",filename);
 		return 0;
 	}
 	res->_strLen = length;

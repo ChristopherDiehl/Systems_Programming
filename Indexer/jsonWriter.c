@@ -10,7 +10,7 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   	printf("Please enter valid input\n");
   	return 1;
   }
-  printf("[-] writing to file\n");
+  printf("[-] writing to %s\n",filename);
 
   //open up the file
   FILE * file = fopen(filename,"w");

@@ -46,15 +46,17 @@ void directory_handle(char * name, FrequencyList * fList)
 	}
 	struct dirent * fDirent;
     while ((fDirent = readdir(fDir)) != NULL) {
-
-		char * fullPath = strcat(name,fDirent->d_name);
-		printf("fullpath %s, fDirent->type %d fDirent->name %s\n",fullPath, fDirent->d_type, fDirent->d_name);
+    	//path can't be longer than 1024 bytes
+		char * fullpath = malloc(1024);
+		strcat(fullpath,name);
+		//strcat(fullpath,fDirent->dname);
+		printf("fullpath %s, fDirent->type %d fDirent->name %s name: %s\n",fullpath, fDirent->d_type, fDirent->d_name, name);
     	if(fDirent->d_type == DT_REG){
-    		file_handler(fullPath,fList);
-    	} else if(fDirent->d_type == DT_DIR){
-    		printf("Calling directory_handle\n");
-    		directory_handle(fullPath,fList);
-    	}
+    		file_handler(fullpath,fList);
+    	} //else if(fDirent->d_type == DT_DIR){
+    		//printf("Calling directory_handle\n");
+    	//	directory_handle(fullpath,fList);
+    	//}
     }
     
     closedir(fDir);
