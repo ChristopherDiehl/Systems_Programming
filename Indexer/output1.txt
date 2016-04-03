@@ -1,7 +1,4 @@
 {"list" : [
-	{"a"[
-		{"cabla.txt" :1}
-	]},
 	{"ad"[
 		{"bacon1.txt" :6}
 	]},
@@ -20,9 +17,6 @@
 	{"amet"[
 		{"bacon1.txt" :1}
 	]},
-	{"and"[
-		{"cabla.txt" :1}
-	]},
 	{"andouille"[
 		{"bacon1.txt" :5}
 	]},
@@ -33,7 +27,6 @@
 		{"bacon1.txt" :3}
 	]},
 	{"bacon"[
-		{"cabla.txt" :1},
 		{"bacon1.txt" :4}
 	]},
 	{"ball"[
@@ -59,9 +52,6 @@
 	]},
 	{"brisket"[
 		{"bacon1.txt" :5}
-	]},
-	{"bro"[
-		{"cabla.txt" :1}
 	]},
 	{"capicola"[
 		{"bacon1.txt" :1}
@@ -89,9 +79,6 @@
 	]},
 	{"corned"[
 		{"bacon1.txt" :1}
-	]},
-	{"correspond"[
-		{"cabla.txt" :1}
 	]},
 	{"cow"[
 		{"bacon1.txt" :4}
@@ -162,14 +149,8 @@
 	{"fatback"[
 		{"bacon1.txt" :4}
 	]},
-	{"file"[
-		{"cabla.txt" :1}
-	]},
 	{"filet"[
 		{"bacon1.txt" :4}
-	]},
-	{"find"[
-		{"cabla.txt" :1}
 	]},
 	{"flank"[
 		{"bacon1.txt" :7}
@@ -179,9 +160,6 @@
 	]},
 	{"fugiat"[
 		{"bacon1.txt" :2}
-	]},
-	{"great"[
-		{"cabla.txt" :2}
 	]},
 	{"ground"[
 		{"bacon1.txt" :2}
@@ -209,9 +187,6 @@
 	]},
 	{"irure"[
 		{"bacon1.txt" :6}
-	]},
-	{"is"[
-		{"cabla.txt" :3}
 	]},
 	{"jerky"[
 		{"bacon1.txt" :7}
@@ -266,9 +241,6 @@
 	]},
 	{"nisi"[
 		{"bacon1.txt" :5}
-	]},
-	{"nodes"[
-		{"cabla.txt" :1}
 	]},
 	{"non"[
 		{"bacon1.txt" :2}
@@ -339,9 +311,6 @@
 	{"sausage"[
 		{"bacon1.txt" :6}
 	]},
-	{"second"[
-		{"cabla.txt" :1}
-	]},
 	{"sed"[
 		{"bacon1.txt" :4}
 	]},
@@ -387,23 +356,11 @@
 	{"tenderloin"[
 		{"bacon1.txt" :5}
 	]},
-	{"test"[
-		{"cabla.txt" :1}
-	]},
-	{"this"[
-		{"cabla.txt" :1}
-	]},
 	{"tip"[
 		{"bacon1.txt" :8}
 	]},
-	{"to"[
-		{"cabla.txt" :1}
-	]},
 	{"tongue"[
 		{"bacon1.txt" :1}
-	]},
-	{"trailing"[
-		{"cabla.txt" :1}
 	]},
 	{"tri"[
 		{"bacon1.txt" :5}
@@ -431,8 +388,5 @@
 	]},
 	{"voluptate"[
 		{"bacon1.txt" :2}
-	]},
-	{"zeta"[
-		{"cabla.txt" :1}
 	]}
 ]}

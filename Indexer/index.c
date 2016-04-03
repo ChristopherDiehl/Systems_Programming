@@ -2,6 +2,13 @@
 #include "fileTokenizer.h"
 #include "jsonWriter.h"
 #include <errno.h>
+#include <sys/dir.h>
+
+/*preprocessor*/
+ void directory_handle(char * name, FrequencyList * fList);
+ void file_handler(char * name, FrequencyList * fList);
+
+
 int main(int argc, char **argv) {
 
 	/* check the input */ 
@@ -31,14 +38,17 @@ int main(int argc, char **argv) {
 
 void directory_handle(char * name, FrequencyList * fList)
 {
-
-	DIR *fDir = opendir(name)
-	struct dirent fDirent = 0;
-    while ((pDirent = readdir(pDir)) != NULL) {
-		char * fullPath = strcat(name,pDirent->d_name);
-    	if(pDirent->d_type == DT_REG){
+	printf("%s\n", name);
+	DIR *fDir = opendir(name);
+	if(fDir == 0){
+		return;
+	}
+	struct dirent * fDirent;
+    while ((fDirent = readdir(fDir)) != NULL) {
+		char * fullPath = strcat(name,fDirent->d_name);
+    	if(fDirent->d_type == DT_REG){
     		file_handler(fullPath,fList);
-    	} else if(pdirent->d_type == DT_DIR){
+    	} else if(fDirent->d_type == DT_DIR){
     		directory_handle(fullPath,fList);
     	}
     }
@@ -50,7 +60,7 @@ void file_handler(char * name, FrequencyList * fList)
 {
 	if(name == 0 || fList == 0){
 		printf("Error in file_handler\n");
-		exit(0);2
+		exit(0);
 	}
 	TokenizerT * tk = Tokenize(name);
 	while(1)

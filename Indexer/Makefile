@@ -9,7 +9,7 @@ all:
 	$(CC) -c frequencyList.c
 	$(CC) -c jsonWriter.c
 
-
+	$(CC) $(CFLAGS) index index.c $(OBJECTS)
 	$(CC) $(CFLAGS) test0 tokenizingTest.c $(OBJECTS)
 	$(CC) $(CFLAGS) test1 test1.c $(OBJECTS)
 	$(CC) $(CFLAGS) test2 test2.c $(OBJECTS)
