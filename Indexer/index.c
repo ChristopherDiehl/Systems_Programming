@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
     	printf("Not a valid directory or file name\n");
     	return -1;
     }
+    closedir(fDir);
     printf("Writing\n");
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
