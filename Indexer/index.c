@@ -34,12 +34,10 @@ int main(int argc, char **argv) {
     } else {
     	//pDir is null...
     	printf("Not a valid directory or file name\n");
-       free(filepaths);
 
     	return -1;
     }
     //closedir(fDir);
-    free(filepaths);
     printf("Writing\n");
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
