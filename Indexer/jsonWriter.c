@@ -28,21 +28,21 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   	Json * temp = removeFromHead(fList);
    // printList(fList);
     if(trailing == 0){
-      printf("trailing = =0\n");
+    //  printf("trailing = =0\n");
       char * formattedtoken = getJsonToken(temp->token);
       fwrite(formattedtoken,1,strlen(formattedtoken),file);
       free(formattedtoken);
-      printf("past free\n");
+     // printf("past free\n");
     }
     //see if node has any trailing nodes
     trailing = temp->isTrailing;
-    printf("going into record\n");
+  //  printf("going into record\n");
   	char * record = getJsonRecord(temp->filename, getFrequency(temp->frequency),trailing);
   	fwrite(record,1,strlen(record),file);
   	free(record);
-    printf("freeing  record\n");
+    //printf("freeing  record\n");
   	destroyJson(temp);
-    printf("freed JSon\n");
+   // printf("freed JSon\n");
   	if(temp == 0) 
   		break;
     if(trailing == 0){
