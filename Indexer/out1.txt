@@ -1,0 +1,35 @@
+{"list" : [
+	{"america"[
+		{"out1.txt" :1}
+	]},
+	{"bacon"[
+		{"out1.txt" :1}
+	]},
+	{"bro"[
+		{"out1.txt" :1}
+	]},
+	{"capain"[
+		{"out1.txt" :1}
+	]},
+	{"file"[
+		{"out1.txt" :1}
+	]},
+	{"fireme"[
+		{"out1.txt" :1}
+	]},
+	{"free"[
+		{"out1.txt" :1}
+	]},
+	{"great"[
+		{"out1.txt" :2}
+	]},
+	{"is"[
+		{"out1.txt" :2}
+	]},
+	{"up"[
+		{"out1.txt" :1}
+	]},
+	{"zeta"[
+		{"out1.txt" :1}
+	]}
+]}
