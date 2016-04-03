@@ -68,6 +68,10 @@ void file_handler(char * name, FrequencyList * fList)
 		exit(0);
 	}
 	TokenizerT * tk = Tokenize(name);
+	if (tk == 0) {
+		printf("[-] Tokenizer is null...\n");
+		return;
+	}
 	while(1)
 	{
 		char * res = GetToken(tk);
