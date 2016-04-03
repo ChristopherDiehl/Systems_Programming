@@ -79,7 +79,7 @@ void directory_handle(char * name, FrequencyList * fList)
     	} else if(fDirent->d_type == DT_DIR){
     		directory_handle(fullpath,fList);
     	}
-    	//free(fullpath);
+    	free(fullpath);
     }
     
     closedir(fDir);
