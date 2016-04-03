@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -g -o
+CFLAGS= -g -o -Wall
 DEPS = fileTokenizer.c fileTokenizer.h jsonWriter.h
 OBJECTS = fileTokenizer.o frequencyList.o jsonWriter.o
 EXECS = test

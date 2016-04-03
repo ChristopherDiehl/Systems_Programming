@@ -85,6 +85,7 @@ void directory_handle(char * name, FrequencyList * fList)
 
 void file_handler(char * name, FrequencyList * fList)
 {
+
 	if(filepath_index == (filepath_count)){
 		//expand filepaths by a multiplicity of 2
 		printf("segfault?\n");
@@ -125,7 +126,7 @@ void file_handler(char * name, FrequencyList * fList)
 		if(res == 0)
 			break ; 
 	}	
-
+	printList(fList);
 	tkDestroy(tk);
 	filepath_index++;
 }
