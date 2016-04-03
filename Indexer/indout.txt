@@ -1,6 +1,2 @@
 {"list" : [
 	{"a"[
-		{"/Users/Chris/Documents/Index_Test/cable.txt" :s},
-		{"/Users/Chris/Documents/Index_Test/bacon0.txt" :n},
-		{"/Users/Chris/Documents/Index_Test/Temp/cable21.txt" :d},
-		{"/Users/Chris/Documents/Index_Test/Temp/Temp/cable21.txt" :e},

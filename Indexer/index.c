@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
 	delete_file_paths();
-
+	return 1;
 }	
 
 void delete_file_paths() {
