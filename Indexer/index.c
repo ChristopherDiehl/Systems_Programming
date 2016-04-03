@@ -126,7 +126,7 @@ void file_handler(char * name, FrequencyList * fList)
 		if(res == 0)
 			break ; 
 	}	
-	printList(fList);
+	//printList(fList);
 	tkDestroy(tk);
 	filepath_index++;
 }
