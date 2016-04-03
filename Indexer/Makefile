@@ -15,6 +15,8 @@ all:
 	$(CC) $(CFLAGS) test2 test2.c $(OBJECTS)
 	$(CC) $(CFLAGS) test3 test3.c $(OBJECTS)
 	$(CC) $(CFLAGS) test4 test4.c $(OBJECTS)
+	$(CC) $(CFLAGS) test6 test6.c $(OBJECTS)
+
 
 
 
