@@ -117,6 +117,7 @@ void file_handler(char * name, FrequencyList * fList)
 	if (tk == 0) {
 		printf("[-] Tokenizer is null...\n");
 		return;
+
 	}
 	while(1)
 	{
@@ -127,6 +128,7 @@ void file_handler(char * name, FrequencyList * fList)
 		}
 		if(res == 0)
 			break ; 
+		free(res);
 	}	
 	//printList(fList);
 	tkDestroy(tk);
