@@ -116,7 +116,7 @@ int deleteList (FrequencyList * fList) {
 	Node * temp = fList->head; 
 	while(temp != 0) {
 		fList->head = fList->head->next;
-	    printf("Freeing : %s\n",temp->token );
+//	    printf("Freeing : %s\n",temp->token );
 
 		free(temp->token);
 		free(temp);
@@ -134,7 +134,7 @@ int isEmpty(FrequencyList * fList) {
 }
 //destroys JSON tokens used by jsonWriter
 int destroyJson (Json * json){
-	printf("Freeing : %s\n",json->token );
+//	printf("Freeing : %s\n",json->token );
 	free(json->token);
 	free(json);
 }

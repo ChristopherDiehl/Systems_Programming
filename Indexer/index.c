@@ -41,6 +41,7 @@ int main(int argc, char **argv) {
 	printList(fList);    
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
+	//free(fList);
 	delete_file_paths();
 	if(fDir!=0)
      closedir(fDir);
@@ -82,7 +83,7 @@ void directory_handle(char * name, FrequencyList * fList)
     		directory_handle(fullpath,fList);
     	}
     	///need to handle fullpaths
-    	//free(fullpath);
+    	free(fullpath);
     }
     
     closedir(fDir);
@@ -111,6 +112,7 @@ void file_handler(char * name, FrequencyList * fList)
 	}
 	filepaths[filepath_index] = malloc(strlen(name)+1);
 	strcpy(filepaths[filepath_index],name);
+	//free(name);
 	printf("File Handler name: %s\n", filepaths[filepath_index]);
 	if(filepaths[filepath_index] == 0 || fList == 0){
 		printf("Error in file_handler\n");
