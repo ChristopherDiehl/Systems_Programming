@@ -1,71 +1,272 @@
 {"list" : [
 	{"a"[
-		{"Temp/cable21.txt" :1}
+		{"bacon0.txt" :1}
 	]},
-	{"america"[
-		{"Temp/bacon21.txt" :1}
+	{"adipisicing"[
+		{"bacon0.txt" :2}
 	]},
-	{"and"[
-		{"Temp/cable21.txt" :1}
+	{"aliquip"[
+		{"bacon0.txt" :3}
+	]},
+	{"am"[
+		{"bacon0.txt" :1}
+	]},
+	{"amet"[
+		{"bacon0.txt" :1}
+	]},
+	{"andouille"[
+		{"bacon0.txt" :2}
+	]},
+	{"anim"[
+		{"bacon0.txt" :1}
 	]},
 	{"bacon"[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1}
+		{"bacon0.txt" :2}
 	]},
-	{"bro"[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1}
+	{"belly"[
+		{"bacon0.txt" :1}
 	]},
-	{"capain"[
-		{"Temp/bacon21.txt" :1}
+	{"boudin"[
+		{"bacon0.txt" :1}
 	]},
-	{"correspond"[
-		{"Temp/cable21.txt" :1}
+	{"br"[
+		{"bacon0.txt" :1}
+	]},
+	{"bs"[
+		{"bacon0.txt" :1}
+	]},
+	{"capicola"[
+		{"bacon0.txt" :1}
+	]},
+	{"chicken"[
+		{"bacon0.txt" :1}
+	]},
+	{"chop"[
+		{"bacon0.txt" :1}
+	]},
+	{"cillum"[
+		{"bacon0.txt" :1}
+	]},
+	{"consectetur"[
+		{"bacon0.txt" :1}
+	]},
+	{"culpa"[
+		{"bacon0.txt" :3}
+	]},
+	{"cupim"[
+		{"bacon0.txt" :1}
+	]},
+	{"do"[
+		{"bacon0.txt" :1}
+	]},
+	{"dolor"[
+		{"bacon0.txt" :1}
+	]},
+	{"dolore"[
+		{"bacon0.txt" :1}
+	]},
+	{"doner"[
+		{"bacon0.txt" :1}
+	]},
+	{"drumstick"[
+		{"bacon0.txt" :1}
+	]},
+	{"duis"[
+		{"bacon0.txt" :1}
+	]},
+	{"ea"[
+		{"bacon0.txt" :1}
+	]},
+	{"elit"[
+		{"bacon0.txt" :1}
+	]},
+	{"enim"[
+		{"bacon0.txt" :1}
+	]},
+	{"esse"[
+		{"bacon0.txt" :1}
 	]},
 	{"file"[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1}
+		{"bacon0.txt" :1}
 	]},
-	{"find"[
-		{"Temp/cable21.txt" :1}
+	{"filet"[
+		{"bacon0.txt" :2}
 	]},
-	{"fireme"[
-		{"Temp/bacon21.txt" :1}
+	{"frankfurter"[
+		{"bacon0.txt" :1}
 	]},
-	{"free"[
-		{"Temp/bacon21.txt" :1}
+	{"ground"[
+		{"bacon0.txt" :1}
 	]},
-	{"great"[
-		{"Temp/cable21.txt" :2},
-		{"Temp/bacon21.txt" :2}
+	{"ham"[
+		{"bacon0.txt" :1}
+	]},
+	{"hamburger"[
+		{"bacon0.txt" :1}
+	]},
+	{"help"[
+		{"bacon0.txt" :1}
+	]},
+	{"i"[
+		{"bacon0.txt" :1}
+	]},
+	{"in"[
+		{"bacon0.txt" :4}
+	]},
+	{"ipsum"[
+		{"bacon0.txt" :1}
 	]},
 	{"is"[
-		{"Temp/cable21.txt" :3},
-		{"Temp/bacon21.txt" :2}
+		{"bacon0.txt" :1}
 	]},
-	{"nodes"[
-		{"Temp/cable21.txt" :1}
+	{"jerky"[
+		{"bacon0.txt" :1}
 	]},
-	{"second"[
-		{"Temp/cable21.txt" :1}
+	{"kielbasa"[
+		{"bacon0.txt" :1}
+	]},
+	{"labore"[
+		{"bacon0.txt" :1}
+	]},
+	{"laborum"[
+		{"bacon0.txt" :1}
+	]},
+	{"landjaeger"[
+		{"bacon0.txt" :1}
+	]},
+	{"loin"[
+		{"bacon0.txt" :1}
+	]},
+	{"m3"[
+		{"bacon0.txt" :1}
+	]},
+	{"magna"[
+		{"bacon0.txt" :1}
+	]},
+	{"meatloaf"[
+		{"bacon0.txt" :1}
+	]},
+	{"mignon"[
+		{"bacon0.txt" :2}
+	]},
+	{"minim"[
+		{"bacon0.txt" :1}
+	]},
+	{"non"[
+		{"bacon0.txt" :1}
+	]},
+	{"occaecat"[
+		{"bacon0.txt" :1}
+	]},
+	{"p0gram"[
+		{"bacon0.txt" :1}
+	]},
+	{"pancetta"[
+		{"bacon0.txt" :1}
+	]},
+	{"pastrami"[
+		{"bacon0.txt" :1}
+	]},
+	{"pig"[
+		{"bacon0.txt" :1}
+	]},
+	{"pork"[
+		{"bacon0.txt" :2}
+	]},
+	{"prosciutto"[
+		{"bacon0.txt" :3}
+	]},
+	{"qui"[
+		{"bacon0.txt" :1}
+	]},
+	{"quis"[
+		{"bacon0.txt" :1}
+	]},
+	{"reprehenderit"[
+		{"bacon0.txt" :1}
+	]},
+	{"ri"[
+		{"bacon0.txt" :1}
+	]},
+	{"ribs"[
+		{"bacon0.txt" :3}
+	]},
+	{"round"[
+		{"bacon0.txt" :1}
+	]},
+	{"rump"[
+		{"bacon0.txt" :1}
+	]},
+	{"sausage"[
+		{"bacon0.txt" :1}
+	]},
+	{"shank"[
+		{"bacon0.txt" :1}
+	]},
+	{"shankle"[
+		{"bacon0.txt" :2}
+	]},
+	{"short"[
+		{"bacon0.txt" :2}
+	]},
+	{"sint"[
+		{"bacon0.txt" :1}
+	]},
+	{"sirloin"[
+		{"bacon0.txt" :1}
+	]},
+	{"spare"[
+		{"bacon0.txt" :3}
+	]},
+	{"steak"[
+		{"bacon0.txt" :1}
+	]},
+	{"strip"[
+		{"bacon0.txt" :1}
+	]},
+	{"sunt"[
+		{"bacon0.txt" :1}
+	]},
+	{"tail"[
+		{"bacon0.txt" :1}
+	]},
+	{"tempor"[
+		{"bacon0.txt" :1}
 	]},
 	{"test"[
-		{"Temp/cable21.txt" :1}
+		{"bacon0.txt" :2}
 	]},
 	{"this"[
-		{"Temp/cable21.txt" :1}
+		{"bacon0.txt" :1}
 	]},
-	{"to"[
-		{"Temp/cable21.txt" :1}
+	{"tip"[
+		{"bacon0.txt" :3}
 	]},
-	{"trailing"[
-		{"Temp/cable21.txt" :1}
+	{"tongue"[
+		{"bacon0.txt" :2}
 	]},
-	{"up"[
-		{"Temp/bacon21.txt" :1}
+	{"tri"[
+		{"bacon0.txt" :3}
 	]},
-	{"zeta"[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1}
+	{"turducken"[
+		{"bacon0.txt" :1}
+	]},
+	{"uh"[
+		{"bacon0.txt" :1}
+	]},
+	{"ut"[
+		{"bacon0.txt" :4}
+	]},
+	{"velit"[
+		{"bacon0.txt" :3}
+	]},
+	{"veniam"[
+		{"bacon0.txt" :1}
+	]},
+	{"venison"[
+		{"bacon0.txt" :2}
+	]},
+	{"voluptate"[
+		{"bacon0.txt" :1}
 	]}
 ]}
