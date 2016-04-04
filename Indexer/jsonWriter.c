@@ -1,7 +1,7 @@
 #include "jsonWriter.h"
 #include "frequencyList.h"
 #include "fileTokenizer.h"
-/* Writes a frequency list to a file given into it by filename
+/* Writes a frequency list tov a file given into it by filename
  *BY CALLING jsonWRITE YOU DELETE THE FREQUENCY LIST
  *DO NOT CALL THEN EXPECT TO use Frequency List later
  */
@@ -136,7 +136,7 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
 }
 
 int main (int argc, char **argv){
-  
+
   if(argc !=3)
   {
     printf("[-]Please enter valid args\n" );
