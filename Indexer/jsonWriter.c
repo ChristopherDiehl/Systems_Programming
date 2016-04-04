@@ -66,7 +66,7 @@ int jsonWrite(FrequencyList * fList, char * filename) {
 
 //formats the Json token :  {"token"[
 char * getJsonToken (char * file){
-  	char * filename = calloc((sizeof(file) +12),1);
+  	char * filename = calloc((strlen(file) +12),1);
   	int filesize= strlen (file)+1;
   	 filename[0] = '\t';
   	 filename[1] = '{';
