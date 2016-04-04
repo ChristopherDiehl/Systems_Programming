@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 		char * res = GetToken(tk);
 		if(res != 0 && strcmp(res, "") != 0){
 			//printf("Trying to add \"%s\" from %s to list\n", res, argv[1]);
-			addToList(argv[1], res, fList);
+			addToList(argv[2], res, fList);
 
 			
 		}
