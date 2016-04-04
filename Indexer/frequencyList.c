@@ -38,6 +38,7 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 			if(strcmp(currNode->filename, filename) == 0 ){
 				currNode->frequency++;
 				free(temp);
+				free(token);
 				return 1;
 			}
 			//if same token but different filenames then temp is now trailing... 
@@ -115,6 +116,8 @@ int deleteList (FrequencyList * fList) {
 	Node * temp = fList->head; 
 	while(temp != 0) {
 		fList->head = fList->head->next;
+	    printf("Freeing : %s\n",temp->token );
+
 		free(temp->token);
 		free(temp);
 		temp = fList->head;
@@ -131,6 +134,7 @@ int isEmpty(FrequencyList * fList) {
 }
 //destroys JSON tokens used by jsonWriter
 int destroyJson (Json * json){
+	printf("Freeing : %s\n",json->token );
 	free(json->token);
 	free(json);
 }
