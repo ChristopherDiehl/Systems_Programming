@@ -58,8 +58,9 @@ int jsonWrite(FrequencyList * fList, char * filename) {
 
   }
   printf("[-] changes to the file have been written\n");
-  //close file
-  fclose(file);
+  if(file != NULL)
+	fclose(file); 
+  printf("CANT CLOSE?");
 }
 
 //formats the Json token :  {"token"[

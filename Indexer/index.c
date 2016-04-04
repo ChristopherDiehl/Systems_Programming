@@ -40,6 +40,7 @@ int main(int argc, char **argv) {
     }
 	printList(fList);    
 	jsonWrite(fList,argv[1]);
+	printf("MADE IT BACK");
 	deleteList(fList);
 	//free(fList);
 	delete_file_paths();
