@@ -38,11 +38,13 @@ int main(int argc, char **argv) {
 
     	return -1;
     }
-    //closedir(fDir);
-    printf("Writing\n");
+	printList(fList);    
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
 	delete_file_paths();
+	if(fDir!=0)
+     closedir(fDir);
+
 	return 1;
 }	
 
@@ -63,7 +65,6 @@ void directory_handle(char * name, FrequencyList * fList)
 	}
 	struct dirent * fDirent;
     while ((fDirent = readdir(fDir)) != NULL) {
-    	printf("while\n");
     	//path can't be longer than 1024 bytes
 		char * fullpath = calloc(1,1024);
 		if((strcmp(fDirent->d_name, ".") == 0) || (strcmp (fDirent->d_name,"..") ==0)){
@@ -80,7 +81,8 @@ void directory_handle(char * name, FrequencyList * fList)
     	} else if(fDirent->d_type == DT_DIR){
     		directory_handle(fullpath,fList);
     	}
-    	free(fullpath);
+    	///need to handle fullpaths
+    	//free(fullpath);
     }
     
     closedir(fDir);
