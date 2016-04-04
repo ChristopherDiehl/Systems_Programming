@@ -86,7 +86,7 @@ char * getJsonToken (char * file){
 
 //parses int frequency int o char *
 char * getFrequency (int frequency){
-	char str[15];
+	char str[16];
 	sprintf(str, "%d", frequency);
 	char * returnval = malloc(strlen(str));
 	strcpy(returnval,str);
@@ -105,8 +105,8 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
    entry = calloc((sizeof(token) + sizeof(frequency) +12),1);
   }
 
-  	int tokensize= strlen (token);
-  	int freqsize = strlen(frequency);
+  	int tokensize= strlen (token) +1;
+  	int freqsize = strlen(frequency) +1;
 		entry[0] = '\t';
 		entry[1] = '\t';
 		entry[2] = '{';
