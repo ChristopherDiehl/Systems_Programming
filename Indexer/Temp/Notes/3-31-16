@@ -1,0 +1,71 @@
+3:21:16
+
+how to handle stuff:
+
+//argv[2] = directory or file. Hand it to directory_handle
+//argv[1] = write everything to data
+
+check dirent->d_type.. if == DT_REG , it is a file, run file_handler on it
+
+DR_REG .. regular fiel
+DT_DIR.. directory
+something = opendir(argv[2])
+..check error code.. if no error = then directory, if ENOTDIR a file.
+directory_handle(char * name, FrequencyList * fList)
+{
+	to get list of everything inside directory, use dirent
+	opendir - opens directory
+	readdir - gets object in directory
+	so:
+	opendir(name)
+	while (readdir != 0){
+		test dirent for null
+		if dirent != null: get type of entry:
+
+		if entry is a file: call file handle
+		if directory: call directory_handle
+	}
+}
+
+file_handler(char * name, FrequencyList * fList)
+{
+	essentially call tokenizer and add tokenized contents to list.	
+}
+===================================================================
+
+SINGALS:
+
+signal (SIGSEGV, segment_fault_basic);
+-signal handlers are not called... invoked for you
+
+atexit(function_pointer)
+
+	-allows you to do something when your program is done running
+
+
+-if parent process never calls wait then you have zombie processes
+
+_exit(1)
+	-crash and burn exit on the current function
+	.... Everything explodes right bloody now
+
+read and write are non blocking operations...
+-when done returns immediately
+
+listen()
+...deal with connection
+...close the connection
+
+could potentiall listen() with fork()
+...when listen gets new connection. fork it off to new process..
+..would take too long for webpages
+
+THREADS
+.dont want new process
+gives you another stack
+
+pthreads..
+-how to handle multithreading
+-creates new stack and runs new function in said stack
+
+pthread_create (pthread_t * thread, void*(function pointer))
