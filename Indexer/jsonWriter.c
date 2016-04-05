@@ -100,32 +100,28 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
    entry = calloc((strlen(token) + strlen(frequency) +30),1);
   }else {
       //make room for extra comma
-   entry = calloc((strlen(token) + strlen(frequency) +30),1);
+   entry = calloc((strlen(token) + strlen(frequency) +31),1);
   }
 
   	int tokensize= strlen (token);
   	int freqsize = strlen(frequency);
-		entry[0] = '\t';
-		entry[1] = '\t';
-		entry[2] = '{';
-		entry[3] = '\"';
+    char * firstPart = "\t\t{\"";
+    strcat(entry,firstPart);
 		strcat(entry,token);
-		entry[4+tokensize] = '\"';
-		entry[5+tokensize] = ' ';
-		entry[6+tokensize] = ':'; 
+    char * secondPart = "\" :";
+    strcat(entry,secondPart);
 		strcat(entry,frequency);
-		entry[7+tokensize+freqsize] = '}'; 
 
     if(trailing == 0){
+     char * notTrailing = "}\n";
+     strcat(entry,notTrailing);
      //dont add that extra comma
      entry[8+tokensize+freqsize] = '\n';
      entry[9+tokensize+freqsize] = '\0';
 
     } else {
-      //put that extra comma in
-      entry[8+tokensize+freqsize] = ',';
-      entry[9+tokensize+freqsize] = '\n';
-      entry[10+tokensize+freqsize] = '\0';
+      char * trailing = "}\n\0";
+      strcat(entry,trailing);
     }
 		free(frequency);
     return entry;
