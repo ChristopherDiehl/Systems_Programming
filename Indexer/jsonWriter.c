@@ -76,7 +76,6 @@ char * getJsonToken (char * file){
      filename[filesize+5] = '[';
      filename[filesize+6] = '\n';
      filename[filesize+7] = '\0';
-    printf("%s\n", filename);
     return filename;
 
 }
@@ -127,7 +126,6 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
       entry[9+tokensize+freqsize] = '\n';
       entry[10+tokensize+freqsize] = '\0';
     }
-    printf("%s\n",entry );
 		free(frequency);
     return entry;
 
