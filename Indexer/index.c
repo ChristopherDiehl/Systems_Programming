@@ -119,6 +119,11 @@ void file_handler(char * name, FrequencyList * fList)
 		filepath_count = filepath_count * 2;
 		printf("no segfault\n");
 	}
+	int i =0;
+	for (i = 0; i < filepath_index; i ++){
+			printf("%d post filepath: %s\n",i, filepaths[i]);
+			
+	}
 
 	filepaths[filepath_index] = malloc(strlen(name)+1);
 	strcpy(filepaths[filepath_index],name);

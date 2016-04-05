@@ -85,7 +85,7 @@ char * getJsonToken (char * file){
 char * getFrequency (int frequency){
 	char str[16];
 	sprintf(str, "%d", frequency);
-	char * returnval = malloc(strlen(str)+1);
+	char * returnval = calloc(strlen(str)+1,1);
 	strcpy(returnval,str);
 	return returnval;
 }
