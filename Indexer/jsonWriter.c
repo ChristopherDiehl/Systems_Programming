@@ -93,6 +93,9 @@ char * getFrequency (int frequency){
 //trailing appends , to baa
 //returns a record
 char * getJsonRecord (char * token, char * frequency, int trailing){
+  if(token == 0 || frequency == 0){
+    return "TOken or frequency == 0";
+  }
   printf("token %s, frequency %s trailing %d\n", token,frequency,trailing);
   char * entry = 0;
 	if(trailing == 0){
