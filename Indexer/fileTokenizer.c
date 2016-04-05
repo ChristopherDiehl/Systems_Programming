@@ -105,7 +105,7 @@ char * GetToken( TokenizerT * tk ) {
 					continue;
 				}
 
-				char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
+				char * token = calloc(sizeof(char)* (tokenLen + 1),1 ) ;
 				__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);
 
 				++tk->_processedLen; // we disregard this character during the next try
@@ -122,7 +122,7 @@ char * GetToken( TokenizerT * tk ) {
 
 	}
 	int tokenLen =	tk->_processedLen - tokenBeg ;  
-	char * token = (char*)malloc(sizeof(char)* (tokenLen + 1) ) ;
+	char * token = calloc(sizeof(char)* (tokenLen + 1),1 ) ;
 	if (token == 0)
 		return NULL;
 
