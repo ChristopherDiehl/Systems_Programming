@@ -100,13 +100,17 @@ void file_handler(char * name, FrequencyList * fList)
 		int i = 0;
 		printf("filepath_count %d\n", filepath_count );
 		for (i = 0; i < filepath_count; i ++){
+			printf("%d pre filepath: %s\n",i, filepaths[i]);
+			
+		}
+		for (i = 0; i < filepath_count; i ++){
 			//printf("%d filepath: %s\n",i, filepaths[i]);
 			temp[i] = malloc(strlen(filepaths[i])+1);
 			strcpy(temp[i],filepaths[i]);
 			free(filepaths[i]);
 		}
 		for (i = 0; i < filepath_count; i ++){
-			printf("%d filepath: %s\n",i, filepaths[i]);
+			printf("%d post filepath: %s\n",i, filepaths[i]);
 			
 		}
 		printf("out of for loop\n");
