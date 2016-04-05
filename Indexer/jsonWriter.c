@@ -76,6 +76,7 @@ char * getJsonToken (char * file){
      filename[filesize+5] = '[';
      filename[filesize+6] = '\n';
      filename[filesize+7] = '\0';
+     printf("getjsontoken filename: %s\n", filename);
 
     return filename;
 
@@ -97,14 +98,14 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
   char * entry = 0;
 	if(trailing == 0){
       //this handles the 
-   entry = calloc((strlen(token) + strlen(frequency) +13),1);
+   entry = calloc((strlen(token) + strlen(frequency) +20),1);
   }else {
       //make room for extra comma
-   entry = calloc((strlen(token) + strlen(frequency) +15),1);
+   entry = calloc((strlen(token) + strlen(frequency) +20),1);
   }
 
-  	int tokensize= strlen (token) +1;
-  	int freqsize = strlen(frequency) +1;
+  	int tokensize= strlen (token);
+  	int freqsize = strlen(frequency);
 		entry[0] = '\t';
 		entry[1] = '\t';
 		entry[2] = '{';
