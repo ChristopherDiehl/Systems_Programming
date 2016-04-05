@@ -133,6 +133,9 @@ void file_handler(char * name, FrequencyList * fList)
 		printf("Error in file_handler\n");
 		exit(0);
 	}
+	if(filepaths[filepath_index] == 0){
+		printf("Why are you 0?\n");
+	}
 	TokenizerT * tk = Tokenize(filepaths[filepath_index]);
 	if (tk == 0) {
 		printf("[-] Tokenizer is null...\n");
