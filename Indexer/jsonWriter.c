@@ -97,10 +97,10 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
   char * entry = 0;
 	if(trailing == 0){
       //this handles the 
-   entry = calloc((sizeof(token) + strlen(frequency) +11),1);
+   entry = calloc((strlen(token) + strlen(frequency) +11),1);
   }else {
       //make room for extra comma
-   entry = calloc((sizeof(token) + strlen(frequency) +12),1);
+   entry = calloc((strlen(token) + strlen(frequency) +12),1);
   }
 
   	int tokensize= strlen (token) +1;
