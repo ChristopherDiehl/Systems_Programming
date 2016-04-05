@@ -103,8 +103,8 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
    entry = calloc((strlen(token) + strlen(frequency) +15),1);
   }
 
-  	int tokensize= strlen (token);
-  	int freqsize = strlen(frequency);
+  	int tokensize= strlen (token) +1;
+  	int freqsize = strlen(frequency) +1;
 		entry[0] = '\t';
 		entry[1] = '\t';
 		entry[2] = '{';
