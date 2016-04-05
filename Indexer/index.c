@@ -105,12 +105,17 @@ void file_handler(char * name, FrequencyList * fList)
 			strcpy(temp[i],filepaths[i]);
 			free(filepaths[i]);
 		}
+		for (i = 0; i < filepath_count; i ++){
+			printf("%d filepath: %s\n",i, filepaths[i]);
+			
+		}
 		printf("out of for loop\n");
 		free(filepaths);
 		filepaths = temp;
 		filepath_count = filepath_count * 2;
 		printf("no segfault\n");
 	}
+
 	filepaths[filepath_index] = malloc(strlen(name)+1);
 	strcpy(filepaths[filepath_index],name);
 	//free(name);
