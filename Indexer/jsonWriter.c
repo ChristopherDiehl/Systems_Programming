@@ -115,9 +115,6 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
     if(trailing == 0){
      char * notTrailing = "}\n";
      strcat(entry,notTrailing);
-     //dont add that extra comma
-     entry[8+tokensize+freqsize] = '\n';
-     entry[9+tokensize+freqsize] = '\0';
 
     } else {
       char * trailing = "}\n\0";
