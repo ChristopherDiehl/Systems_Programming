@@ -60,7 +60,6 @@ int jsonWrite(FrequencyList * fList, char * filename) {
   printf("[-] changes to the file have been written\n");
   if(file != NULL)
 	fclose(file); 
-  printf("CANT CLOSE?");
 }
 
 //formats the Json token :  {"token"[
@@ -96,7 +95,6 @@ char * getJsonRecord (char * token, char * frequency, int trailing){
   if(token == 0 || frequency == 0){
     return "TOken or frequency == 0";
   }
-  printf("token %s, frequency %s trailing %d\n", token,frequency,trailing);
   char * entry = 0;
   entry = calloc((strlen(token) + strlen(frequency) +30),1);
 
