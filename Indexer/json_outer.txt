@@ -1,1010 +1,1087 @@
 {"list" : [
-	{"a"[
+	{"a":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"america":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"and":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"bacon":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"bro":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"capain":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"correspond":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"file":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"find":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"fireme":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"free":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"great":[
+		{"Temp/cable21.txt" :2},
+		{"Temp/bacon21.txt" :2}
+	]},
+	{"is":[
+		{"Temp/cable21.txt" :3},
+		{"Temp/bacon21.txt" :2}
+	]},
+	{"nodes":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"second":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"test":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"this":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"to":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"trailing":[
+		{"Temp/cable21.txt" :1}
+	]},
+	{"up":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"zeta":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1}
+	]}
+{"list" : [
+	{"a":[
 		{"Index_Test/cable.txt" :1},
 		{"Index_Test/bacon0.txt" :1},
 		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"ad"[
+	{"ad":[
 		{"Index_Test/bacon1.txt" :6}
 	]},
-	{"adipisicing"[
+	{"adipisicing":[
 		{"Index_Test/bacon1.txt" :7},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"alcatra"[
+	{"alcatra":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"aliqua"[
+	{"aliqua":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"aliquip"[
+	{"aliquip":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"all"[
+	{"all":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"am"[
+	{"am":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"america"[
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
+	{"america":[
+		{"Index_Test/bacon2.txt" :1}
 	]},
-	{"amet"[
+	{"america":[
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"amet":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"and"[
+	{"and":[
 		{"Index_Test/cable.txt" :1},
 		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"andouille"[
+	{"andouille":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"anim"[
+	{"anim":[
 		{"Index_Test/bacon1.txt" :9},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"archive"[
+	{"archive":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"array"[
+	{"array":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"athing"[
+	{"athing":[
 		{"Index_Test/3:29:16" :5}
 	]},
-	{"aute"[
+	{"aute":[
 		{"Index_Test/bacon1.txt" :3}
 	]},
-	{"bacon"[
+	{"bacon":[
 		{"Index_Test/cable.txt" :1},
 		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/bacon1.txt" :4},
-		{"Index_Test/bacon0.txt" :2},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
-	]},
-	{"ball"[
-		{"Index_Test/bacon1.txt" :3}
-	]},
-	{"beef"[
-		{"Index_Test/bacon1.txt" :8}
-	]},
-	{"belly"[
-		{"Index_Test/bacon1.txt" :2},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"biltong"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"bone"[
-		{"Index_Test/bacon1.txt" :1}
-	]},
-	{"boolean"[
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"boudin"[
-		{"Index_Test/bacon1.txt" :4},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"br"[
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"bresaola"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"brisket"[
-		{"Index_Test/bacon1.txt" :5}
-	]},
-	{"bro"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
-	]},
-	{"bs"[
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"buffer"[
-		{"Index_Test/3:29:16" :8}
-	]},
-	{"by"[
-		{"Index_Test/asst3hints.txt" :1}
-	]},
-	{"c"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"called"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"calloc"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"capain"[
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
-	]},
-	{"capicola"[
-		{"Index_Test/bacon1.txt" :1},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"changes"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"char"[
-		{"Index_Test/asst3hints.txt" :1},
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"chicken"[
-		{"Index_Test/bacon1.txt" :5},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"child"[
-		{"Index_Test/3:29:16" :3}
-	]},
-	{"chop"[
-		{"Index_Test/bacon1.txt" :4},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"chuck"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"cillum"[
-		{"Index_Test/bacon1.txt" :5},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"clean"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"come"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"command"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"commodo"[
-		{"Index_Test/bacon1.txt" :1}
-	]},
-	{"concatenate"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"consectetur"[
-		{"Index_Test/bacon1.txt" :7},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"consequat"[
-		{"Index_Test/bacon1.txt" :5}
-	]},
-	{"corned"[
-		{"Index_Test/bacon1.txt" :1}
-	]},
-	{"correspond"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
-	]},
-	{"cow"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"culpa"[
-		{"Index_Test/bacon1.txt" :2},
-		{"Index_Test/bacon0.txt" :3}
-	]},
-	{"cupidatat"[
-		{"Index_Test/bacon1.txt" :6}
-	]},
-	{"cupim"[
-		{"Index_Test/bacon1.txt" :1},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"current"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"d"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"deleted"[
-		{"Index_Test/asst3hints.txt" :1}
-	]},
-	{"dependency"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"descr"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"descriptor"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"deserunt"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"different"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"dir"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"directories"[
-		{"Index_Test/asst3hints.txt" :1}
-	]},
-	{"dirent"[
-		{"Index_Test/asst3hints.txt" :1},
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"dirfd"[
-		{"Index_Test/asst3hints.txt" :1},
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"diropen"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"do"[
-		{"Index_Test/bacon1.txt" :1},
-		{"Index_Test/bacon0.txt" :1},
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"dolor"[
-		{"Index_Test/bacon1.txt" :2},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"dolore"[
-		{"Index_Test/bacon1.txt" :17},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"doner"[
-		{"Index_Test/bacon1.txt" :3},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"drumstick"[
-		{"Index_Test/bacon1.txt" :3},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"dt"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"duis"[
-		{"Index_Test/bacon1.txt" :4},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"duplicates"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"ea"[
-		{"Index_Test/bacon1.txt" :6},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"eiusmod"[
-		{"Index_Test/bacon1.txt" :5}
-	]},
-	{"elit"[
-		{"Index_Test/bacon1.txt" :6},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"enim"[
-		{"Index_Test/bacon1.txt" :8},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"enum"[
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"esse"[
-		{"Index_Test/bacon1.txt" :5},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"est"[
-		{"Index_Test/bacon1.txt" :2}
-	]},
-	{"et"[
-		{"Index_Test/bacon1.txt" :3}
-	]},
-	{"eu"[
-		{"Index_Test/bacon1.txt" :5}
-	]},
-	{"ex"[
-		{"Index_Test/bacon1.txt" :3}
-	]},
-	{"except"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"excepteur"[
-		{"Index_Test/bacon1.txt" :1}
-	]},
-	{"exec"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"exercitation"[
-		{"Index_Test/bacon1.txt" :7}
-	]},
-	{"false"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"far"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"fatback"[
-		{"Index_Test/bacon1.txt" :4}
-	]},
-	{"fclose"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"fd"[
-		{"Index_Test/3:29:16" :8}
-	]},
-	{"file"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/bacon0.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1},
-		{"Index_Test/3:29:16" :8}
-	]},
-	{"filedescr"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"filedescriptor"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"filehandle"[
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"filename"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"files"[
-		{"Index_Test/asst3hints.txt" :1}
-	]},
-	{"filet"[
 		{"Index_Test/bacon1.txt" :4},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"find"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/asst3hints.txt" :3},
+	{"bacon":[
 		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
-		{"Index_Test/3:29:16" :1}
+		{"Index_Test/Temp/bacon21.txt" :1}
 	]},
-	{"fireme"[
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
+	{"ball":[
+		{"Index_Test/bacon1.txt" :3}
 	]},
-	{"flag"[
-		{"Index_Test/3:29:16" :1}
+	{"beef":[
+		{"Index_Test/bacon1.txt" :8}
 	]},
-	{"flank"[
-		{"Index_Test/bacon1.txt" :7}
-	]},
-	{"fopen"[
-		{"Index_Test/3:29:16" :4}
-	]},
-	{"for"[
-		{"Index_Test/3:29:16" :2}
-	]},
-	{"fork"[
-		{"Index_Test/3:29:16" :3}
-	]},
-	{"frankfurter"[
-		{"Index_Test/bacon1.txt" :6},
-		{"Index_Test/bacon0.txt" :1}
-	]},
-	{"free"[
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/asst3hints.txt" :2},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
-	]},
-	{"from"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"fugiat"[
-		{"Index_Test/bacon1.txt" :2}
-	]},
-	{"full"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"gcc"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"getfrequency"[
-		{"Index_Test/asst3hints.txt" :1}
-	]},
-	{"gives"[
-		{"Index_Test/3:29:16" :1}
-	]},
-	{"great"[
-		{"Index_Test/cable.txt" :2},
-		{"Index_Test/bacon2.txt" :2},
-		{"Index_Test/Temp/cable21.txt" :2},
-		{"Index_Test/Temp/bacon21.txt" :2},
-		{"Index_Test/Temp/Temp/cable21.txt" :2},
-		{"Index_Test/Temp/Temp/bacon21.txt" :2}
-	]},
-	{"ground"[
+	{"belly":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"ham"[
-		{"Index_Test/bacon1.txt" :8},
+	{"biltong":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"bone":[
+		{"Index_Test/bacon1.txt" :1}
+	]},
+	{"boolean":[
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"boudin":[
+		{"Index_Test/bacon1.txt" :4},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"hamburger"[
+	{"br":[
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"bresaola":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"brisket":[
+		{"Index_Test/bacon1.txt" :5}
+	]},
+	{"bro":[
+		{"Index_Test/cable.txt" :1},
+		{"Index_Test/bacon2.txt" :1}
+	]},
+	{"bro":[
+		{"Index_Test/Temp/cable21.txt" :1},
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"bs":[
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"buffer":[
+		{"Index_Test/3:29:16" :8}
+	]},
+	{"by":[
+		{"Index_Test/asst3hints.txt" :1}
+	]},
+	{"c":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"called":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"calloc":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"capain":[
+		{"Index_Test/bacon2.txt" :1}
+	]},
+	{"capain":[
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"capicola":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"handle"[
+	{"changes":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"help"[
+	{"char":[
+		{"Index_Test/asst3hints.txt" :1},
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"chicken":[
+		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"hock"[
+	{"child":[
+		{"Index_Test/3:29:16" :3}
+	]},
+	{"chop":[
+		{"Index_Test/bacon1.txt" :4},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"chuck":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"i"[
+	{"cillum":[
+		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"id"[
-		{"Index_Test/bacon1.txt" :5}
-	]},
-	{"if"[
+	{"clean":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"in"[
+	{"come":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"command":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"commodo":[
+		{"Index_Test/bacon1.txt" :1}
+	]},
+	{"concatenate":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"consectetur":[
+		{"Index_Test/bacon1.txt" :7},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"consequat":[
+		{"Index_Test/bacon1.txt" :5}
+	]},
+	{"corned":[
+		{"Index_Test/bacon1.txt" :1}
+	]},
+	{"correspond":[
+		{"Index_Test/cable.txt" :1}
+	]},
+	{"correspond":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"cow":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"culpa":[
+		{"Index_Test/bacon1.txt" :2},
+		{"Index_Test/bacon0.txt" :3}
+	]},
+	{"cupidatat":[
+		{"Index_Test/bacon1.txt" :6}
+	]},
+	{"cupim":[
+		{"Index_Test/bacon1.txt" :1},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"current":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"d":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"deleted":[
+		{"Index_Test/asst3hints.txt" :1}
+	]},
+	{"dependency":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"descr":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"descriptor":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"deserunt":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"different":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"dir":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"directories":[
+		{"Index_Test/asst3hints.txt" :1}
+	]},
+	{"dirent":[
+		{"Index_Test/asst3hints.txt" :1},
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"dirfd":[
+		{"Index_Test/asst3hints.txt" :1},
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"diropen":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"do":[
+		{"Index_Test/bacon1.txt" :1},
+		{"Index_Test/bacon0.txt" :1},
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"dolor":[
+		{"Index_Test/bacon1.txt" :2},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"dolore":[
+		{"Index_Test/bacon1.txt" :17},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"doner":[
+		{"Index_Test/bacon1.txt" :3},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"drumstick":[
+		{"Index_Test/bacon1.txt" :3},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"dt":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"duis":[
+		{"Index_Test/bacon1.txt" :4},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"duplicates":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"ea":[
+		{"Index_Test/bacon1.txt" :6},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"eiusmod":[
+		{"Index_Test/bacon1.txt" :5}
+	]},
+	{"elit":[
+		{"Index_Test/bacon1.txt" :6},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"enim":[
+		{"Index_Test/bacon1.txt" :8},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"enum":[
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"esse":[
+		{"Index_Test/bacon1.txt" :5},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"est":[
+		{"Index_Test/bacon1.txt" :2}
+	]},
+	{"et":[
+		{"Index_Test/bacon1.txt" :3}
+	]},
+	{"eu":[
+		{"Index_Test/bacon1.txt" :5}
+	]},
+	{"ex":[
+		{"Index_Test/bacon1.txt" :3}
+	]},
+	{"except":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"excepteur":[
+		{"Index_Test/bacon1.txt" :1}
+	]},
+	{"exec":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"exercitation":[
+		{"Index_Test/bacon1.txt" :7}
+	]},
+	{"false":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"far":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"fatback":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"fclose":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"fd":[
+		{"Index_Test/3:29:16" :8}
+	]},
+	{"file":[
+		{"Index_Test/cable.txt" :1},
+		{"Index_Test/bacon2.txt" :1},
+		{"Index_Test/bacon0.txt" :1},
+		{"Index_Test/Temp/cable21.txt" :1},
+		{"Index_Test/Temp/bacon21.txt" :1},
+		{"Index_Test/3:29:16" :8}
+	]},
+	{"filedescr":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"filedescriptor":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"filehandle":[
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"filename":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"files":[
+		{"Index_Test/asst3hints.txt" :1}
+	]},
+	{"filet":[
+		{"Index_Test/bacon1.txt" :4},
+		{"Index_Test/bacon0.txt" :2}
+	]},
+	{"find":[
+		{"Index_Test/cable.txt" :1},
+		{"Index_Test/asst3hints.txt" :3},
+		{"Index_Test/Temp/cable21.txt" :1},
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"fireme":[
+		{"Index_Test/bacon2.txt" :1}
+	]},
+	{"fireme":[
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"flag":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"flank":[
+		{"Index_Test/bacon1.txt" :7}
+	]},
+	{"fopen":[
+		{"Index_Test/3:29:16" :4}
+	]},
+	{"for":[
+		{"Index_Test/3:29:16" :2}
+	]},
+	{"fork":[
+		{"Index_Test/3:29:16" :3}
+	]},
+	{"frankfurter":[
+		{"Index_Test/bacon1.txt" :6},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"free":[
+		{"Index_Test/bacon2.txt" :1},
+		{"Index_Test/asst3hints.txt" :2}
+	]},
+	{"free":[
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"from":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"fugiat":[
+		{"Index_Test/bacon1.txt" :2}
+	]},
+	{"full":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"gcc":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"getfrequency":[
+		{"Index_Test/asst3hints.txt" :1}
+	]},
+	{"gives":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"great":[
+		{"Index_Test/cable.txt" :2},
+		{"Index_Test/bacon2.txt" :2}
+	]},
+	{"great":[
+		{"Index_Test/Temp/cable21.txt" :2},
+		{"Index_Test/Temp/bacon21.txt" :2}
+	]},
+	{"ground":[
+		{"Index_Test/bacon1.txt" :2},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"ham":[
+		{"Index_Test/bacon1.txt" :8},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"hamburger":[
+		{"Index_Test/bacon1.txt" :1},
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"handle":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"help":[
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"hock":[
+		{"Index_Test/bacon1.txt" :4}
+	]},
+	{"i":[
+		{"Index_Test/bacon0.txt" :1}
+	]},
+	{"id":[
+		{"Index_Test/bacon1.txt" :5}
+	]},
+	{"if":[
+		{"Index_Test/3:29:16" :1}
+	]},
+	{"in":[
 		{"Index_Test/bacon1.txt" :11},
 		{"Index_Test/bacon0.txt" :4},
 		{"Index_Test/3:29:16" :4}
 	]},
-	{"incididunt"[
+	{"incididunt":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"increment"[
+	{"increment":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"index"[
+	{"index":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"init"[
+	{"init":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"int"[
+	{"int":[
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"ipsum"[
+	{"ipsum":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"irure"[
+	{"irure":[
 		{"Index_Test/bacon1.txt" :6}
 	]},
-	{"is"[
+	{"is":[
 		{"Index_Test/cable.txt" :3},
 		{"Index_Test/bacon2.txt" :2},
-		{"Index_Test/bacon0.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :3},
-		{"Index_Test/Temp/bacon21.txt" :2},
-		{"Index_Test/Temp/Temp/cable21.txt" :3},
-		{"Index_Test/Temp/Temp/bacon21.txt" :2}
+		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"it"[
+	{"is":[
+		{"Index_Test/Temp/cable21.txt" :3},
+		{"Index_Test/Temp/bacon21.txt" :2}
+	]},
+	{"it":[
 		{"Index_Test/asst3hints.txt" :1},
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"jerky"[
+	{"jerky":[
 		{"Index_Test/bacon1.txt" :7},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"jowl"[
+	{"jowl":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"json"[
+	{"json":[
 		{"Index_Test/asst3hints.txt" :2}
 	]},
-	{"keep"[
+	{"keep":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"kevin"[
+	{"kevin":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"kielbasa"[
+	{"kielbasa":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"labore"[
+	{"labore":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"laboris"[
+	{"laboris":[
 		{"Index_Test/bacon1.txt" :3}
 	]},
-	{"laborum"[
+	{"laborum":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"landjaeger"[
+	{"landjaeger":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"leberkas"[
+	{"leberkas":[
 		{"Index_Test/bacon1.txt" :1}
 	]},
-	{"length"[
+	{"length":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"little"[
+	{"little":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"live"[
+	{"live":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"loin"[
+	{"loin":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"lorem"[
+	{"lorem":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"lseek"[
+	{"lseek":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"m3"[
+	{"m3":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"magna"[
+	{"magna":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"mainfile"[
+	{"mainfile":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"make"[
+	{"make":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"malloc"[
+	{"malloc":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"meatball"[
+	{"meatball":[
 		{"Index_Test/bacon1.txt" :5}
 	]},
-	{"meatloaf"[
+	{"meatloaf":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"memory"[
+	{"memory":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"mignon"[
+	{"mignon":[
 		{"Index_Test/bacon1.txt" :4},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"minim"[
+	{"minim":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"mollit"[
+	{"mollit":[
 		{"Index_Test/bacon1.txt" :7}
 	]},
-	{"mydir"[
+	{"mydir":[
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"mynewdir"[
+	{"mynewdir":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"n"[
+	{"n":[
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"name"[
+	{"name":[
 		{"Index_Test/3:29:16" :6}
 	]},
-	{"need"[
+	{"need":[
 		{"Index_Test/asst3hints.txt" :2}
 	]},
-	{"needs"[
+	{"needs":[
 		{"Index_Test/asst3hints.txt" :2}
 	]},
-	{"new"[
+	{"new":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"nisi"[
+	{"nisi":[
 		{"Index_Test/bacon1.txt" :5}
 	]},
-	{"no"[
+	{"no":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"nodes"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
+	{"nodes":[
+		{"Index_Test/cable.txt" :1}
 	]},
-	{"non"[
+	{"nodes":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"non":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"nostrud"[
+	{"nostrud":[
 		{"Index_Test/bacon1.txt" :11}
 	]},
-	{"null"[
+	{"null":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"nulla"[
+	{"nulla":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"occaecat"[
+	{"occaecat":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"of"[
+	{"of":[
 		{"Index_Test/asst3hints.txt" :1},
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"officia"[
+	{"officia":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"offset"[
+	{"offset":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"on"[
+	{"on":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"once"[
+	{"once":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"out"[
+	{"out":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"p0gram"[
+	{"p0gram":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"pancetta"[
+	{"pancetta":[
 		{"Index_Test/bacon1.txt" :4},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"parent"[
+	{"parent":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"pariatur"[
+	{"pariatur":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"pastrami"[
+	{"pastrami":[
 		{"Index_Test/bacon1.txt" :4},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"path"[
+	{"path":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"picanha"[
+	{"picanha":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"pid"[
+	{"pid":[
 		{"Index_Test/3:29:16" :4}
 	]},
-	{"pig"[
+	{"pig":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"places"[
+	{"places":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"pointer"[
+	{"pointer":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"porchetta"[
+	{"porchetta":[
 		{"Index_Test/bacon1.txt" :3}
 	]},
-	{"pork"[
+	{"pork":[
 		{"Index_Test/bacon1.txt" :10},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"ppid"[
+	{"ppid":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"printf"[
+	{"printf":[
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"proc"[
+	{"proc":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"process"[
+	{"process":[
 		{"Index_Test/3:29:16" :3}
 	]},
-	{"program"[
+	{"program":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"proident"[
+	{"proident":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"prosciutto"[
+	{"prosciutto":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"qui"[
+	{"qui":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"quis"[
+	{"quis":[
 		{"Index_Test/bacon1.txt" :6},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"read"[
+	{"read":[
 		{"Index_Test/3:29:16" :6}
 	]},
-	{"readdir"[
+	{"readdir":[
 		{"Index_Test/asst3hints.txt" :1},
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"realloc"[
+	{"realloc":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"reg"[
+	{"reg":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"repositions"[
+	{"repositions":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"reprehenderit"[
+	{"reprehenderit":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"returned"[
+	{"returned":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"returns"[
+	{"returns":[
 		{"Index_Test/3:29:16" :4}
 	]},
-	{"ri"[
+	{"ri":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"ribeye"[
+	{"ribeye":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"ribs"[
+	{"ribs":[
 		{"Index_Test/bacon1.txt" :12},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"round"[
+	{"round":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"rump"[
+	{"rump":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"s"[
+	{"s":[
 		{"Index_Test/3:29:16" :4}
 	]},
-	{"salami"[
+	{"salami":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"sausage"[
+	{"sausage":[
 		{"Index_Test/bacon1.txt" :6},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"second"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
+	{"second":[
+		{"Index_Test/cable.txt" :1}
 	]},
-	{"sed"[
+	{"second":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"sed":[
 		{"Index_Test/bacon1.txt" :4}
 	]},
-	{"shank"[
+	{"shank":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"shankle"[
+	{"shankle":[
 		{"Index_Test/bacon1.txt" :8},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"shiz"[
+	{"shiz":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"short"[
+	{"short":[
 		{"Index_Test/bacon1.txt" :6},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"shoulder"[
+	{"shoulder":[
 		{"Index_Test/bacon1.txt" :2}
 	]},
-	{"sint"[
+	{"sint":[
 		{"Index_Test/bacon1.txt" :6},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"sirloin"[
+	{"sirloin":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"size"[
+	{"size":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"sizeofbuffer"[
+	{"sizeofbuffer":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"so"[
+	{"so":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"spare"[
+	{"spare":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"steak"[
+	{"steak":[
 		{"Index_Test/bacon1.txt" :7},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"strings"[
+	{"strings":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"strip"[
+	{"strip":[
 		{"Index_Test/bacon1.txt" :7},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"strlen"[
+	{"strlen":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"struct"[
+	{"struct":[
 		{"Index_Test/asst3hints.txt" :1},
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"stuff"[
+	{"stuff":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"subdirectories"[
+	{"subdirectories":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"sunt"[
+	{"sunt":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"swine"[
+	{"swine":[
 		{"Index_Test/bacon1.txt" :8}
 	]},
-	{"t"[
+	{"t":[
 		{"Index_Test/bacon1.txt" :1}
 	]},
-	{"tail"[
+	{"tail":[
 		{"Index_Test/bacon1.txt" :9},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"takes"[
+	{"takes":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"tempor"[
+	{"tempor":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"tenderloin"[
+	{"tenderloin":[
 		{"Index_Test/bacon1.txt" :5}
 	]},
-	{"test"[
+	{"test":[
 		{"Index_Test/cable.txt" :1},
-		{"Index_Test/bacon0.txt" :2},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
+		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"that"[
+	{"test":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"testing":[
+		{"Index_Test/Temp/Temp/test.txt" :1}
+	]},
+	{"that":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"the"[
+	{"the":[
 		{"Index_Test/asst3hints.txt" :1},
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"things"[
+	{"things":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"this"[
+	{"this":[
 		{"Index_Test/cable.txt" :1},
-		{"Index_Test/bacon0.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
+		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"tip"[
+	{"this":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"tip":[
 		{"Index_Test/bacon1.txt" :8},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"to"[
+	{"to":[
 		{"Index_Test/cable.txt" :1},
 		{"Index_Test/asst3hints.txt" :4},
 		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
 		{"Index_Test/3:29:16" :4}
 	]},
-	{"tongue"[
+	{"tongue":[
 		{"Index_Test/bacon1.txt" :1},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"track"[
+	{"track":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"trailing"[
-		{"Index_Test/cable.txt" :1},
-		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1}
+	{"trailing":[
+		{"Index_Test/cable.txt" :1}
 	]},
-	{"tri"[
+	{"trailing":[
+		{"Index_Test/Temp/cable21.txt" :1}
+	]},
+	{"tri":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"true"[
+	{"true":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"turducken"[
+	{"turducken":[
 		{"Index_Test/bacon1.txt" :6},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"turkey"[
+	{"turkey":[
 		{"Index_Test/bacon1.txt" :3}
 	]},
-	{"type"[
+	{"type":[
 		{"Index_Test/3:29:16" :2}
 	]},
-	{"uh"[
+	{"uh":[
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"ullamco"[
+	{"ullamco":[
 		{"Index_Test/bacon1.txt" :5}
 	]},
-	{"up"[
-		{"Index_Test/bacon2.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
+	{"up":[
+		{"Index_Test/bacon2.txt" :1}
 	]},
-	{"ut"[
+	{"up":[
+		{"Index_Test/Temp/bacon21.txt" :1}
+	]},
+	{"ut":[
 		{"Index_Test/bacon1.txt" :14},
 		{"Index_Test/bacon0.txt" :4}
 	]},
-	{"velit"[
+	{"velit":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :3}
 	]},
-	{"veniam"[
+	{"veniam":[
 		{"Index_Test/bacon1.txt" :3},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"venison"[
+	{"venison":[
 		{"Index_Test/bacon1.txt" :5},
 		{"Index_Test/bacon0.txt" :2}
 	]},
-	{"voluptate"[
+	{"voluptate":[
 		{"Index_Test/bacon1.txt" :2},
 		{"Index_Test/bacon0.txt" :1}
 	]},
-	{"where"[
+	{"where":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"wipes"[
+	{"wipes":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"write"[
+	{"write":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"writer"[
+	{"writer":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"writes"[
+	{"writes":[
 		{"Index_Test/asst3hints.txt" :1}
 	]},
-	{"you"[
+	{"you":[
 		{"Index_Test/3:29:16" :1}
 	]},
-	{"zeta"[
+	{"zeta":[
 		{"Index_Test/cable.txt" :1},
-		{"Index_Test/bacon2.txt" :1},
+		{"Index_Test/bacon2.txt" :1}
+	]},
+	{"zeta":[
 		{"Index_Test/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/bacon21.txt" :1},
-		{"Index_Test/Temp/Temp/cable21.txt" :1},
-		{"Index_Test/Temp/Temp/bacon21.txt" :1}
+		{"Index_Test/Temp/bacon21.txt" :1}
 	]}
-]}

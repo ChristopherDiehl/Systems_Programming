@@ -11,3 +11,23 @@ threads
 
 	int pthread_create(pthread_t * thread, const pthread_attr_t*attr, void * (*start_routine)(void*),void*arg);
 						^pthread struct/type to use ^-options			^-function thread will run    ^-thread args
+
+	struct params 
+	{
+		p0
+		p1
+		p2
+		p3
+	}
+
+	kernal: OS knows about thread and is responsible for scheduling it
+
+	user: OS knows nothing about thread- your library is responsible for scheduling it
+
+	joined threads: stil connecting to parent thread
+
+	detached threads: 
+
+	join is like wait for processes
+		-need to join child thread..
+		-join only returned when child thread is returned

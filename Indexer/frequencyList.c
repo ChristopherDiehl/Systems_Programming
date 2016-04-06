@@ -11,6 +11,7 @@ FrequencyList * getFrequencyList() {
 
 //return 0 if failed
 int addToList(char * filename, char * token, FrequencyList * fList) {
+
 	if(filename == 0 || token == 0 || fList == 0){
 		printf("Please enter valid parameters\n");
 		return 0;
@@ -25,30 +26,38 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 	temp->isTrailing = FALSE;
 
 	if(fList->head == 0){
+
 		fList->head = temp;
 		fList->tail = temp;
 		fList->numOfNodes++;
 		return 1;
 	} 
+
 	Node * currNode = fList->head;
 	while(currNode != 0){
 		//compare token to currNode token
-		if(strcmp(currNode->token,token) == 0){
+		if(strcmp(currNode->token,token) == 0)
+		{
 			//if same token and same filename then +1
-			if(strcmp(currNode->filename, filename) == 0 ){
+			if(strcmp(currNode->filename, filename) == 0 )
+			{
 				currNode->frequency++;
 				free(temp);
 				free(token);
 				return 1;
 			}
 			//if same token but different filenames then temp is now trailing... 
-			else if(strcmp(filename, currNode->filename) > 0) {
+			else if(strcmp(filename, currNode->filename) > 0) 
+			{
 				temp->isTrailing = TRUE;
 				temp->next = currNode;
-				if(currNode->prev != 0){
+				if(currNode->prev != 0)
+				{
 					temp->prev = currNode->prev;
 					temp->prev->next = temp;
-				} else{
+				} 
+				else
+				{
 					fList->head = temp;
 				}
 				currNode->prev = temp;
@@ -56,16 +65,19 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				return 1;
 			}
 			
-		} else if(strcmp(token,currNode->token) < 0){
+		} else if(strcmp(token,currNode->token) < 0)
+		{
 			//currNode is greater than prev Node
 			//add before currNode
 			temp->next = currNode;
 			if(currNode->prev != 0){
 				temp->prev = currNode->prev;
 				temp->prev->next = temp;
-			} else{
+			} else
+			{
 				fList->head = temp;
 			}
+
 			currNode->prev = temp;
 			fList->numOfNodes++;
 			return 1;
@@ -83,7 +95,8 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 }
 
 /*FOR USE IN DEBUGGING ONLY*/
-void printList(FrequencyList * fList) {
+void printList(FrequencyList * fList) 
+{
 	printf("NumOfNodes: %d\n", fList->numOfNodes);
 	Node * temp = fList->head;
 	while(temp != 0){
@@ -93,7 +106,8 @@ void printList(FrequencyList * fList) {
 }
 
 /*USED by jsonWriter.... can wipew fList so be careful*/
-Json * removeFromHead(FrequencyList * fList){
+Json * removeFromHead(FrequencyList * fList)
+{
 	Node * temp = fList->head;
 	if(temp != 0){
 		fList->head = temp->next;
@@ -112,7 +126,8 @@ Json * removeFromHead(FrequencyList * fList){
 }
 
 /*deletes list*/
-int deleteList (FrequencyList * fList) {
+int deleteList (FrequencyList * fList) 
+{
 	Node * temp = fList->head; 
 	while(temp != 0) {
 		fList->head = fList->head->next;
@@ -126,15 +141,17 @@ int deleteList (FrequencyList * fList) {
 	return 1;
 }
 
+//Returns if empty
 int isEmpty(FrequencyList * fList) {
 	if(fList->numOfNodes > 0){
 		return 1;
 	}
 	return 0;
 }
+
 //destroys JSON tokens used by jsonWriter
-int destroyJson (Json * json){
-//	printf("Freeing : %s\n",json->token );
+int destroyJson (Json * json)
+{
 	free(json->token);
 	free(json);
 }

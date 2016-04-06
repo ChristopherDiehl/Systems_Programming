@@ -5,9 +5,9 @@
 #include <sys/dir.h>
 
 /*preprocessor*/
- void directory_handle(char * name, FrequencyList * fList);
- void file_handler(char * name, FrequencyList * fList);
- void delete_file_paths();
+void directory_handle(char * name, FrequencyList * fList);
+void file_handler(char * name, FrequencyList * fList);
+void delete_file_paths();
 
 char ** filepaths;
 int filepath_count;
