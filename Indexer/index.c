@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 
     	return -1;
     }
+   // printList(fList);
 	jsonWrite(fList,argv[1]);
 	deleteList(fList);
 	//free(fList);

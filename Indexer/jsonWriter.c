@@ -170,7 +170,6 @@ int doesFileExist(const char *filename)
   if (fp != NULL)
   {
     fclose(fp);
-    printf("File exists\n");
     return 1;
   }
   return 0;

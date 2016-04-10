@@ -38,9 +38,13 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 		//compare token to currNode token
 		if(strcmp(currNode->token,token) == 0)
 		{
+			//printf("temp->token %s temp-Filename %s\n",temp->token, filename);
+
 			//if same token and same filename then +1
 			if(strcmp(currNode->filename, filename) == 0 )
 			{
+				//printf("temp->token %s temp-Filename %s\n",temp->token, filename);
+
 				currNode->frequency++;
 				free(temp);
 				free(token);
@@ -49,6 +53,7 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 			//if same token but different filenames then temp is now trailing... 
 			else if(strcmp(filename, currNode->filename) > 0) 
 			{
+
 				temp->isTrailing = TRUE;
 				temp->next = currNode;
 				if(currNode->prev != 0)
@@ -60,7 +65,28 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				{
 					fList->head = temp;
 				}
+
+
 				currNode->prev = temp;
+				fList->numOfNodes++;
+				return 1;
+			} else if(currNode->next != 0 && strcmp(currNode->next->token,currNode->token)!= 0) {
+				//handles edge case where you need to append behind currNode but currNode->next-token isn't the same as currNode->token
+			//	printf("curr->token %s temp-Filename %s\n",currNode->token, filename);
+			//	printf("temp->token %s temp-Filename %s\n",temp->token, filename);
+				currNode->isTrailing =1;
+				temp->prev = currNode;
+
+				if(currNode->next != 0)
+				{
+					temp->next = currNode->next;
+					temp->next->prev = temp;
+				} else
+				{
+					fList->tail = temp;
+					temp->next = 0;
+				}
+				currNode->next = temp;
 				fList->numOfNodes++;
 				return 1;
 			}
@@ -100,7 +126,7 @@ void printList(FrequencyList * fList)
 	printf("NumOfNodes: %d\n", fList->numOfNodes);
 	Node * temp = fList->head;
 	while(temp != 0){
-		printf("token: %s frequency: %d filename: %s \n", temp->token, temp->frequency, temp->filename);
+		printf("token: %s frequency: %d filename: %s trailing %d\n", temp->token, temp->frequency, temp->filename, temp->isTrailing);
 		temp = temp->next;
 	}
 }

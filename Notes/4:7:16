@@ -1,0 +1,62 @@
+4/7/16
+
+THREAD:
+
+-function that runs independently of the calling funciton
+-can run at the SAME TIME as other code
+
+TYPES OF THREADS
+
+kernal: OS knows they exist.. OS Manages
+user: OS does not know they exist .. userspace code manages them
+	
+	kernal:
+		may be better for lots of long lived threads
+			-scheduled by OS
+			-same priority as a process
+		may be slightly slower
+			-due to context switches
+				-switch schedules and switch between process
+			-costs memory in OS space
+		-MOST PEOPLE USE
+	user:
+		-scheduled by user code .. running inside user process
+		-scheduled by user code.. the process that owns them splits its runtime among them
+		-no context switches (Faster)
+
+QUICK SORT
+-very good to use for threads
+	-each recursive call == new thread
+
+ThreadA 							THREADB
+int bal = getCurrentBalance();		int bal = getCurrentBalance();
+bal = withdraw(500);				bal = deposit(100);
+
+THREADB								THreadA
+THreadA      						ThreadB
+expect bal = bal+500				expected = bal+500
+
+mutual exclusion: lock variable before using shared (found in multiple threads )variable
+
+lock(aVarAssociatedWithBal)
+...do stuff to bal
+unlock(aVarAssociatedWithBal)
+..done doing stuff.. go ham
+
+WHEN YOU USE LOCK YOU POTENTIALLY LINE UP THREADS
+
+NEED TO BE CAREFUL WITH LOCK
+
+for example if 
+
+A: lock thing0	
+											B: lock stuff0
+must lock stuff0..cant						..needs to lock thing0... cant
+
+
+0 mutual exclusion
+1 circular wait
+2 hold and wait
+3 basically release resources.. send stop signal
+
+CALL DEADLOCK
