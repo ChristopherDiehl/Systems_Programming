@@ -90,6 +90,7 @@ int jsonWrite(FrequencyList * fList, char * filename)
     }
 
   }
+  fwrite(not_trailing_record(),1, strlen(not_trailing_record()),file);
 
   printf("[-] changes to the file have been written\n");
   if(file != NULL) {
