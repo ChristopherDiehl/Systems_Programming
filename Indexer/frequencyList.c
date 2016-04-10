@@ -72,9 +72,25 @@ int addToList(char * filename, char * token, FrequencyList * fList) {
 				return 1;
 			} else if(currNode->next != 0 && strcmp(currNode->next->token,currNode->token)!= 0) {
 				//handles edge case where you need to append behind currNode but currNode->next-token isn't the same as currNode->token
-			//	printf("curr->token %s temp-Filename %s\n",currNode->token, filename);
-			//	printf("temp->token %s temp-Filename %s\n",temp->token, filename);
-				currNode->isTrailing =1;
+				//printf("curr->token %s temp-Filename %s\n",currNode->token, filename);
+				//printf("temp->token %s temp-Filename %s\n",temp->token, filename);
+				currNode->isTrailing = 1;
+				temp->prev = currNode;
+
+				if(currNode->next != 0)
+				{
+					temp->next = currNode->next;
+					temp->next->prev = temp;
+				} else
+				{
+					fList->tail = temp;
+					temp->next = 0;
+				}
+				currNode->next = temp;
+				fList->numOfNodes++;
+				return 1;
+			} else if(currNode->next == 0){
+								currNode->isTrailing = 1;
 				temp->prev = currNode;
 
 				if(currNode->next != 0)

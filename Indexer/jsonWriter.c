@@ -23,20 +23,23 @@ int jsonWrite(FrequencyList * fList, char * filename)
   {
    
     printf("[-] %s already exists. Enter [1] to append or [0] to overwrite\n",filename );
-    int n;
-    int append = scanf ("%d",&n);
-   
-    if (append == EOF ) 
+
+    int c = getchar();
+
+    if(c == 49)
     {
+       file = fopen(filename,"a");
+    }
+    
+    else if(c == 48)
+    {
+      file = fopen(filename,"w");
+    }
+    else {
       printf("[-] invalid arguments, overwriting file");
       file = fopen(filename,"w");
 
-    } 
-
-    else if(append)
-    {
-       file = fopen(filename,"a");
-    } 
+    }
 
   }
   else 

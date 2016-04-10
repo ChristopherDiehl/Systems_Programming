@@ -1,0 +1,125 @@
+{"list" : [
+	{"a":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1},
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"america":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"and":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"asdf321341234":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"asdfasdfjklasdf":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"bacon":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1},
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"bro":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"capain":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"correspond":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"f":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"fatlkjasfdaf":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"file":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"find":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"fireme":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"fjaksdfasdf":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"fjklsdf":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"free":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"great":[
+		{"Temp/cable21.txt" :2},
+		{"Temp/bacon21.txt" :2},
+		{"Temp/NestedFolderTest/xeta.txt" :2}
+	]},
+	{"here":[
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"ipsum":[
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"is":[
+		{"Temp/cable21.txt" :3},
+		{"Temp/bacon21.txt" :2},
+		{"Temp/NestedFolderTest/xeta.txt" :3},
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"j4123l5":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"k780":[
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"nodes":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"one":[
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"second":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"test":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1},
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"this":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1},
+		{"Temp/NestedFolderTest/bacon0.txt" :1}
+	]},
+	{"to":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"trailing":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]},
+	{"up":[
+		{"Temp/bacon21.txt" :1}
+	]},
+	{"zeta":[
+		{"Temp/cable21.txt" :1},
+		{"Temp/bacon21.txt" :1},
+		{"Temp/NestedFolderTest/xeta.txt" :1}
+	]}
+}
