@@ -196,7 +196,6 @@ int destroyJson (Json * json)
 {
 
 	if(json->token != 0 && strcmp(json->token, "") != 0){
-		printf("%s\n", json->token);
 		free(json->token);
 	}
 	if(json != 0)

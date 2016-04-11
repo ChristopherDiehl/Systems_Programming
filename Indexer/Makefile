@@ -2,7 +2,7 @@ CC= gcc
 CFLAGS= -g -Wall -o 
 DEPS = fileTokenizer.c fileTokenizer.h jsonWriter.h
 OBJECTS = fileTokenizer.o frequencyList.o jsonWriter.o
-EXECS = test
+EXECS = test0 test1 test2 test3 test4 test6 index
 
 all: 
 	$(CC) -c fileTokenizer.c
@@ -16,10 +16,6 @@ all:
 	$(CC) $(CFLAGS) test3 test3.c $(OBJECTS)
 	$(CC) $(CFLAGS) test4 test4.c $(OBJECTS)
 	$(CC) $(CFLAGS) test6 test6.c $(OBJECTS)
-
-
-
-
 
 
 clean:
