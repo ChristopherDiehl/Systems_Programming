@@ -194,8 +194,11 @@ int isEmpty(FrequencyList * fList) {
 //destroys JSON tokens used by jsonWriter
 int destroyJson (Json * json)
 {
-	if(json->token != 0)
+
+	if(json->token != 0 && stcmp(json->token, "") != 0){
+		printf("%s\n", json->token);
 		free(json->token);
+	}
 	if(json != 0)
 	    free(json);
 }

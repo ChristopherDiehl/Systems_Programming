@@ -1,0 +1,24 @@
+Multiple text are run on the index program’s various components. To ensure no memory leakage, we ran valgrind on multiple programs. These are are test programs.
+
+test1:
+	we test a very large directory called large_test and try to compare the output with manual checking on the files. 
+
+test2: 	
+	We test the folder Index_Test  
+
+test3: 
+	We test the folder Temp which has multiple levels of internal folders and files  
+
+test4: 
+	We test the folder Temp1 which has a fewer number of nested folders. 
+	
+test5: 
+	We then test it on individial files like bacon0.txt , bacon1.txt etc. and compare its output
+
+test6: 
+	We also test it on other larger files not included. 	
+
+In order to test the final program, index.c, we again used valgrind and tested on a variety of files. Ranging from small files with 10 words, to larger files with 20,000 words. We tested the validity of the output on the larger program by using sublime find on the first, last and a variety of middle tokens to ensure the frequency was correct.
+
+Once satisfied the program was working and scaling correctly we proceeded to test against a single directory with multiple files, gradually testing the scalability of the program against multiple nested directories, validating file paths,frequencies and tokens along the way.
+
