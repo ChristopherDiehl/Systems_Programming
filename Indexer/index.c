@@ -66,7 +66,7 @@ void directory_handle(char * name, FrequencyList * fList)
 	struct dirent * fDirent;
     while ((fDirent = readdir(fDir)) != NULL) {
     	//path can't be longer than 1024 bytes
-    	printf("clloc fullpaht\n");
+    	//printf("clloc fullpaht\n");
 		char * fullpath = calloc(1,1024);
 		if((strcmp(fDirent->d_name, ".") == 0) || (strcmp (fDirent->d_name,"..") ==0)){
 			free(fullpath);
@@ -82,7 +82,7 @@ void directory_handle(char * name, FrequencyList * fList)
     		directory_handle(fullpath,fList);
     	}
     	///need to handle fullpaths
-    	printf("free fullpath");
+    	//printf("free fullpath");
     	free(fullpath);
     }
     
@@ -106,6 +106,7 @@ void file_handler(char * name, FrequencyList * fList)
 
 	filepaths[filepath_index] = malloc(strlen(name)+1);
 	strcpy(filepaths[filepath_index],name);
+	//free(name);
 	//free(name);
 	if(filepaths[filepath_index] == 0 || fList == 0){
 		printf("Error in file_handler\n");

@@ -123,10 +123,15 @@ char * GetToken( TokenizerT * tk ) {
 	}
 	int tokenLen =	tk->_processedLen - tokenBeg ;  
 	char * token = calloc(sizeof(char)* (tokenLen + 1),1 ) ;
-	if (token == 0)
+	if (token == 0){
 		return NULL;
+	}
 
 	__strncpy(token , ( tk->_str  + tokenBeg) , tokenLen);	
+	if(strlen(token) == 0){
+		free(token);
+		return 0;
+	}
 	//handles if there is no space and tokenLen != 0 IE 132ASF is a digit and a word
 	return token;
 }
