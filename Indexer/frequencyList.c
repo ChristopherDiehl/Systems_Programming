@@ -195,7 +195,7 @@ int isEmpty(FrequencyList * fList) {
 int destroyJson (Json * json)
 {
 
-	if(json->token != 0 && stcmp(json->token, "") != 0){
+	if(json->token != 0 && strcmp(json->token, "") != 0){
 		printf("%s\n", json->token);
 		free(json->token);
 	}
