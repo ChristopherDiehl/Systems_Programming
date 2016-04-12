@@ -6,7 +6,7 @@
 
 /*preprocessor*/
 void directory_handle(char * name, FrequencyList * fList);
-void file_handler(char * name, FrequencyList * fList);
+void file_handler(char * filepath, FrequencyList * fList, char * filename);
 void delete_file_paths();
 
 char ** filepaths;
@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     DIR *fDir = opendir(argv[2]);
     if(errno == ENOTDIR  ){
     	//must be file
- 		file_handler(argv[2],fList);
+ 		file_handler(argv[2],fList, argv[2]);
     }else if (errno == 0){
     	//must be a directory
     	directory_handle(argv[2],fList);
@@ -77,7 +77,7 @@ void directory_handle(char * name, FrequencyList * fList)
 		//printf("fp %s\n", fullpath);
 		strcat(fullpath,fDirent->d_name);
     	if(fDirent->d_type == DT_REG){
-    		file_handler(fullpath,fList);
+    		file_handler(fullpath,fList,fDirent->d_name);
     	} else if(fDirent->d_type == DT_DIR){
     		directory_handle(fullpath,fList);
     	}
@@ -89,7 +89,7 @@ void directory_handle(char * name, FrequencyList * fList)
     closedir(fDir);
 }
 
-void file_handler(char * name, FrequencyList * fList)
+void file_handler(char * filepath, FrequencyList * fList, char * filename)
 {
 
 	if(filepath_index == (filepath_count)){
@@ -104,8 +104,8 @@ void file_handler(char * name, FrequencyList * fList)
 		filepath_count = filepath_count * 2;
 	}
 
-	filepaths[filepath_index] = malloc(strlen(name)+1);
-	strcpy(filepaths[filepath_index],name);
+	filepaths[filepath_index] = malloc(strlen(filepath)+1);
+	strcpy(filepaths[filepath_index],filepath);
 	//free(name);
 	//free(name);
 	if(filepaths[filepath_index] == 0 || fList == 0){
@@ -119,6 +119,8 @@ void file_handler(char * name, FrequencyList * fList)
 		return;
 
 	}
+    filepaths[filepath_index] = realloc(filepaths[filepath_index],strlen(filepath)+1);
+	strcpy(filepaths[filepath_index], filename);
 	while(1)
 	{
 		char * res = GetToken(tk);
@@ -133,3 +135,4 @@ void file_handler(char * name, FrequencyList * fList)
 	tkDestroy(tk);
 	filepath_index++;
 }
+

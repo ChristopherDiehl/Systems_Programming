@@ -20,5 +20,8 @@ test6:
 
 In order to test the final program, index.c, we again used valgrind and tested on a variety of files. Ranging from small files with 10 words, to larger files with 20,000 words. We tested the validity of the output on the larger program by using sublime find on the first, last and a variety of middle tokens to ensure the frequency was correct.
 
+
 Once satisfied the program was working and scaling correctly we proceeded to test against a single directory with multiple files, gradually testing the scalability of the program against multiple nested directories, validating file paths,frequencies and tokens along the way.
+
+Please note we tested with much larger directories than are currently in the submission .tar. We removed these directories due to assignment submission details. Thanks!
 
