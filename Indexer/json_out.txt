@@ -1,961 +1,191 @@
 {"list" : [
 	{"a":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1},
-		{"Temp/NestedFolderTest/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1},
+		{"bacon0.txt" :1}
 	]},
 	{"alarmed":[
-		{"Temp/NestedFolderTest/bacon21.txt" :2}
+		{"bacon21.txt" :2}
 	]},
 	{"america":[
-		{"Temp/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"and":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"asdf321341234":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"asdfasdfjklasdf":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"bacon":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1},
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1},
+		{"bacon0.txt" :1}
 	]},
 	{"be":[
-		{"Temp/NestedFolderTest/bacon21.txt" :2}
+		{"bacon21.txt" :2}
 	]},
 	{"bro":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1}
 	]},
 	{"capain":[
-		{"Temp/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"correspond":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"do":[
-		{"Temp/NestedFolderTest/bacon21.txt" :2}
+		{"bacon21.txt" :2}
 	]},
 	{"f":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"fatlkjasfdaf":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"file":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1}
 	]},
 	{"find":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"fireme":[
-		{"Temp/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"fjaksdfasdf":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"fjklsdf":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"free":[
-		{"Temp/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"great":[
-		{"Temp/cable21.txt" :2},
-		{"Temp/bacon21.txt" :2},
-		{"Temp/NestedFolderTest/xeta.txt" :2}
+		{"xeta.txt" :2},
+		{"cable21.txt" :2},
+		{"bacon21.txt" :2}
 	]},
 	{"here":[
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"i":[
-		{"Temp/NestedFolderTest/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"ipsum":[
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"is":[
-		{"Temp/cable21.txt" :3},
-		{"Temp/bacon21.txt" :2},
-		{"Temp/NestedFolderTest/xeta.txt" :3},
-		{"Temp/NestedFolderTest/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"xeta.txt" :3},
+		{"cable21.txt" :3},
+		{"bacon21.txt" :3},
+		{"bacon0.txt" :1}
 	]},
 	{"j4123l5":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"just":[
-		{"Temp/NestedFolderTest/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"k780":[
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1}
 	]},
 	{"nodes":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"not":[
-		{"Temp/NestedFolderTest/bacon21.txt" :2}
+		{"bacon21.txt" :2}
 	]},
 	{"one":[
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"bacon0.txt" :1}
 	]},
 	{"repeat":[
-		{"Temp/NestedFolderTest/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"second":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"test":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1},
-		{"Temp/NestedFolderTest/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1},
+		{"bacon0.txt" :1}
 	]},
 	{"this":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1},
-		{"Temp/NestedFolderTest/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/bacon0.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :1},
+		{"bacon0.txt" :1}
 	]},
 	{"to":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"trailing":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1}
 	]},
 	{"up":[
-		{"Temp/bacon21.txt" :1}
+		{"bacon21.txt" :1}
 	]},
 	{"zeta":[
-		{"Temp/cable21.txt" :1},
-		{"Temp/bacon21.txt" :1},
-		{"Temp/NestedFolderTest/xeta.txt" :1},
-		{"Temp/NestedFolderTest/bacon21.txt" :1}
+		{"xeta.txt" :1},
+		{"cable21.txt" :1},
+		{"bacon21.txt" :2}
 	]}
 }
 {"list" : [
 	{"a":[
-		{"lotsofbacon.txt" :2}
-	]},
-	{"alcatra":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"amet":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"andouille":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"bacon":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"ball":[
-		{"lotsofbacon.txt" :36}
-	]},
-	{"beef":[
-		{"lotsofbacon.txt" :113}
-	]},
-	{"belly":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"biltong":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"bone":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"boudin":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"bresaola":[
-		{"lotsofbacon.txt" :34}
-	]},
-	{"brisket":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"capicola":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"chicken":[
-		{"lotsofbacon.txt" :32}
-	]},
-	{"chop":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"chuck":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"corned":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"cow":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"cupim":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"does":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"dolor":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"doner":[
-		{"lotsofbacon.txt" :44}
-	]},
-	{"drumstick":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"fatback":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"filet":[
-		{"lotsofbacon.txt" :52}
-	]},
-	{"flank":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"for":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"frankfurter":[
-		{"lotsofbacon.txt" :26}
-	]},
-	{"generator":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"give":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"ground":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"ham":[
-		{"lotsofbacon.txt" :93}
-	]},
-	{"hamburger":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"hock":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"ipsum":[
-		{"lotsofbacon.txt" :2}
-	]},
-	{"it":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"jerky":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"jowl":[
-		{"lotsofbacon.txt" :43}
-	]},
-	{"kevin":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"kielbasa":[
-		{"lotsofbacon.txt" :31}
-	]},
-	{"landjaeger":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"leberkas":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"little":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"loin":[
-		{"lotsofbacon.txt" :84}
-	]},
-	{"long":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"lorem":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"meatball":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"meatier":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"meatloaf":[
-		{"lotsofbacon.txt" :44}
-	]},
-	{"mignon":[
-		{"lotsofbacon.txt" :52}
-	]},
-	{"our":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"pancetta":[
-		{"lotsofbacon.txt" :49}
-	]},
-	{"pastrami":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"picanha":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"pig":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"porchetta":[
-		{"lotsofbacon.txt" :46}
-	]},
-	{"pork":[
-		{"lotsofbacon.txt" :152}
-	]},
-	{"prosciutto":[
-		{"lotsofbacon.txt" :47}
-	]},
-	{"ribeye":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"ribs":[
-		{"lotsofbacon.txt" :110}
-	]},
-	{"round":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"rump":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"s":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"salami":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"sausage":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"shank":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"shankle":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"short":[
-		{"lotsofbacon.txt" :80}
-	]},
-	{"shoulder":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"sirloin":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"something":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"spare":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"steak":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"strip":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"swine":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"t":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"tail":[
-		{"lotsofbacon.txt" :30}
-	]},
-	{"tasty":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"tenderloin":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"text":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"tip":[
-		{"lotsofbacon.txt" :73}
-	]},
-	{"tongue":[
-		{"lotsofbacon.txt" :36}
-	]},
-	{"tri":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"try":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"turducken":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"turkey":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"venison":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"your":[
-		{"lotsofbacon.txt" :1}
-	]}
-}
-{"list" : [
-	{"a":[
-		{"lotsofbacon.txt" :2}
-	]},
-	{"alcatra":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"amet":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"andouille":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"bacon":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"ball":[
-		{"lotsofbacon.txt" :36}
-	]},
-	{"beef":[
-		{"lotsofbacon.txt" :113}
-	]},
-	{"belly":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"biltong":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"bone":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"boudin":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"bresaola":[
-		{"lotsofbacon.txt" :34}
-	]},
-	{"brisket":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"capicola":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"chicken":[
-		{"lotsofbacon.txt" :32}
-	]},
-	{"chop":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"chuck":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"corned":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"cow":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"cupim":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"does":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"dolor":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"doner":[
-		{"lotsofbacon.txt" :44}
-	]},
-	{"drumstick":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"fatback":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"filet":[
-		{"lotsofbacon.txt" :52}
-	]},
-	{"flank":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"for":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"frankfurter":[
-		{"lotsofbacon.txt" :26}
-	]},
-	{"generator":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"give":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"ground":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"ham":[
-		{"lotsofbacon.txt" :93}
-	]},
-	{"hamburger":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"hock":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"ipsum":[
-		{"lotsofbacon.txt" :2}
-	]},
-	{"it":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"jerky":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"jowl":[
-		{"lotsofbacon.txt" :43}
-	]},
-	{"kevin":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"kielbasa":[
-		{"lotsofbacon.txt" :31}
-	]},
-	{"landjaeger":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"leberkas":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"little":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"loin":[
-		{"lotsofbacon.txt" :84}
-	]},
-	{"long":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"lorem":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"meatball":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"meatier":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"meatloaf":[
-		{"lotsofbacon.txt" :44}
-	]},
-	{"mignon":[
-		{"lotsofbacon.txt" :52}
-	]},
-	{"our":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"pancetta":[
-		{"lotsofbacon.txt" :49}
-	]},
-	{"pastrami":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"picanha":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"pig":[
-		{"lotsofbacon.txt" :39}
-	]},
-	{"porchetta":[
-		{"lotsofbacon.txt" :46}
-	]},
-	{"pork":[
-		{"lotsofbacon.txt" :152}
-	]},
-	{"prosciutto":[
-		{"lotsofbacon.txt" :47}
-	]},
-	{"ribeye":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"ribs":[
-		{"lotsofbacon.txt" :110}
-	]},
-	{"round":[
-		{"lotsofbacon.txt" :35}
-	]},
-	{"rump":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"s":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"salami":[
-		{"lotsofbacon.txt" :33}
-	]},
-	{"sausage":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"shank":[
-		{"lotsofbacon.txt" :50}
-	]},
-	{"shankle":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"short":[
-		{"lotsofbacon.txt" :80}
-	]},
-	{"shoulder":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"sirloin":[
-		{"lotsofbacon.txt" :51}
-	]},
-	{"something":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"spare":[
-		{"lotsofbacon.txt" :38}
-	]},
-	{"steak":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"strip":[
-		{"lotsofbacon.txt" :42}
-	]},
-	{"swine":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"t":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"tail":[
-		{"lotsofbacon.txt" :30}
-	]},
-	{"tasty":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"tenderloin":[
-		{"lotsofbacon.txt" :41}
-	]},
-	{"text":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"tip":[
-		{"lotsofbacon.txt" :73}
-	]},
-	{"tongue":[
-		{"lotsofbacon.txt" :36}
-	]},
-	{"tri":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"try":[
-		{"lotsofbacon.txt" :1}
-	]},
-	{"turducken":[
-		{"lotsofbacon.txt" :37}
-	]},
-	{"turkey":[
-		{"lotsofbacon.txt" :48}
-	]},
-	{"venison":[
-		{"lotsofbacon.txt" :40}
-	]},
-	{"your":[
-		{"lotsofbacon.txt" :1}
-	]}
-}
-{"list" : [
-	{"a":[
-		{"bacon0.txt" :1}
-	]},
-	{"adipisicing":[
-		{"bacon0.txt" :2}
-	]},
-	{"aliquip":[
-		{"bacon0.txt" :3}
-	]},
-	{"am":[
-		{"bacon0.txt" :1}
-	]},
-	{"amet":[
-		{"bacon0.txt" :1}
-	]},
-	{"andouille":[
-		{"bacon0.txt" :2}
-	]},
-	{"anim":[
+		{"moar.txt" :1},
 		{"bacon0.txt" :1}
 	]},
 	{"bacon":[
-		{"bacon0.txt" :2}
-	]},
-	{"belly":[
 		{"bacon0.txt" :1}
 	]},
-	{"boudin":[
+	{"eveywhere":[
+		{"moar.txt" :1}
+	]},
+	{"here":[
 		{"bacon0.txt" :1}
-	]},
-	{"br":[
-		{"bacon0.txt" :1}
-	]},
-	{"bs":[
-		{"bacon0.txt" :1}
-	]},
-	{"capicola":[
-		{"bacon0.txt" :1}
-	]},
-	{"chicken":[
-		{"bacon0.txt" :1}
-	]},
-	{"chop":[
-		{"bacon0.txt" :1}
-	]},
-	{"cillum":[
-		{"bacon0.txt" :1}
-	]},
-	{"consectetur":[
-		{"bacon0.txt" :1}
-	]},
-	{"culpa":[
-		{"bacon0.txt" :3}
-	]},
-	{"cupim":[
-		{"bacon0.txt" :1}
-	]},
-	{"do":[
-		{"bacon0.txt" :1}
-	]},
-	{"dolor":[
-		{"bacon0.txt" :1}
-	]},
-	{"dolore":[
-		{"bacon0.txt" :1}
-	]},
-	{"doner":[
-		{"bacon0.txt" :1}
-	]},
-	{"drumstick":[
-		{"bacon0.txt" :1}
-	]},
-	{"duis":[
-		{"bacon0.txt" :1}
-	]},
-	{"ea":[
-		{"bacon0.txt" :1}
-	]},
-	{"elit":[
-		{"bacon0.txt" :1}
-	]},
-	{"enim":[
-		{"bacon0.txt" :1}
-	]},
-	{"esse":[
-		{"bacon0.txt" :1}
-	]},
-	{"file":[
-		{"bacon0.txt" :1}
-	]},
-	{"filet":[
-		{"bacon0.txt" :2}
-	]},
-	{"frankfurter":[
-		{"bacon0.txt" :1}
-	]},
-	{"ground":[
-		{"bacon0.txt" :1}
-	]},
-	{"ham":[
-		{"bacon0.txt" :1}
-	]},
-	{"hamburger":[
-		{"bacon0.txt" :1}
-	]},
-	{"help":[
-		{"bacon0.txt" :1}
-	]},
-	{"i":[
-		{"bacon0.txt" :1}
-	]},
-	{"in":[
-		{"bacon0.txt" :4}
 	]},
 	{"ipsum":[
 		{"bacon0.txt" :1}
 	]},
 	{"is":[
+		{"moar.txt" :1},
 		{"bacon0.txt" :1}
 	]},
-	{"jerky":[
-		{"bacon0.txt" :1}
+	{"moar":[
+		{"moar.txt" :1}
 	]},
-	{"kielbasa":[
-		{"bacon0.txt" :1}
-	]},
-	{"labore":[
-		{"bacon0.txt" :1}
-	]},
-	{"laborum":[
-		{"bacon0.txt" :1}
-	]},
-	{"landjaeger":[
-		{"bacon0.txt" :1}
-	]},
-	{"loin":[
-		{"bacon0.txt" :1}
-	]},
-	{"m3":[
-		{"bacon0.txt" :1}
-	]},
-	{"magna":[
-		{"bacon0.txt" :1}
-	]},
-	{"meatloaf":[
-		{"bacon0.txt" :1}
-	]},
-	{"mignon":[
-		{"bacon0.txt" :2}
-	]},
-	{"minim":[
-		{"bacon0.txt" :1}
-	]},
-	{"non":[
-		{"bacon0.txt" :1}
-	]},
-	{"occaecat":[
-		{"bacon0.txt" :1}
-	]},
-	{"p0gram":[
-		{"bacon0.txt" :1}
-	]},
-	{"pancetta":[
-		{"bacon0.txt" :1}
-	]},
-	{"pastrami":[
-		{"bacon0.txt" :1}
-	]},
-	{"pig":[
-		{"bacon0.txt" :1}
-	]},
-	{"pork":[
-		{"bacon0.txt" :2}
-	]},
-	{"prosciutto":[
-		{"bacon0.txt" :3}
-	]},
-	{"qui":[
-		{"bacon0.txt" :1}
-	]},
-	{"quis":[
-		{"bacon0.txt" :1}
-	]},
-	{"reprehenderit":[
-		{"bacon0.txt" :1}
-	]},
-	{"ri":[
-		{"bacon0.txt" :1}
-	]},
-	{"ribs":[
-		{"bacon0.txt" :3}
-	]},
-	{"round":[
-		{"bacon0.txt" :1}
-	]},
-	{"rump":[
-		{"bacon0.txt" :1}
-	]},
-	{"sausage":[
-		{"bacon0.txt" :1}
-	]},
-	{"shank":[
-		{"bacon0.txt" :1}
-	]},
-	{"shankle":[
-		{"bacon0.txt" :2}
-	]},
-	{"short":[
-		{"bacon0.txt" :2}
-	]},
-	{"sint":[
-		{"bacon0.txt" :1}
-	]},
-	{"sirloin":[
-		{"bacon0.txt" :1}
-	]},
-	{"spare":[
-		{"bacon0.txt" :3}
-	]},
-	{"steak":[
-		{"bacon0.txt" :1}
-	]},
-	{"strip":[
-		{"bacon0.txt" :1}
-	]},
-	{"sunt":[
-		{"bacon0.txt" :1}
-	]},
-	{"tail":[
-		{"bacon0.txt" :1}
-	]},
-	{"tempor":[
+	{"one":[
 		{"bacon0.txt" :1}
 	]},
 	{"test":[
-		{"bacon0.txt" :2}
+		{"moar.txt" :1},
+		{"bacon0.txt" :1}
+	]},
+	{"tests":[
+		{"moar.txt" :1}
 	]},
 	{"this":[
+		{"moar.txt" :1},
 		{"bacon0.txt" :1}
 	]},
-	{"tip":[
-		{"bacon0.txt" :3}
-	]},
-	{"tongue":[
-		{"bacon0.txt" :2}
-	]},
-	{"tri":[
-		{"bacon0.txt" :3}
-	]},
-	{"turducken":[
-		{"bacon0.txt" :1}
-	]},
-	{"uh":[
-		{"bacon0.txt" :1}
-	]},
-	{"ut":[
-		{"bacon0.txt" :4}
-	]},
-	{"velit":[
-		{"bacon0.txt" :3}
-	]},
-	{"veniam":[
-		{"bacon0.txt" :1}
-	]},
-	{"venison":[
-		{"bacon0.txt" :2}
-	]},
-	{"voluptate":[
-		{"bacon0.txt" :1}
+	{"two":[
+		{"moar.txt" :1}
 	]}
 }

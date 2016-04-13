@@ -1,0 +1,57 @@
+3/12/16
+ON FINAL
+kernal threads:
+	scheduled by OS - probably a better share of system resources
+		-blocking calls: it will not return until it is done
+			-if blocking call then only that thread is made to wait
+
+blocking calls: process level events
+
+user threads:
+	scheduled by process - process must split its runtime between the threads
+		-if a thread maeks a blocking call, whole process (inculding all its threads) must wait
+		  -big reason why people use kernal threads
+
+mutex:
+	deadlock: 
+		two threads waiting for each other forever.. both are waiting for a resource (mutex) the other has, but can not continue until they get a resource (mutex) the other is holding
+
+		conditions of deadlock:
+		0 mutual exclusion - one depends on the other
+		1 circular wait - each thread needs to wait for each other
+		2 wait and hold (hold and wait) 
+		3 no preemption
+			preemption is when the os says: hey that other thread needs what you have, and you need what the other thread has. So im going to take what you have and give it to the other thread, then return stuff to you to finish
+
+NETWORKING
+ -basically a series of point to point links
+
+7 defined layers of network stack
+
+	Application
+	..
+	Transport
+	Network
+	Data Link
+	Physical
+
+	Abstract data on web
+	EACH LAYER CAN DO INVSERSE
+	-Physical: bytes which are made into some physical representation other side can decode, radiation
+	-Data Link: bits (send to machine X- point to point transfer) MAC (unique MAC address)
+		-ARP
+	-Network: frames (route a message over a series of point to point links)
+		-IP - network layer
+		-DNS Query
+	-Transport: packets (port!)
+		-TCP: Transmission Control Protocol
+		-Reciepts
+
+	port: application/function
+	IP addres: machine/identify
+	MAC address: network endpoint
+	"port"
+		-identify the format of the bits
+
+
+
