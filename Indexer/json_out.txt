@@ -42,6 +42,9 @@
 		{"xeta.txt" :1},
 		{"cable21.txt" :1}
 	]},
+	{"dfasdf":[
+		{"bacon21.txt" :1}
+	]},
 	{"do":[
 		{"bacon21.txt" :2}
 	]},
@@ -187,5 +190,141 @@
 	]},
 	{"two":[
 		{"moar.txt" :1}
+	]}
+}
+{"list" : [
+	{"a":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"bacon":[
+		{"testing124.txt" :1},
+		{"moar.txt" :1},
+		{"bacon0.txt" :1}
+	]},
+	{"eveywhere":[
+		{"moar.txt" :1}
+	]},
+	{"for":[
+		{"testing124.txt" :1},
+		{"moar.txt" :1}
+	]},
+	{"here":[
+		{"bacon0.txt" :1}
+	]},
+	{"i":[
+		{"moar.txt" :1}
+	]},
+	{"ipsum":[
+		{"bacon0.txt" :1}
+	]},
+	{"is":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"just":[
+		{"testing124.txt" :1}
+	]},
+	{"moar":[
+		{"testing124.txt" :1},
+		{"moar.txt" :3}
+	]},
+	{"one":[
+		{"bacon0.txt" :1}
+	]},
+	{"simple":[
+		{"testing124.txt" :1}
+	]},
+	{"test":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"tests":[
+		{"moar.txt" :1}
+	]},
+	{"this":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"two":[
+		{"moar.txt" :1}
+	]},
+	{"want":[
+		{"moar.txt" :1}
+	]},
+	{"zeta":[
+		{"moar.txt" :1}
+	]}
+}
+{"list" : [
+	{"a":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"bacon":[
+		{"testing124.txt" :1},
+		{"moar.txt" :1},
+		{"bacon0.txt" :1}
+	]},
+	{"eveywhere":[
+		{"moar.txt" :1}
+	]},
+	{"for":[
+		{"testing124.txt" :1},
+		{"moar.txt" :1}
+	]},
+	{"here":[
+		{"bacon0.txt" :1}
+	]},
+	{"i":[
+		{"moar.txt" :1}
+	]},
+	{"ipsum":[
+		{"bacon0.txt" :1}
+	]},
+	{"is":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"just":[
+		{"testing124.txt" :1}
+	]},
+	{"moar":[
+		{"testing124.txt" :1},
+		{"moar.txt" :3}
+	]},
+	{"one":[
+		{"bacon0.txt" :1}
+	]},
+	{"simple":[
+		{"testing124.txt" :1}
+	]},
+	{"test":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"tests":[
+		{"moar.txt" :1}
+	]},
+	{"this":[
+		{"testing124.txt" :1},
+		{"moar.txt" :2},
+		{"bacon0.txt" :1}
+	]},
+	{"two":[
+		{"moar.txt" :1}
+	]},
+	{"want":[
+		{"moar.txt" :1}
+	]},
+	{"zeta":[
+		{"moar.txt" :2}
 	]}
 }
