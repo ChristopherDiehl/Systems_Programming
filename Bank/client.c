@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
    
    while(connect(sockfd,(struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo)) != 0) 
    {
-   	printf("[-] ERROR connecting");
+   	printf("[-] ERROR connecting\n");
    	sleep(3);
    }
 		
