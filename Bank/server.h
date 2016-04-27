@@ -6,20 +6,33 @@
 #define TRUE 1
 #define FALSE 0
 #define PORT 6512
-typedef struct account_
+#define BUFFER_SIZE 256
+#define CLIENT_THREADS 20
+#define MAX_CLIENTS 20
+
+#include <stdio.h>
+#include <sys/types.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include "server.h"
+
+typedef struct Account_
 {
 	char * name;
 	float balance;
 	int active;
 
 
-} account;
+} Account;
 
-typedef struct bank_
+typedef struct Bank_
 {
 	account * accounts;
 
-};
+} Bank;
 
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);
