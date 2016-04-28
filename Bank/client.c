@@ -7,6 +7,8 @@ char command_buffer[256];													// char array to store data  going to the 
 char response_buffer[256];														// char array to store data  coming from the server
 int thread0Active;
 int thread1Active;
+int err = -1;
+
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +18,7 @@ int main(int argc, char *argv[])
    int portno = -1;																// server port to connect to
    struct sockaddr_in serverAddressInfo;						// Super-special secret C struct that holds address info for building our socket
    struct hostent *serverIPAddress;									// Super-special secret C struct that holds info about a machine's address
-   int iSetOption = 1;
-   int err = -1;
+
    thread1Active = 0;
    thread0Active = 0;
 
@@ -28,14 +29,8 @@ int main(int argc, char *argv[])
    	exit(0);
    }
 
-
-	/** If the user gave enough arguments, try to use them to get a port number and address **/
-	// convert the text representation of the port number given by the user to an int
    portno = atoi(argv[2]);
 
-	// look up the IP address that matches up with the name given - the name given might
-	//    BE an IP address, which is fine, and store it in the 'serverIPAddress' struct
-   
    serverIPAddress = gethostbyname(argv[1]);
    if (serverIPAddress == NULL)
    {
@@ -43,20 +38,9 @@ int main(int argc, char *argv[])
    	exit(0);
    }
 
-	// try to build a socket .. if it doesn't work, complain and exit
-   sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-   if (sockfd < 0) 
-   {
-   	error("[-] ERROR creating socket");
-   }
+   sockfd = buildSocket();
 
 
-   err = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
-   if (sockfd < 0) 
-   {
-   	error("[-] ERROR creating socket");
-   }
- 
 	/** We now have the IP address and port to connect to on the server, we have to get    **/
 	/**   that information into C's special address struct for connecting sockets                     **/
 
@@ -73,17 +57,20 @@ int main(int argc, char *argv[])
 	//   the 'serverIPAddress' struct into our serverIPAddressInfo struct
    bcopy((char *)serverIPAddress->h_addr, (char *)&serverAddressInfo.sin_addr.s_addr, serverIPAddress->h_length);
 
-
-
-   
-   while(connect(sockfd,(struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo)) != 0) 
+   while(TRUE) 
    {
+   	if(connect(sockfd,(struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo)) == 0)
+   	{
+   		printf("[-] We are connected to the server!\n");
+   		break;
+   	}
+   	close(sockfd);
    	printf("[-] ERROR connecting\n");
-   	sleep(3);
+   	sockfd = buildSocket();
+   	sleep(3);		//wait 3 seconds before trying again
    }
 
 	/** If we're here, we're connected to the server .. w00t!  Time to multithread**/
-   
    err = pthread_create(&(threads[0]), NULL, &writeToServer, (void *) &sockfd);
 
    if (err != 0)
@@ -110,13 +97,36 @@ int main(int argc, char *argv[])
    return 0;
 }
 
+int buildSocket() 
+{
+	int iSetOption = 1;
+	// try to build a socket .. if it doesn't work, complain and exit
+   int sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+   if (sockfd < 0) 
+   {
+   	error("[-] ERROR creating socket");
+   }
+
+
+   err = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
+   if (sockfd < 0) 
+   {
+   	error("[-] ERROR creating socket");
+   }
+ 	return sockfd;
+}
+
+
+
 void * writeToServer(void * args)
 {
+	printf("[-] writing to server\n");
+
 	int sockfd = *((int *) args);
 	int n = -1;
 	while(end != 1)
 	{
-		printf("[-] Please enter message");
+		printf("[-] Please enter message: ");
 		// zero out the message buffer
 		bzero(command_buffer,256);
 
@@ -134,7 +144,7 @@ void * writeToServer(void * args)
 		if (n < 0)
 		{
 			close(sockfd);
-			error("ERROR writing to socket");
+			error("ERROR writing to socket\n");
 		}
 
 		sleep(3);
@@ -144,6 +154,7 @@ void * writeToServer(void * args)
 
 void * readFromServer(void * args)
 {
+	printf("[-] reading from server");
 	int sockfd = *((int *) args);
 	int n = -1;
 	while(end != 1)
@@ -157,7 +168,7 @@ void * readFromServer(void * args)
 		if (n < 0)
 		{
 			close(sockfd);
-			error("[-] ERROR reading from socket");
+			error("[-] ERROR reading from socket\n");
 		}
 
 		// print out server's message

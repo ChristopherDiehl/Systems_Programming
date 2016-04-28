@@ -9,25 +9,19 @@ Account * account;
 
 
 
-int main(int argc, char *argv[])
+void * sessionAcceptor( void * socket)
 {
-	//int sockfd, newsockfd, portno, clilen;
-	//struct sockaddr_in serv_addr;
-	//struct sockaddr_in cli_addr;
 
 	int sockfd = -1;														// file descriptor for our server socket
 	int newsockfd = -1;												// file descriptor for a client socket
 	int portno = -1;														// server port to connect to
 	int clilen = -1;															// utility variable - size of clientAddressInfo below
 	int n = -1;																// utility variable - for monitoring reading/writing from/to the socket
-	char buffer[BUFFER_SIZE];													// char array to store data going to and coming from the socket
 	int err = -1;
 	struct sockaddr_in serverAddressInfo;				// Super-special secret C struct that holds address info for building our server socket
 	struct sockaddr_in clientAddressInfo;					// Super-special secret C struct that holds address info about our client socket
-	bank = malloc(sizeof(Bank));
-	bank->accounts = malloc(sizeof(Account) * MAX_CLIENTS);
 
-
+	int clientsActive = 0;
 	// try to build a socket .. if it doesn't work, complain and exit
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -41,6 +35,7 @@ int main(int argc, char *argv[])
    {
    	error("[-] ERROR creating socket");
    }
+
 	// zero out the socket address info struct .. always initialize!
 	bzero((char *) &serverAddressInfo, sizeof(serverAddressInfo));
 
@@ -60,33 +55,44 @@ int main(int argc, char *argv[])
 	// bind the server socket to a specific local port, so the client has a target to connect to      
 	if (bind(sockfd, (struct sockaddr *) &serverAddressInfo, sizeof(serverAddressInfo)) < 0)
 	{
-		error("[-] ERROR on binding");
+		printf("[-] ERROR on binding");
+
 	}
 
 	// set up the server socket to listen for client connections
 	listen(sockfd,5);
 
-	// determine the size of a clientAddressInfo struct
 	clilen = sizeof(clientAddressInfo);
 
-	//multithread this
-	while(newsockfd = accept(sockfd, (struct sockaddr *) &clientAddressInfo, &clilen))
+	while (TRUE)
 	{
+		newsockfd = accept(sockfd, (struct sockaddr *) &clientAddressInfo, &clilen);
 
 		if (newsockfd < 0) 
 		{
 			error("[-] ERROR on accept");
 		}
-		break;
+
+		err = pthread_create(&(c_threads[clientsActive]), NULL, &connectionHandler, (void *) &newsockfd);
+
+	   if (err != 0)
+	   {
+	   	close(sockfd);
+	   	error("\n[-]can't create thread :[%s]"); 
+	   }
 	}
 
+	return 0;
 
+}
 
-	/** If we're here, a client tried to connect **/
+/*This handles client connection && sets up the actual 'server'*/
+void * connectionHandler( void * socket)
+{
 
-	// if the connection blew up for some reason, complain and exit
-
-	// zero out the char buffer to receive a client message
+	if()
+	char buffer[BUFFER_SIZE];										// char array to store data going to and coming from the socket
+	int newsockfd = *((int *) socket);  					  // zero out the char buffer to receive a client message
 	bzero(buffer,BUFFER_SIZE);
 
 	// try to read from the client socket
@@ -109,12 +115,6 @@ int main(int argc, char *argv[])
 		error("ERROR writing to socket");
 	}
 	
-	return 0; 
-}
-
-/*This handles client connection*/
-void * connectionHandler( void * socket)
-{
 	return 0;
 }
 
@@ -133,7 +133,6 @@ void * printBankStatus (void * socket)
 
 		if(bank->accounts[i] == NULL)
 		{
-
 			continue;
 
 		} else if(bank->accounts[i]->active == TRUE)
@@ -156,4 +155,18 @@ void error(char *msg)
 {
 	perror(msg);
 	exit(1);
+}
+
+int main(int argc, char *argv[])
+{
+	//int sockfd, newsockfd, portno, clilen;
+	//struct sockaddr_in serv_addr;
+	//struct sockaddr_in cli_addr;
+	pthread_t bankthread;
+	pthread_t session_acceptor;
+
+	bank = malloc(sizeof(Bank));
+	bank->accounts = malloc(sizeof(Account) * MAX_CLIENTS);
+
+	return 0; 
 }

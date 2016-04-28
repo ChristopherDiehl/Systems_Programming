@@ -13,11 +13,13 @@
 #include <time.h>
 #include <pthread.h>
 
-
+#define TRUE 1
+#define FALSE 0
 
 /*functions*/
 void error(char *msg);			
 void * writeToServer(void * args);	
 void * readFromServer(void * args);
+int buildSocket();
 
 #endif
