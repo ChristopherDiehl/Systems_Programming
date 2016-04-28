@@ -3,8 +3,8 @@
 /*Static Variables*/
 pthread_t threads[2];
 int end = 0;
-char command_buffer[256];													// char array to store data  going to the server
-char response_buffer[256];														// char array to store data  coming from the server
+char command_buffer[256];								 // char array to store data  going to the server
+char response_buffer[256];								// char array to store data  coming from the server
 int thread0Active;
 int thread1Active;
 int err = -1;
@@ -13,16 +13,14 @@ int err = -1;
 int main(int argc, char *argv[])
 {
 	
-	// Declare initial vars
-   int sockfd = -1;																// file descriptor for our socket
-   int portno = -1;																// server port to connect to
-   struct sockaddr_in serverAddressInfo;						// Super-special secret C struct that holds address info for building our socket
-   struct hostent *serverIPAddress;									// Super-special secret C struct that holds info about a machine's address
+   int sockfd = -1;													// file descriptor for our socket
+   int portno = -1;												  // server port to connect to
+   struct sockaddr_in serverAddressInfo;					 // Super-special secret C struct that holds address info for building our socket
+   struct hostent *serverIPAddress;							// Super-special secret C struct that holds info about a machine's address
 
    thread1Active = 0;
    thread0Active = 0;
 
-	// If the user didn't enter enough arguments, complain and exit
    if (argc < 3)
    {
    	fprintf(stderr,"[-] Usage %s (hostname) (port)\n", argv[0]);
@@ -99,6 +97,7 @@ int main(int argc, char *argv[])
 
 int buildSocket() 
 {
+	
 	int iSetOption = 1;
 	// try to build a socket .. if it doesn't work, complain and exit
    int sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
