@@ -20,6 +20,9 @@ int main()
 		printf("STRAT\n");
 
 		i = getFront(sl);
+		if(i == -1){
+			break;
+		}
 		printf("%d\n",i);
 		printf("GOING BACK\n");
 	}while(i != -1);
