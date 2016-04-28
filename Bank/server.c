@@ -48,8 +48,6 @@ void * sessionAcceptor( void * socket)
 	// set a flag to indicate the type of network address we'll be willing to accept connections from
 	serverAddressInfo.sin_addr.s_addr = INADDR_ANY;
 
-
-
 	/** We have an address struct and a socket .. time to build up the server socket **/
 
 	// bind the server socket to a specific local port, so the client has a target to connect to      
@@ -64,6 +62,7 @@ void * sessionAcceptor( void * socket)
 
 	clilen = sizeof(clientAddressInfo);
 
+
 	while (TRUE)
 	{
 		newsockfd = accept(sockfd, (struct sockaddr *) &clientAddressInfo, &clilen);
@@ -72,8 +71,8 @@ void * sessionAcceptor( void * socket)
 		{
 			error("[-] ERROR on accept");
 		}
-
-		err = pthread_create(&(c_threads[clientsActive]), NULL, &connectionHandler, (void *) &newsockfd);
+		int temp_socket = 
+		err = pthread_create(&(c_threads[clientsActive]), NULL, &connectionHandler, (void *) &newsockfd); //add pthread id to linked list
 
 	   if (err != 0)
 	   {
@@ -90,7 +89,6 @@ void * sessionAcceptor( void * socket)
 void * connectionHandler( void * socket)
 {
 
-	if()
 	char buffer[BUFFER_SIZE];										// char array to store data going to and coming from the socket
 	int newsockfd = *((int *) socket);  					  // zero out the char buffer to receive a client message
 	bzero(buffer,BUFFER_SIZE);
@@ -116,6 +114,9 @@ void * connectionHandler( void * socket)
 	}
 	
 	return 0;
+	//when global variable EXIT == 1 t
+	///t hen use pthread_exit(NULL) to close all threads opened by this guy
+	
 }
 
 void * printBankStatus (void * socket)
@@ -138,7 +139,7 @@ void * printBankStatus (void * socket)
 		} else if(bank->accounts[i]->active == TRUE)
 		{
 
-			printf("%s, %f,IN SERVICE\n",bank->accounts[i]->username,bank->accounts[i]->balance);
+			printf("%s, IN SESSION\n",bank->accounts[i]->username);
 
 		} else if(bank->accounts[i]->active == FALSE)
 		{

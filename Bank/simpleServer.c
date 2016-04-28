@@ -91,35 +91,38 @@ int main(int argc, char *argv[])
 	 
 	 
 	/** If we're here, a client tried to connect **/
-	 
-	// if the connection blew up for some reason, complain and exit
-    if (newsockfd < 0) 
+	while(1)
 	{
-        error("ERROR on accept");
-	}
+		// if the connection blew up for some reason, complain and exit
+	    if (newsockfd < 0) 
+		{
+	        error("ERROR on accept");
+		}
 
-		// zero out the char buffer to receive a client message
-    bzero(buffer,256);
-	
-	// try to read from the client socket
-    n = read(newsockfd,buffer,255);
-	
-	// if the read from the client blew up, complain and exit
-    if (n < 0)
-	{
-		error("ERROR reading from socket");
+			// zero out the char buffer to receive a client message
+	    bzero(buffer,256);
+		
+		// try to read from the client socket
+	    n = read(newsockfd,buffer,255);
+		
+		// if the read from the client blew up, complain and exit
+	    if (n < 0)
+		{
+			error("ERROR reading from socket");
+		}
+		
+	    printf("Here is the message: %s\n",buffer);
+		
+		// try to write to the client socket
+	    n = write(newsockfd,"I got your message",18);
+		
+		// if the write to the client below up, complain and exit
+	    if (n < 0)
+		{
+			error("ERROR writing to socket");
+		}
 	}
 	
-    printf("Here is the message: %s\n",buffer);
-	
-	// try to write to the client socket
-    n = write(newsockfd,"I got your message",18);
-	
-	// if the write to the client below up, complain and exit
-    if (n < 0)
-	{
-		error("ERROR writing to socket");
-	}
 
 	
 	

@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
 int buildSocket() 
 {
-	
+
 	int iSetOption = 1;
 	// try to build a socket .. if it doesn't work, complain and exit
    int sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -105,7 +105,6 @@ int buildSocket()
    {
    	error("[-] ERROR creating socket");
    }
-
 
    err = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
    if (sockfd < 0) 
@@ -119,7 +118,7 @@ int buildSocket()
 
 void * writeToServer(void * args)
 {
-	printf("[-] writing to server\n");
+	printf("[-] Thread created to write to server\n");
 
 	int sockfd = *((int *) args);
 	int n = -1;
@@ -131,8 +130,9 @@ void * writeToServer(void * args)
 
 		// get a message from the client
 		fgets(command_buffer,255,stdin);
+		command_buffer[strcspn(command_buffer, "\n")] = '\0';
 
-		if(strcmp(command_buffer,"exit"))
+		if(strcmp(command_buffer,"exit") == 0)
 		{
 			end = 1;
 		}
@@ -146,16 +146,23 @@ void * writeToServer(void * args)
 			error("ERROR writing to socket\n");
 		}
 
-		sleep(3);
+		if(end == 1)
+		{
+			break;
+		}
+
+		sleep(2);
 	}
 	return 0;
 }
 
 void * readFromServer(void * args)
 {
-	printf("[-] reading from server");
+
+	printf("[-] Thread created to read from server\n");
 	int sockfd = *((int *) args);
 	int n = -1;
+
 	while(end != 1)
 	{
 		bzero(response_buffer,256);
@@ -185,6 +192,7 @@ void error(char *msg)
 	{
 		pthread_join(threads[0], NULL);
 	}
+	
 	if(thread1Active == 1)
 	{
 		pthread_join(threads[1], NULL);
