@@ -6,9 +6,9 @@
    The port number is passed as an argument */
 
 /*STATIC VARIABLES*/
-Bank * bank;
+Account ** bank;
 Account * account;
-SimpleList sl;
+SimpleList  * sl;
 int thread_exit;
 
 void sigHandler(int dummy) 
@@ -16,35 +16,36 @@ void sigHandler(int dummy)
     thread_exit = 1;
 }
 
-void * sessionAcceptor( void * socket)
+void * sessionAcceptor( void * args)
 {
 
-	int sockfd = -1;													 	 // file descriptor for our server socket
-	int newsockfd = -1;												   // file descriptor for a client socket
-	int portno = -1;													  // server port to connect to
-	int clilen = -1;													 // utility variable - size of clientAddressInfo below
+	int sockfd = 0;													 	// file descriptor for our server socket
+	int newsockfd = 0;												  // file descriptor for a client socket
+	socklen_t clilen = 0;													 // utility variable - size of clientAddressInfo below
 	int n = -1;												    		// utility variable - for checking pthread_create return vals
 	struct sockaddr_in serverAddressInfo;				     // Super-special secret C struct that holds address info for building our server socket
 	struct sockaddr_in clientAddressInfo;					 // Super-special secret C struct that holds address info about our client socket
 	int i = 0; 													   // looping variable
-	int sl_size = 0;											  //	variable used to store size of simple list	
-   pthread_t id = pthread_self(void);
+	int sl_size = 0;											  // variable used to store size of simple list	
+   int iSetOption = 1;										 // variable used to set socket options
+
+   pthread_t id = pthread_self();
 	printf("[-]session acceptor running with thread id %lu \n",(unsigned long)id);
 
 	// try to build a socket .. if it doesn't work, complain and exit
-
-	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+   
 
 	thread_exit = 0;
-
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+ 
 	if (sockfd < 0)
 	{
 		error("ERROR opening socket");
 	}
 
-	err = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
+	n = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
 
-   if (err != 0) 
+   if (n != 0) 
    {
    	error("[-] ERROR creating socket");
    }
@@ -121,8 +122,8 @@ void * connectionHandler( void * socket)
 	char buffer[BUFFER_SIZE];										// char array to store data going to and coming from the socket
 	int newsockfd = *((int *) socket);  					  // zero out the char buffer to receive a client message
 	int closeWithoutMessage = FALSE;							 // int used to determine error message to send to client
-
-   pthread_t id = pthread_self(void);
+	int n = 0;														// utitlity var used for read and write value
+   pthread_t id = pthread_self();
 	printf("[-]connection handler running with thread id %lu \n",(unsigned long)id);
 
    while(!thread_exit)
@@ -171,7 +172,7 @@ void * connectionHandler( void * socket)
    }
 
 	close(newsockfd);
-	free(newsockfd);
+	free(socket);
 
 	return 0;
 	
@@ -181,7 +182,7 @@ void * printBankStatus (void * socket)
 {
 	int i = 0;
 
-	pthread_t id = pthread_self(void);
+	pthread_t id = pthread_self();
 	printf("[-]print bank status running with thread id %lu \n",(unsigned long)id);
 
 
@@ -196,17 +197,17 @@ void * printBankStatus (void * socket)
    	for(i = 0; i < MAX_CLIENTS; i++)
 		{
 
-			if(bank->accounts[i] == NULL)
+			if(bank[i] == 0)
 			{
 				continue;
 
-			} else if(bank->accounts[i]->active == TRUE)
+			} else if(bank[i]->active == TRUE)
 			{
-				printf("%s, IN SESSION\n",bank->accounts[i]->username);
+				printf("%s, IN SESSION\n",bank[i]->username);
 			
-			} else if(bank->accounts[i]->active == FALSE)
+			} else if(bank[i]->active == FALSE)
 			{
-				printf("%s, %f\n",bank->accounts[i]->username,bank->accounts[i]->balance);
+				printf("%s, %f\n",bank[i]->username,bank[i]->balance);
 
 			}
 		}
@@ -229,14 +230,15 @@ int main(int argc, char *argv[])
 	//struct sockaddr_in serv_addr;
 	//struct sockaddr_in cli_addr;
 
-	pthread_t bankthread;
-	pthread_t session_acceptor;
-	sl = getList();
-	bank = malloc(sizeof(Bank));
-	bank->accounts = malloc(sizeof(Account) * MAX_CLIENTS);
-	signal(SIGINT, sigHandler);
+	pthread_t bankthread;																	//prints out bank status
+	pthread_t session_acceptor;														  //sets up 'server'
+	sl = getList();																		 //stores pthread_t ids of clients for joining
+	bank = malloc(sizeof(Account) * MAX_CLIENTS);								//set up bank struct
+	//bank->accounts = malloc(sizeof(Account) * MAX_CLIENTS);				  //make room for people
+	signal(SIGINT, sigHandler);													 //set control+c call sigHandler
+	int err = 0;																		//utitility var used ot check pthread_create output
 
-	err = pthread_create(&(bankthread), NULL, &printBankStatus, NULL;
+	err = pthread_create(&(bankthread), NULL, &printBankStatus, NULL);
 
    if (err != 0)
    {
@@ -251,7 +253,6 @@ int main(int argc, char *argv[])
    }
 
    destroyList(sl);
-   free(bank->accounts);
    free(bank);
    pthread_join(session_acceptor, NULL);
    pthread_join(bankthread, NULL);	

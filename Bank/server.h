@@ -18,25 +18,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <netdb.h>
+
 
 typedef struct Account_
 {
-	char * name;
+	char * username;
 	float balance;
 	int active;
 
-
-} Account;
+}Account;
 
 typedef struct Bank_
 {
-	account * accounts;
+	Account * accounts;
 
-} Bank;
+}Bank;
 
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);
-void error(char *msg);
+void error(char * msg);
 void * sessionAcceptor( void * socket);
 void * printBankStatus (void * socket);
 void sigHandler(int dummy);

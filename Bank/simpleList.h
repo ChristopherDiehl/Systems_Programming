@@ -24,8 +24,8 @@ typedef struct SimpleList_
 
 void appendToList(pthread_t thread_id, SimpleList * sl);
 pthread_t getFront(SimpleList * sl);
-void destroyList(SimpleList * sl);
 SimpleList * getList();
+void destroyList(SimpleList * sl);
 void printList(SimpleList * sl);
 int getSize(SimpleList * sl);
 #endif
