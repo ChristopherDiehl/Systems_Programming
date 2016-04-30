@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
    }
 
 	/** If we're here, we're connected to the server .. w00t!  Time to multithread**/
-   err = pthread_create(&(threads[0]), NULL, &writeToServer, (void *) &sockfd);
+   err = pthread_create(&(threads[0]), NULL, &readFromServer, (void *) &sockfd);
 
    if (err != 0)
    {
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
    }
 
    thread0Active = 1;
-   err = pthread_create(&(threads[1]), NULL, &readFromServer, (void *) &sockfd);
+   err = pthread_create(&(threads[1]), NULL, &writeToServer, (void *) &sockfd);
 
    if (err != 0)
    {
