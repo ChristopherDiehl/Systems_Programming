@@ -5,10 +5,11 @@ SimpleList * getList()
 	SimpleList * sl = malloc(sizeof(SimpleList));
 	sl->head = 0;
 	sl->tail = 0;
+	sl->size = 0;
 	return sl;
 }
 
-void appendToList(int thread_id, SimpleList * sl)
+void appendToList(pthread_t thread_id, SimpleList * sl)
 {
 	if(sl == 0)
 	{
@@ -33,9 +34,10 @@ void appendToList(int thread_id, SimpleList * sl)
 		sl->tail->next = tempNode;
 		sl->tail = tempNode;
 	}
+	sl->size ++;
 }
 
-int getFront(SimpleList * sl)
+pthread_t getFront(SimpleList * sl)
 {
 	
 
@@ -46,7 +48,7 @@ int getFront(SimpleList * sl)
 	}
 
 	Node * tempNode = sl->head;
-	int temp = tempNode->tid;
+	pthread_t temp = tempNode->tid;
 	sl->head = sl->head->next;
 	free(tempNode);
 	return temp;
@@ -71,4 +73,8 @@ void destroyList(SimpleList * sl)
 	}
 
 	free(sl);
+}
+int getSize(SimpleList * sl)
+{
+	return sl->size;
 }

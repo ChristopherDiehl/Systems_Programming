@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
    if (err != 0)
    {
    	close(sockfd);
-   	error("\n[-]can't create thread :[%s]"); 
+   	error("\n[-]can't create thread :[]"); 
    }
 
    thread0Active = 1;
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
    if (err != 0)
    {
    	close(sockfd);
-   	error("\n[-]can't create thread :[%s]"); 
+   	error("\n[-]can't create thread :[]"); 
    }
 
    thread1Active = 1;

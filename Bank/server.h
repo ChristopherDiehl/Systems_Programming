@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include "server.h"
+#include <signal.h>
 
 typedef struct Account_
 {
@@ -37,5 +37,7 @@ typedef struct Bank_
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);
 void error(char *msg);
-
+void * sessionAcceptor( void * socket);
+void * printBankStatus (void * socket);
+void sigHandler(int dummy);
 #endif
