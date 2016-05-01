@@ -1,21 +1,30 @@
 #include "server.h"
 #include "simpleList.h"
+#include "bank.h"
 
 
 /* A simple server in the internet domain using TCP
    The port number is passed as an argument */
 
 /*STATIC VARIABLES*/
-Account ** bank;
-Account * account;
 SimpleList  * sl;
 int thread_exit;
 int server_sock;
+bank * bk;  // bk does not have to passed as param as it is global ! 
+
+
+// Variable to Handle Bank
+
+// create a global variable for the bank so taht it is visible to all the threads !
+
+
+
 void sigHandler(int dummy) 
 {
-    thread_exit = TRUE;
-    shutdown(server_sock,SHUT_RDWR);
-    close(server_sock);
+	thread_exit = TRUE;
+	shutdown(server_sock,SHUT_RDWR);
+	close(server_sock);
+	printf("THREAD EXIT == TRUE\n");
 }
 
 void * sessionAcceptor( void * args)
@@ -32,20 +41,20 @@ void * sessionAcceptor( void * args)
    int iSetOption = 1;										 // variable used to set socket options
 
    pthread_t id = pthread_self();
-	printf("[-] Session acceptor running with thread id %lu \n",(unsigned long)id);
+   printf("[-] Session acceptor running with thread id %lu \n",(unsigned long)id);
 
 	// try to build a socket .. if it doesn't work, complain and exit
    
 
-	thread_exit = 0;
-	server_sock = socket(AF_INET, SOCK_STREAM, 0);
- 
-	if (server_sock < 0)
-	{
-		error("ERROR opening socket");
-	}
+   thread_exit = 0;
+   server_sock = socket(AF_INET, SOCK_STREAM, 0);
 
-	n = setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
+   if (server_sock < 0)
+   {
+   	error("ERROR opening socket");
+   }
+
+   n = setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption, sizeof(iSetOption));
 
    if (n != 0) 
    {
@@ -53,59 +62,57 @@ void * sessionAcceptor( void * args)
    }
 
 	// zero out the socket address info struct .. always initialize!
-	bzero((char *) &serverAddressInfo, sizeof(serverAddressInfo));
+   bzero((char *) &serverAddressInfo, sizeof(serverAddressInfo));
 
 	// set the remote port .. translate from a 'normal' int to a super-special 'network-port-int'
-	serverAddressInfo.sin_port = htons(PORT);
+   serverAddressInfo.sin_port = htons(PORT);
 
 	// set a flag to indicate the type of network address we'll be using  
-	serverAddressInfo.sin_family = AF_INET;
+   serverAddressInfo.sin_family = AF_INET;
 
 	// set a flag to indicate the type of network address we'll be willing to accept connections from
-	serverAddressInfo.sin_addr.s_addr = INADDR_ANY;
+   serverAddressInfo.sin_addr.s_addr = INADDR_ANY;
 
 	/** We have an address struct and a socket .. time to build up the server socket **/
 
 	// bind the server socket to a specific local port, so the client has a target to connect to      
-	if (bind(server_sock, (struct sockaddr *) &serverAddressInfo, sizeof(serverAddressInfo)) < 0)
-	{
-		printf("[-] ERROR on binding");
+   if (bind(server_sock, (struct sockaddr *) &serverAddressInfo, sizeof(serverAddressInfo)) < 0)
+   {
+   	printf("[-] ERROR on binding");
 
-	}
+   }
 
-	printf("[-] Server running on port %d\n",PORT);
+   printf("[-] Server running on port %d\n",PORT);
 
 	// set up the server socket to listen for client connections
-	listen(server_sock,5);
+   listen(server_sock,5);
 
-	clilen = sizeof(clientAddressInfo);
+   clilen = sizeof(clientAddressInfo);
 
 
-	while (thread_exit != TRUE)
-	{
-		newsockfd = accept(server_sock, (struct sockaddr *) &clientAddressInfo, &clilen);
-		if(thread_exit == TRUE)
-		{
-			break;
-		}
-		pthread_t client_thread;
+   while (thread_exit != TRUE)
+   {
+   	
+   	newsockfd = accept(server_sock, (struct sockaddr *) &clientAddressInfo, &clilen);
+   	if(thread_exit == TRUE)
+   	{
+   		break;
+   	}
+   	pthread_t client_thread;
 
-		if (newsockfd < 0) 
-		{
-			error("[-] ERROR on accept");
-		}
+   	if (newsockfd < 0) 
+   	{
+   		error("[-] ERROR on accept");
+   	}
 
-	//	int * temp_socket = malloc(sizeof(int));
-		//temp_socket = &newsockfd;
 		n = pthread_create(&(client_thread), NULL, &connectionHandler, (void *) &newsockfd); //add pthread id to linked list
-		
-		appendToList(client_thread, sl);
 
-	   if (n != 0)
-	   {
-	   	close(server_sock);
-	   	error("\n[-]can't create thread :[]\n"); 
-	   }
+
+		if (n != 0)
+		{
+			close(server_sock);
+			error("\n[-]can't create thread :[]\n"); 
+		}
 
 	}
 
@@ -123,23 +130,30 @@ void * sessionAcceptor( void * args)
 }
 
 /*This handles client connection && sets up the actual 'server'*/
-void * connectionHandler( void * socket)
+void * connectionHandler( void * client_socket)
 {
 
-	char buffer[BUFFER_SIZE];										// char array to store data going to and coming from the socket
-	int newsockfd = *((int *) socket);  					  // zero out the char buffer to receive a client message
+
+	int socket = *(int *)client_socket; 
+	char buffer[BUFFER_SIZE];									  // char array to store data going to and coming from the socket
 	int closeWithoutMessage = FALSE;							 // int used to determine error message to send to client
 	int n = 0;														// utitlity var used for read and write value
+	// Used for Banking Information	
+	char * accountName ; 
+	int sessionOpen = 0 ; 
+	char returnMessage[BUFFER_SIZE];
+	int account_bound_to_thread = -1 ; 
 
-   pthread_t id = pthread_self();
+	pthread_t id = pthread_self();
 	printf("[-]connection handler running with thread id %lu \n",(unsigned long)id);
 
-   while(thread_exit != TRUE)
-   {
-   	bzero(buffer,BUFFER_SIZE);
+	while(thread_exit != TRUE) 
+	{
+
+		bzero(buffer,BUFFER_SIZE);
 
 		// try to read from the client socket
-		n = read(newsockfd,buffer,BUFFER_SIZE -1);
+		n = read(socket,buffer,BUFFER_SIZE -1);
 
 		// if the read from the client blew up, complain and exit
 		if (n < 0)
@@ -149,20 +163,152 @@ void * connectionHandler( void * socket)
 			break;
 		}
 
-		if(strcmp(buffer,"exit") == 0)
+		printf("buffer = %s\n",buffer);
+
+		int tkLen =0 ;  		
+		char * command = tokenSpace(buffer , &tkLen); 
+		printf("[-] command = %s\n",command);
+
+		if( strcmp(command , "open") == 0 )
 		{
-			char * exitMessage = "Thank you for banking with us";
-			n = write(newsockfd, exitMessage, strlen(exitMessage)+1);
-			closeWithoutMessage = TRUE;
-			break;
+
+			if(sessionOpen)
+			{
+				strcpy(returnMessage,"Session Active : End Session to Open New Account");
+			}
+			else
+			{
+				accountName = tokenSpace(buffer , &tkLen);  
+				openAccount(bk , accountName, 0); 
+				strcpy(returnMessage,"Account successfuly opened");
+				sessionOpen = 1;
+				printf("account opened %s\n",accountName);
+			}
+
+		}
+		else if( strcmp(command , "start") == 0 )
+		{
+			if(sessionOpen)
+			{
+				/*
+				 * how to handle client starting a session again 
+				 *  1) with a differetn account name ? 
+				 *  	> Do we end this current session and switch to a new session 
+				 *  	> or give out an error > 
+				 *  2) with same account name ? 
+				 *  	> Do we not do anything or say that the session is already active ? 
+				 */
+
+				 if( strcmp(accountName, tokenSpace(buffer , &tkLen) ) == 0 )
+				 {
+				 	strcpy(returnMessage,"Session Already Active with given Account");
+				 }
+				 else
+				 {
+				 	strcpy(returnMessage , "Close Session to create session with new Account");
+				 }
+				}
+				else
+				{
+					accountName  = tokenSpace(buffer , &tkLen);  
+					account_bound_to_thread = startAccount(bk , accountName ); 
+				// OPEN THE SESSION 
+					sessionOpen = 1; 
+				}
+		}
+		else if( strcmp(command , "credit") == 0 )
+		{
+			if(sessionOpen)
+			{
+				char * ammountStr = tokenSpace(buffer , &tkLen);
+				float ammount = atof(ammountStr); 
+				creditAccount(bk , account_bound_to_thread , ammount); 
+				strcpy(returnMessage,strcat("Account Credited with " , ammountStr));
+			} else
+			{
+				strcpy(returnMessage,"Open Session First");
+			}
 		}
 
-		printf("Here is the message: %s\n",buffer);
+		else if( strcmp(command , "debit") == 0 )
+		{
 
-		// try to write to the client socket
-		char * tempMEssage = "I GOT YOUR MESSAGE";
-		n = write(newsockfd,tempMEssage,strlen(tempMEssage)+1);
-		// if the write to the client below up, complain and exit
+
+			if(sessionOpen)
+			{
+				char * ammountStr = tokenSpace(buffer , &tkLen);
+				float ammount = atof(ammountStr); 
+
+				if(debitAccount(bk , account_bound_to_thread , ammount) == 1)
+				{
+					strcpy(returnMessage,strcat("Account Debited by " , ammountStr));
+				}
+				else
+				{
+					strcpy(returnMessage,strcat("Insufficient Funds to Withdarw  " , ammountStr));
+				}
+
+			}
+
+			else
+			{
+				strcpy(returnMessage,"Open Session First");
+			}
+
+		}
+		else if( strcmp(command , "balance") == 0 )
+		{
+			if(sessionOpen)
+			{
+				float bal = balanceAccount(bk , account_bound_to_thread);		
+				snprintf(returnMessage,255," Balance in Account : %f",bal);
+
+			}
+			else
+			{
+				strcpy(returnMessage,"Open Session First");
+			}
+		}
+		else if( strcmp(command , "finish") == 0 )
+		{
+			if(sessionOpen)
+			{
+				finishAccount(bk , account_bound_to_thread);			
+			// session ends here !
+				sessionOpen = 0 ; 
+				account_bound_to_thread = -1; 
+				accountName = NULL; 
+				strcpy(returnMessage,"Current Session Closed ");
+			}
+			else
+			{
+				strcpy(returnMessage,"Open Session First");
+			}
+		}
+
+		else if( strcmp(command , "exit") == 0 )
+		{
+			closeWithoutMessage = TRUE;
+			strcpy(returnMessage, "Thank you for banking with us");
+			free(command);
+			n = write(socket,returnMessage,255);
+
+			if (n < 0)
+			{
+				printf("[-] ERROR writing to the socket");
+				closeWithoutMessage = TRUE;
+				break;
+			}
+
+			return 0 ; 
+		}
+		else
+		{
+			printf("Incorrect Input");
+		}
+
+		free(command);
+		n = write(socket,returnMessage,255);
 
 		if (n < 0)
 		{
@@ -170,21 +316,19 @@ void * connectionHandler( void * socket)
 			closeWithoutMessage = TRUE;
 			break;
 		}
+	}
 
-   }
+		///made it to hear then control+c has been called.. kill the process
+	if(closeWithoutMessage == FALSE)
+	{
+		char * exitMessage = "The server has been shut down.\n Sorry for any inconvenience\n";
+		n = write(socket, exitMessage, strlen(exitMessage) +1);
+	}
 
-   ///made it to hear then control+c has been called.. kill the process
-   if(closeWithoutMessage == FALSE)
-   {
-   	char * exitMessage = "The server has been shut down.\n Sorry for any inconvenience\n";
-		n = write(newsockfd, exitMessage, strlen(exitMessage) +1);
-   }
-
-	close(newsockfd);
-	//free(socket);
+	close(socket);
 
 	return 0;
-	
+
 }
 
 void * printBankStatus (void * socket)
@@ -195,34 +339,34 @@ void * printBankStatus (void * socket)
 	printf("[-] Print bank status running with thread id %lu \n",(unsigned long)id);
 
 
-	if(bank == NULL)
+	if(bk == NULL)
 	{
 		printf("[-]Something went horribly wrong. Bank not initialized");
 		return 0;
 	}
-   while(thread_exit != TRUE)
-   {	
+	while(thread_exit != TRUE)
+	{	
 
-   	for(i = 0; i < MAX_CLIENTS; i++)
+		for(i = 0; i < MAX_CLIENTS; i++)
 		{
 
-			if(bank[i] == 0)
+			if(bk->accountArray[i] == 0)
 			{
 				continue;
 
-			} else if(bank[i]->active == TRUE)
+			} else if(bk->accountArray[i]->_inUse == TRUE)
 			{
-				printf("%s, IN SESSION\n",bank[i]->username);
-			
-			} else if(bank[i]->active == FALSE)
+				printf("%s, IN SESSION\n",bk->accountArray[i]->_name);
+
+			} else if(bk->accountArray[i]->_inUse == FALSE)
 			{
-				printf("%s, %f\n",bank[i]->username,bank[i]->balance);
+				printf("%s, %f\n",bk->accountArray[i]->_name , bk->accountArray[i]->_balance);
 
 			}
 		}
 
 		sleep(20);
-   }
+	}
 
 	return 0;
 }
@@ -242,32 +386,69 @@ int main(int argc, char *argv[])
 	pthread_t bankthread;																	//prints out bank status
 	pthread_t session_acceptor;														  //sets up 'server'
 	sl = getList();																		 //stores pthread_t ids of clients for joining
-	bank = malloc(sizeof(Account) * MAX_CLIENTS);								//set up bank struct
-	//bank->accounts = malloc(sizeof(Account) * MAX_CLIENTS);				  //make room for people
 	signal(SIGINT, sigHandler);													 //set control+c call sigHandler
-	int err = 0;																		//utitility var used ot check pthread_create output
+	int err = 0;	
+	bk = createBank();											
+
 	err = pthread_create(&(bankthread), NULL, &printBankStatus, NULL);
 
-   if (err != 0)
-   {
-   	error("\n[-]can't create bank thread "); 
-   }
+	if (err != 0)
+	{
+		error("\n[-]can't create bank thread "); 
+	}
 
-   err = pthread_create(&(session_acceptor), NULL, &sessionAcceptor, NULL);
+	err = pthread_create(&(session_acceptor), NULL, &sessionAcceptor, NULL);
 
-   if (err != 0)
-   {
-   	error("\n[-]can't create session acceptor thread "); 
-   }
+	if (err != 0)
+	{
+		error("\n[-]can't create session acceptor thread "); 
+	}
 
-   pthread_join(bankthread, NULL);	
-   pthread_join(session_acceptor, NULL);
+	pthread_join(bankthread, NULL);	
+	pthread_join(session_acceptor, NULL);
 
 
-   destroyList(sl);
-   free(bank);
-
+	destroyList(sl);
 
 
 	return 0; 
+}
+
+
+
+//// TOKEN EXTRACTION ////////////
+int __strncpy(char * dest, char * src , int len)
+{
+	int i ;
+	for(i = 0 ; i < len ; ++i)
+	{
+		*(dest + i) = *(src + i);
+	}
+	dest[len] = '\0';	
+	return 0 ; 
+}
+
+char * tokenSpace(char * str , int * len ) // len gives the position of the string we have process
+{
+	if( *len != 0)
+		len++; // ignore the space that we saw earlier ! 
+	char * p = str + *len;  
+	char * startOfStrTk = p ; 
+	int tokLen = 0 ; 
+	int strlength = strlen(str);
+	printf("str: %s\n",str);
+	while(*p != '\0' && *len < strlength)
+	{
+		printf("%c\n",*p);
+		if(isspace(*p))
+		{
+			break ; 	
+		}
+		p++;
+		tokLen++ ; 
+	}
+	char * res = (char *) malloc( tokLen + 1) ; 	 // free this memory !! 
+	__strncpy(res , startOfStrTk , tokLen);  
+	printf("Res: %s\n",res);
+	return res ; 
 }

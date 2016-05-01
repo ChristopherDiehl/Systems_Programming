@@ -134,6 +134,7 @@ void * writeToServer(void * args)
 
 		if(strcmp(command_buffer,"exit") == 0)
 		{
+			printf("end =1\n");
 			end = 1;
 		}
 
@@ -153,6 +154,7 @@ void * writeToServer(void * args)
 
 		sleep(2);
 	}
+	printf("exiting client write\n");
 	return 0;
 }
 
@@ -180,6 +182,8 @@ void * readFromServer(void * args)
 		// print out server's message
 		printf("%s\n",response_buffer);
 	}
+	printf("exiting client read\n");
+
 
 	return 0;
 }

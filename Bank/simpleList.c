@@ -59,7 +59,6 @@ void printList(SimpleList * sl)
 	Node * temp = sl->head;
 	while(temp != 0)
 	{
-		printf("%d\n", temp->tid);
 		temp = temp->next;
 	}
 }

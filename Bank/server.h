@@ -20,7 +20,10 @@
 #include <signal.h>
 #include <netdb.h>
 
+#include <ctype.h> // to obtain the token
 
+
+/*
 typedef struct Account_
 {
 	char * username;
@@ -35,10 +38,21 @@ typedef struct Bank_
 
 }Bank;
 
+*/  // Using san'a implementation of bank
+
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);
 void error(char * msg);
 void * sessionAcceptor( void * socket);
 void * printBankStatus (void * socket);
 void sigHandler(int dummy);
+
+
+
+
+/*TOKEN EXTRACTION */
+char * tokenSpace(char * str , int* len );
+int __strncpy(char * dest, char * src , int len);
+
+
 #endif
