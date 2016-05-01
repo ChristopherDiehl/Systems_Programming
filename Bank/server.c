@@ -16,7 +16,6 @@ void sigHandler(int dummy)
     thread_exit = TRUE;
     shutdown(server_sock,SHUT_RDWR);
     close(server_sock);
-    printf("THREAD EXIT == TRUE\n");
 }
 
 void * sessionAcceptor( void * args)
@@ -24,7 +23,7 @@ void * sessionAcceptor( void * args)
 
 	server_sock = 0;													 	// file descriptor for our server socket
 	int newsockfd = 0;												  // file descriptor for a client socket
-	socklen_t clilen = 0;													 // utility variable - size of clientAddressInfo below
+	socklen_t clilen = 0;											 // utility variable - size of clientAddressInfo below
 	int n = -1;												    		// utility variable - for checking pthread_create return vals
 	struct sockaddr_in serverAddressInfo;				     // Super-special secret C struct that holds address info for building our server socket
 	struct sockaddr_in clientAddressInfo;					 // Super-special secret C struct that holds address info about our client socket

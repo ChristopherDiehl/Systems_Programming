@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
    	exit(0);
    }
 
-   sockfd = buildSocket();
 
 
 	/** We now have the IP address and port to connect to on the server, we have to get    **/
@@ -57,6 +56,8 @@ int main(int argc, char *argv[])
 
    while(TRUE) 
    {
+   	sockfd = buildSocket();
+
    	if(connect(sockfd,(struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo)) == 0)
    	{
    		printf("[-] We are connected to the server!\n");
@@ -64,7 +65,6 @@ int main(int argc, char *argv[])
    	}
    	close(sockfd);
    	printf("[-] ERROR connecting\n");
-   	sockfd = buildSocket();
    	sleep(3);		//wait 3 seconds before trying again
    }
 
@@ -187,13 +187,13 @@ void * readFromServer(void * args)
 
 void error(char *msg)
 {
-
-	if(thread0Active == 1)
+	end = TRUE;
+	if(thread0Active == TRUE)
 	{
 		pthread_join(threads[0], NULL);
 	}
 	
-	if(thread1Active == 1)
+	if(thread1Active == TRUE)
 	{
 		pthread_join(threads[1], NULL);
 	}
