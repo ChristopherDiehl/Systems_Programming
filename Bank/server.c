@@ -4,7 +4,7 @@
 
 /* A simple server in the internet domain using TCP
    The port number is passed as an argument */
-
+//need to transport socket over heap
 /*STATIC VARIABLES*/
 Account ** bank;
 Account * account;
@@ -184,7 +184,7 @@ void * connectionHandler( void * socket)
 
 				char * accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
 				printf("acc : %s \n" , accountName);
-
+				printf("numofclients: %d\n",numofclients);
 				if(checkForDuplicateAccount(accountName) == TRUE)
 				{ //new account
 					bank[numofclients] = malloc(sizeof(Account));
