@@ -11,12 +11,14 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <pthread.h>
 #include <string.h>
 #include <time.h>
-#include <stdio.h>
 
 #define N_CLIENT 20
+
+#define DEV 1
 typedef struct account_
 {
 	char *_name ;  // 
@@ -50,8 +52,9 @@ int creditAccount(bank * bk , int accIdx , float credit ) ;
 int debitAccount(bank * bk , int accIdx , float debit ) ;
 float  balanceAccount(bank * bk , int accIdx);
 void finishAccount(bank * bk , int accIdx);
+void destroyBank(bank * bk);
 
-
+int getAccountNum(bank * bk , char * accName);
 
 /*
  * RULES FOR BANK :: 

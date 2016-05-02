@@ -7,8 +7,8 @@
  */
 account * createAccount( char * name , float bal)
 {
-	account * res =  malloc(sizeof(account)) ; 
-	res->_name =  malloc(100);         	 // malloc 100 bytes;
+	account * res =  ( account*) malloc(sizeof(account)) ; 
+	res->_name =  (char *)malloc(100);         	 // malloc 100 bytes;
 	// copy name to _name ; 
 	res->_name = strcpy(res->_name , name );
 	res->_balance = bal ; 
@@ -25,7 +25,7 @@ account * createAccount( char * name , float bal)
 
 bank * createBank()
 {
-	bank * res = malloc(sizeof(bank)); 
+	bank * res = (bank *)malloc(sizeof(bank)); 
 	
 	// the accountArray is initialized when an account is added ; 	
 	res->_accountsUsed = 0; 
@@ -35,6 +35,17 @@ bank * createBank()
 }
 
 
+void destroyBank(bank * bk)
+{
+	int i = 0;
+	for(i = 0; i < bk->_accountsUsed; i++)
+	{
+		free(bk->accountArray[i]->_name);
+		free(bk->accountArray[i]);
+
+	}
+	free(bk);
+}
 /*
  * create the account : 
  * 	lock the mutex and add the account 
@@ -51,7 +62,7 @@ bank * createBank()
  *
  * client has to know which account was added ? 
  *
- * We also have to ensure that accounts with duplicate names are not added 
+ * We also have to ensure that accounts with duplicate ames are not added 
  *
  * TO DO :: 
  * if a clinet has worked with an account then if shoudl not add a new account 
@@ -81,27 +92,29 @@ int openAccount( bank * bk , char * name , float bal )
 	{
 		if( strcmp(name , bk->accountArray[i]->_name) == 0 )
 		{
-			// non unique account name !
+			if(DEV) printf(" non unique account name !");
 			res = -2 ; 		
+
 		}
 
 	}
-
-	if (bk->_accountsUsed < 20 && ( res == 0 ) )
+	
+	if( res == 0)
 	{
-		// add the account 
-		bk->accountArray[bk->_accountsUsed] = createAccount(name , bal);
-		bk->_accountsUsed++ ; 
-
-		res = 1; 
-	//	return 1; 	
-	}
-	else
-	{
-		res = -1 ; 
-		//return 0 ; 
-	}
-		
+		if (bk->_accountsUsed < 20 && ( res == 0 ) )
+		{
+			// add the account 
+			bk->accountArray[bk->_accountsUsed] = createAccount(name , bal);
+			bk->_accountsUsed++ ; 
+			res = 1; 
+		//	return 1; 	
+		}
+		else
+		{
+			res = -1 ; 
+			//return 0 ; 
+		}
+	}	
 	// Warning :: Unsure 
 	pthread_mutex_unlock(&bk->acnt_mutex) ; 
 	return res; 
@@ -135,26 +148,29 @@ int openAccount( bank * bk , char * name , float bal )
  */
 int startAccount(bank * bk , char * name)
 {
+	if(DEV) printf("STARTING ACCOUNT : %s \n" , name);
 	int i = 0 ; 
 	for( i =0 ; i < bk->_accountsUsed ; ++i)
 	{
+		
 		if( strcmp(name , bk->accountArray[i]->_name) == 0 )
 		{
 			// Found the account
 			// Make the account in use :  
-			
 			// ensure that concurrent sessions do not exist 
 			if(  bk->accountArray[i]->_inUse == 0 ) 
 			{
 				bk->accountArray[i]->_inUse = 1; 
-				return 1; 
+				return i; 
 			}
 			else
 			{
+				if(DEV) printf("[-] Account Already in session cannot open again\n");
 				return -2 ; 
 			}
 		}
 	}
+	if(DEV) printf("[-] Such an account has not been opened yet \n");
 	return -1 ; 
 }
 
@@ -185,16 +201,13 @@ int startAccount(bank * bk , char * name)
  */
 int changeBalAccount(bank * bk , int accIdx , float posNegVal)
 {
-
 		// the balance can be changed only if the account has been started ? 
 		// VERIFY THIS ! 
 	
+	if(DEV)	printf("change balance id : %d , val %f " , accIdx , posNegVal);
 	if (bk->accountArray[accIdx]->_inUse ==1 )
 	{
-		printf("posNegVal %c\n",(char )posNegVal);
-		printf("Bal: %f, posNegVal: %f\n",	bk->accountArray[accIdx]->_balance,posNegVal);
 		bk->accountArray[accIdx]->_balance += posNegVal ; 
-
 		return 1; 
 	}
 	else
@@ -209,7 +222,7 @@ int changeBalAccount(bank * bk , int accIdx , float posNegVal)
  */
 int creditAccount(bank * bk , int accIdx , float credit ) 
 {
-	changeBalAccount(bk , accIdx , credit); 
+	return changeBalAccount(bk , accIdx , credit); 
 }
 
 /*
@@ -223,16 +236,25 @@ int debitAccount(bank * bk , int accIdx , float debit )
 {
 	// No checking happens here :: We have to ensure that the account is in use ? 
 	// Or should we ?? 
-	if ( debit > bk->accountArray[accIdx]->_balance)
+	if (bk->accountArray[accIdx]->_inUse ==1 )
 	{
-		return -1 ; 
+		float temp = bk->accountArray[accIdx]->_balance;
+		if(temp + debit < 0)
+		{
+			return -1;
+		}
+		else{
+			bk->accountArray[accIdx]->_balance += debit;
+			return 1; 
+
+		}
 	}
 	else
 	{
-		debit = - debit; 
-		changeBalAccount(bk , accIdx, debit); 
-		return 1; 
+		return -1; 
 	}
+
+	
 }
 
 /*
@@ -294,7 +316,30 @@ void finishAccount(bank * bk , int accIdx)
  */
 
 
+int getAccountNum(bank * bk , char * accName)
+{
+	int i = 0 ; 
+	for( i =0 ; i < bk->_accountsUsed ; ++i)
+	{
+		
+		if( strcmp(accName , bk->accountArray[i]->_name) == 0 )
+		{
+			// Found the account
+			// Make the account in use :  
+			// ensure that concurrent sessions do not exist 
+			if(  bk->accountArray[i]->_inUse == 0 ) 
+			{
+				bk->accountArray[i]->_inUse = 1; 
+				return i; 
+			}
+		}
 
+	}
+
+
+	return -1;
+
+}
 
 
 

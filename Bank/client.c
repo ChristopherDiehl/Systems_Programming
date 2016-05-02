@@ -134,7 +134,6 @@ void * writeToServer(void * args)
 
 		if(strcmp(command_buffer,"exit") == 0)
 		{
-			printf("end =1\n");
 			end = 1;
 		}
 
@@ -154,7 +153,6 @@ void * writeToServer(void * args)
 
 		sleep(2);
 	}
-	printf("exiting client write\n");
 	return 0;
 }
 
@@ -178,11 +176,14 @@ void * readFromServer(void * args)
 			close(sockfd);
 			error("[-] ERROR reading from socket\n");
 		}
-
 		// print out server's message
 		printf("%s\n",response_buffer);
+		if(strcmp(response_buffer,"The server has been shut down.\n Sorry for any inconvenience\n") == 0)
+		{
+			end =1;
+			break;
+		}
 	}
-	printf("exiting client read\n");
 
 
 	return 0;

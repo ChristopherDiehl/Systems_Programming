@@ -19,14 +19,13 @@
 #include <string.h>
 #include <signal.h>
 #include <netdb.h>
-
 #include <ctype.h> // to obtain the token
 
 
-
+/*
 typedef struct Account_
 {
-	char *username;
+	char * username;
 	float balance;
 	int active;
 
@@ -35,10 +34,10 @@ typedef struct Account_
 typedef struct Bank_
 {
 	Account * accounts;
-	int numofclients;
 
 }Bank;
 
+*/  // Using san'a implementation of bank
 
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);
@@ -46,13 +45,11 @@ void error(char * msg);
 void * sessionAcceptor( void * socket);
 void * printBankStatus (void * socket);
 void sigHandler(int dummy);
-int checkForDuplicateAccount(char * accountName);
-int checkForOpenAccount(char * accountName);
+
 
 
 
 /*TOKEN EXTRACTION */
-char * tokenSpace(char * str , int* len );
 int __strncpy(char * dest, char * src , int len);
 
 
