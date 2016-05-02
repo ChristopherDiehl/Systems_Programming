@@ -23,7 +23,7 @@ void sigHandler(int dummy)
 	thread_exit = TRUE;
 	shutdown(server_sock,SHUT_RDWR);
 	close(server_sock);
-	printf("\n\t [-] Closing Server\n");
+	printf("\n[-] Closing Server\n");
 }
 
 void * sessionAcceptor( void * args)
@@ -415,7 +415,7 @@ void * printBankStatus (void * socket)
 	}
 	while(thread_exit != TRUE)
 	{	
-		printf("\t[-] BANK INFORMATION\n");
+		printf("[-] BANK INFORMATION\n");
 		for(i = 0; i < MAX_CLIENTS; i++)
 		{
 
