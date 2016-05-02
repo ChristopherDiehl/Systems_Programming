@@ -26,7 +26,7 @@
 
 typedef struct Account_
 {
-	char * username;
+	char *username;
 	float balance;
 	int active;
 
@@ -46,7 +46,8 @@ void error(char * msg);
 void * sessionAcceptor( void * socket);
 void * printBankStatus (void * socket);
 void sigHandler(int dummy);
-
+int checkForDuplicateAccount(char * accountName);
+int checkForOpenAccount(char * accountName);
 
 
 

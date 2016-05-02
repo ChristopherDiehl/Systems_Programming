@@ -136,6 +136,7 @@ void * connectionHandler( void * socket)
    pthread_t id = pthread_self();
 	int sessionOpen = 0 ; 
 	char * returnMessage = calloc(BUFFER_SIZE , 1);
+	char * strTok_ptr; // used to store the location by strtok_r
 
 	printf("[-]Client accepted. Running with thread id %lu \n",(unsigned long)id);
 
@@ -180,13 +181,15 @@ void * connectionHandler( void * socket)
 
 			else
 			{
-				accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
-				printf("acc : %s " , accountName);
+
+				char * accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
+				printf("acc : %s \n" , accountName);
 
 				if(checkForDuplicateAccount(accountName) == TRUE)
 				{ //new account
-
-					bank[numofclients]->username = accountName;
+					bank[numofclients] = malloc(sizeof(Account));
+					bank[numofclients]->username = malloc(BUFFER_SIZE);
+					strcpy(bank[numofclients]->username,accountName);
 					bank[numofclients]->balance = 0;
 					bank[numofclients]->active = TRUE;
 					array_number = numofclients;
@@ -208,7 +211,7 @@ void * connectionHandler( void * socket)
 			}
 			else
 			{
-				accountName  = strtok_r(NULL , " " , &strTok_ptr);
+				char * accountName  = strtok_r(NULL , " " , &strTok_ptr);
 				printf("[-] start account : %s \n" , accountName);
 				int check = checkForOpenAccount(accountName);
 				if(check != -1 && check !=  -2)
@@ -234,11 +237,11 @@ void * connectionHandler( void * socket)
 		{
 			if(sessionOpen)
 			{
-				char * ammountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
-				float ammount = atof(ammountStr); 
-				printf("balance %f\n ", ammount);	
+				char * amountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
+				float amount = atof(amountStr); 
+				printf("balance %f\n ", amount);	
 				bank[array_number]->balance += amount;
-				sprintf(returnMessage , "[-] Account Credited With %f\n" ,ammount);
+				sprintf(returnMessage , "[-] Account Credited With %f\n" ,amount);
 
 			} 
 			else
@@ -251,18 +254,18 @@ void * connectionHandler( void * socket)
 		{
 			if(sessionOpen)
 			{
-				char * ammountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
-				float ammount = atof(ammountStr); 
-				printf("balance %f\n ", ammount);	
+				char * amountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
+				float amount = atof(amountStr); 
+				printf("balance %f\n ", amount);	
 				float temp = bank[array_number]->balance;
 				if (temp += amount < 0)
 				{
-					sprintf(returnMessage , "[-] Insufficient funds at this time %f\n" ,ammount);
+					sprintf(returnMessage , "[-] Insufficient funds at this time %f\n" ,amount);
 				} 
 				else
 				{
 					bank[array_number]->balance += amount;
-					sprintf(returnMessage , "[-] Account Credited With %f\n" ,ammount);
+					sprintf(returnMessage , "[-] Account Credited With %f\n" ,amount);
 				}
 
 			} else
@@ -290,11 +293,10 @@ void * connectionHandler( void * socket)
 		{
 			if(sessionOpen)
 			{
-				finishAccount(bk , account_bound_to_thread);			
-			// session ends here !
+
 				sessionOpen = 0 ; 
-				account_bound_to_thread = -1; 
-				accountName = NULL; 
+				bank[array_number]->active = FALSE;
+				array_number = -1;
 				sprintf(returnMessage , "[-] Current Session Closed ");
 			}
 			else
@@ -302,10 +304,14 @@ void * connectionHandler( void * socket)
 				sprintf(returnMessage , "[-] Open Session First");
 			}
 		}
-		// try to write to the client socket
-		char * tempMEssage = "I GOT YOUR MESSAGE";
-		n = write(newsockfd,tempMEssage,strlen(tempMEssage)+1);
-		// if the write to the client below up, complain and exit
+
+		else
+		{
+			printf("Invalid Input");
+			strcpy(returnMessage, "[-] Invalid input\n");
+		}
+
+		n = write(*(int *)socket,returnMessage,BUFFER_SIZE);
 
 		if (n < 0)
 		{
@@ -313,6 +319,9 @@ void * connectionHandler( void * socket)
 			closeWithoutMessage = TRUE;
 			break;
 		}
+		
+		memset(returnMessage , 0 , BUFFER_SIZE);
+
 
    }
 
@@ -359,17 +368,14 @@ int checkForDuplicateAccount(char * accountName)
 	int i = 0;
 	for(i = 0; i < MAX_CLIENTS; i++)
 	{
-
-		if(bank[i] == 0)
+		if(bank[i] == 0 || bank[i]->username == 0)
 			{continue;}
 
 		else if(strcmp(bank[i]->username,accountName) == 0)
 		{
 			return FALSE;
 		}
-
 	}
-
 	return TRUE;
 }
 
