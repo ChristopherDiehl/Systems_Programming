@@ -32,7 +32,7 @@ void * sessionAcceptor( void * args)
 
 	server_sock = 0;													 	// file descriptor for our server socket
 	int newsockfd = 0;												  // file descriptor for a client socket
-	socklen_t clilen = 0;											 // utility variable - size of clientAddressInfo below
+	socklen_t clilen = 0;													 // utility variable - size of clientAddressInfo below
 	int n = -1;												    		// utility variable - for checking pthread_create return vals
 	struct sockaddr_in serverAddressInfo;				     // Super-special secret C struct that holds address info for building our server socket
 	struct sockaddr_in clientAddressInfo;					 // Super-special secret C struct that holds address info about our client socket
@@ -141,11 +141,13 @@ void * connectionHandler( void * client_socket)
 	// Used for Banking Information	
 	char * accountName ; 
 	int sessionOpen = 0 ; 
-	char returnMessage[BUFFER_SIZE];
+	char * returnMessage = (char *) calloc(BUFFER_SIZE , 1);
 	int account_bound_to_thread = -1 ; 
 
 	pthread_t id = pthread_self();
 	printf("[-]connection handler running with thread id %lu \n",(unsigned long)id);
+
+	char * strTok_ptr; // used to store the location by strtok_r
 
 	while(thread_exit != TRUE) 
 	{
@@ -165,8 +167,7 @@ void * connectionHandler( void * client_socket)
 
 		printf("buffer = %s\n",buffer);
 
-		int tkLen =0 ;  		
-		char * command = tokenSpace(buffer , &tkLen); 
+		char * command = strtok_r(buffer , " \n\0\t" , &strTok_ptr); 
 		printf("[-] command = %s\n",command);
 
 		if( strcmp(command , "open") == 0 )
@@ -178,12 +179,26 @@ void * connectionHandler( void * client_socket)
 			}
 			else
 			{
-				accountName = tokenSpace(buffer , &tkLen);  
-				openAccount(bk , accountName, 0); 
-				strcpy(returnMessage,"Account successfuly opened");
-				sessionOpen = 1;
-				printf("account opened %s\n",accountName);
-			}
+				accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
+				printf("acc : %s " , accountName);
+				int res = openAccount(bk , accountName, 0); 
+				printf("Res : %d \n" , res);
+				if(res == 1)
+				{
+					sessionOpen = 1;
+					strcpy(returnMessage,"Account successfuly opened");
+					printf("account opened %s\n",accountName);
+
+				}
+				else if (res == -2)
+				{
+					strcpy(returnMessage,"Account with same name already exits. Open new account with different name or start the account ");
+				}
+				else 
+				{
+					strcpy(returnMessage, "Error : Cannot support more than 20 accounts ");
+				}
+		}
 
 		}
 		else if( strcmp(command , "start") == 0 )
@@ -199,7 +214,7 @@ void * connectionHandler( void * client_socket)
 				 *  	> Do we not do anything or say that the session is already active ? 
 				 */
 
-				 if( strcmp(accountName, tokenSpace(buffer , &tkLen) ) == 0 )
+				 if( strcmp(accountName, strtok_r(NULL , " " , & strTok_ptr) ) == 0 )
 				 {
 				 	strcpy(returnMessage,"Session Already Active with given Account");
 				 }
@@ -207,23 +222,42 @@ void * connectionHandler( void * client_socket)
 				 {
 				 	strcpy(returnMessage , "Close Session to create session with new Account");
 				 }
-				}
+			}
 				else
 				{
-					accountName  = tokenSpace(buffer , &tkLen);  
+					accountName  = strtok_r(NULL , " " , &strTok_ptr);
+					printf("[-] start account : %s " , accountName);
 					account_bound_to_thread = startAccount(bk , accountName ); 
-				// OPEN THE SESSION 
-					sessionOpen = 1; 
+					
+					if(account_bound_to_thread == -2)
+					{
+						sprintf(returnMessage , "[-] Account %s Already in Session. Wait till out of Session " ,accountName);
+					}
+					else if (account_bound_to_thread == -1 )
+					{
+						sprintf(returnMessage , "[-] Account %s , does not exit . Open Account Before Use " ,accountName);
+					}
+					else
+					{
+						if(TRUE) printf("account thread # %d" , account_bound_to_thread);
+						sprintf(returnMessage , "[-] Account %s Started" ,accountName);
+				// OPEN THE SESSION
+						sessionOpen = 1; 
+
+					}
+
 				}
 		}
 		else if( strcmp(command , "credit") == 0 )
 		{
 			if(sessionOpen)
 			{
-				char * ammountStr = tokenSpace(buffer , &tkLen);
+				char * ammountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
 				float ammount = atof(ammountStr); 
+				if(TRUE) printf("balance %f\n " , ammount);	
 				creditAccount(bk , account_bound_to_thread , ammount); 
-				strcpy(returnMessage,strcat("Account Credited with " , ammountStr));
+				sprintf(returnMessage , "[-] Account Credited With %f" ,ammount);
+				//strcpy(returnMessage,strcat("Account Credited with " , ammountStr));
 			} else
 			{
 				strcpy(returnMessage,"Open Session First");
@@ -232,20 +266,18 @@ void * connectionHandler( void * client_socket)
 
 		else if( strcmp(command , "debit") == 0 )
 		{
-
-
 			if(sessionOpen)
 			{
-				char * ammountStr = tokenSpace(buffer , &tkLen);
+				char * ammountStr = strtok_r(NULL , " \n\0\t" , &strTok_ptr);
 				float ammount = atof(ammountStr); 
 
 				if(debitAccount(bk , account_bound_to_thread , ammount) == 1)
 				{
-					strcpy(returnMessage,strcat("Account Debited by " , ammountStr));
+					sprintf(returnMessage , "[-] Account Debited With %f" ,ammount);
 				}
 				else
 				{
-					strcpy(returnMessage,strcat("Insufficient Funds to Withdarw  " , ammountStr));
+					sprintf(returnMessage , "[-] Insufficeint Funds to Withdraw %f" ,ammount);
 				}
 
 			}
@@ -261,12 +293,12 @@ void * connectionHandler( void * client_socket)
 			if(sessionOpen)
 			{
 				float bal = balanceAccount(bk , account_bound_to_thread);		
-				snprintf(returnMessage,255," Balance in Account : %f",bal);
+				sprintf(returnMessage , "[-] Balance %f" ,bal);
 
 			}
 			else
 			{
-				strcpy(returnMessage,"Open Session First");
+				sprintf(returnMessage , "[-] Open Session First");
 			}
 		}
 		else if( strcmp(command , "finish") == 0 )
@@ -278,11 +310,11 @@ void * connectionHandler( void * client_socket)
 				sessionOpen = 0 ; 
 				account_bound_to_thread = -1; 
 				accountName = NULL; 
-				strcpy(returnMessage,"Current Session Closed ");
+				sprintf(returnMessage , "[-] Current Session Closed ");
 			}
 			else
 			{
-				strcpy(returnMessage,"Open Session First");
+				sprintf(returnMessage , "[-] Open Session First");
 			}
 		}
 
@@ -290,7 +322,7 @@ void * connectionHandler( void * client_socket)
 		{
 			closeWithoutMessage = TRUE;
 			strcpy(returnMessage, "Thank you for banking with us");
-			free(command);
+			//free(command); // DONT CALL FREE NO MEM ALLOC
 			n = write(socket,returnMessage,255);
 
 			if (n < 0)
@@ -307,8 +339,8 @@ void * connectionHandler( void * client_socket)
 			printf("Incorrect Input");
 		}
 
-		free(command);
-		n = write(socket,returnMessage,255);
+		//free(command); // DONOT CALL FREE STRTOK DOES NOT ALLOCATE MEM
+		n = write(socket,returnMessage,BUFFER_SIZE);
 
 		if (n < 0)
 		{
@@ -316,7 +348,10 @@ void * connectionHandler( void * client_socket)
 			closeWithoutMessage = TRUE;
 			break;
 		}
-	}
+	
+		memset(returnMessage , 0 , BUFFER_SIZE);
+
+	} // end of while loop
 
 		///made it to hear then control+c has been called.. kill the process
 	if(closeWithoutMessage == FALSE)
@@ -439,12 +474,11 @@ char * tokenSpace(char * str , int * len ) // len gives the position of the stri
 	printf("str: %s\n",str);
 	while(*p != '\0' && *len < strlength)
 	{
-		printf("%c\n",*p);
 		if(isspace(*p))
 		{
 			break ; 	
 		}
-		p++;
+		printf("%c" ,*p);
 		tokLen++ ; 
 	}
 	char * res = (char *) malloc( tokLen + 1) ; 	 // free this memory !! 
