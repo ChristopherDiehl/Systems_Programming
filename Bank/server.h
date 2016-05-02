@@ -23,7 +23,7 @@
 #include <ctype.h> // to obtain the token
 
 
-/*
+
 typedef struct Account_
 {
 	char * username;
@@ -35,10 +35,10 @@ typedef struct Account_
 typedef struct Bank_
 {
 	Account * accounts;
+	int numofclients;
 
 }Bank;
 
-*/  // Using san'a implementation of bank
 
 /*FUNCTIONS*/
 void * connectionHandler( void * socket);

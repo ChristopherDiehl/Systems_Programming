@@ -92,6 +92,7 @@ int openAccount( bank * bk , char * name , float bal )
 		// add the account 
 		bk->accountArray[bk->_accountsUsed] = createAccount(name , bal);
 		bk->_accountsUsed++ ; 
+
 		res = 1; 
 	//	return 1; 	
 	}
@@ -187,9 +188,11 @@ int changeBalAccount(bank * bk , int accIdx , float posNegVal)
 
 		// the balance can be changed only if the account has been started ? 
 		// VERIFY THIS ! 
-		
+	
 	if (bk->accountArray[accIdx]->_inUse ==1 )
 	{
+		printf("posNegVal %c\n",(char )posNegVal);
+		printf("Bal: %f, posNegVal: %f\n",	bk->accountArray[accIdx]->_balance,posNegVal);
 		bk->accountArray[accIdx]->_balance += posNegVal ; 
 
 		return 1; 

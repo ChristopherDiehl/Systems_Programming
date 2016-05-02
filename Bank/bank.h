@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <string.h>
 #include <time.h>
+#include <stdio.h>
 
 #define N_CLIENT 20
 typedef struct account_
