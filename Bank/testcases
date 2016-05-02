@@ -1,0 +1,182 @@
+
+
+server 
+
+[-] Print bank status running with thread id 140686448326400 
+[-] Session acceptor running with thread id 140686439933696 
+[-] Server running on port 6512
+[-]connection handler running with thread id 140686431540992 
+STARTING ACCOUNT : a1 
+[-] Account opened with name: a1
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+change balance id : 0 , val 10.000000 a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+a1, IN SESSION
+change balance id : 0 , val 100.000000 a1, IN SESSION
+[-] Account started with name : a1 STARTING ACCOUNT : a1 
+a1, IN SESSION
+STARTING ACCOUNT : a2 
+[-] Account opened with name: a2
+a1, 160.000000
+a2, IN SESSION
+change balance id : 1 , val 100000000.000000 a1, 160.000000
+a2, IN SESSION
+a1, 160.000000
+a2, IN SESSION
+a1, 160.000000
+a2, IN SESSION
+a1, 160.000000
+a2, IN SESSION
+a1, 160.000000
+a2, IN SESSION
+[-]connection handler running with thread id 140686351398656 
+a1, 160.000000
+a2, IN SESSION
+STARTING ACCOUNT : s2 
+[-] Account opened with name: s2
+a1, 160.000000
+a2, IN SESSION
+s2, 0.000000
+ non unique account name ![-] Account started with name : a2 STARTING ACCOUNT : a2 
+[-] Account Already in session cannot open again
+a1, 160.000000
+a2, IN SESSION
+s2, 0.000000
+a1, 160.000000
+a2, IN SESSION
+s2, 0.000000
+a1, 160.000000
+a2, 110000000.000000
+s2, 0.000000
+^CTHREAD EXIT == TRUE
+
+
+client 1
+[-] ERROR connecting
+[-] We are connected to the server!
+[-] Thread created to read from server
+[-] Thread created to write to server
+[-] Please enter message: open a1
+Account successfuly opened
+
+[-] Please enter message: balance
+[-] Balance 0.000000
+
+
+[-] Please enter message: debit -50
+[-] Insufficient Funds to Withdraw -50.000000
+
+
+[-] Please enter message: debit 50
+[-] Account Debited With 50.000000
+
+
+[-] Please enter message: credit 10
+[-] Account Credited With 10.000000
+
+[-] Please enter message: balance
+[-] Balance 60.000000
+
+
+[-] Please enter message: credit 100
+[-] Account Credited With 100.000000
+
+[-] Please enter message: balance
+[-] Balance 160.000000
+
+
+[-] Please enter message: open a1
+Session Active : End Session to Open New Account
+
+[-] Please enter message: start a1
+Close Session to create session with new Account
+
+[-] Please enter message: finish
+[-] Current Session Closed 
+
+[-] Please enter message: start a1
+[-] Account a1 Started
+
+[-] Please enter message: balance
+[-] Balance 160.000000
+
+
+[-] Please enter message: open a2
+Session Active : End Session to Open New Account
+
+[-] Please enter message: finish
+[-] Current Session Closed 
+
+[-] Please enter message: open a2
+Account successfuly opened
+
+[-] Please enter message: debit 10000000
+[-] Account Debited With 10000000.000000
+
+
+[-] Please enter message: credit 100000000
+[-] Account Credited With 100000000.000000
+
+[-] Please enter message: balance
+[-] Balance 110000000.000000
+
+
+[-] Please enter message: aaaaaa
+
+
+[-] Please enter message: balance
+[-] Balance 110000000.000000
+
+
+[-] Please enter message: start a1
+Close Session to create session with new Account
+
+[-] Please enter message: finish
+[-] Current Session Closed 
+
+[-] Please enter message: exit
+Thank you for banking with us
+
+
+client 2
+
+[-] We are connected to the server!
+[-] Thread created to read from server
+[-] Thread created to write to server
+[-] Please enter message: open s2
+Account successfuly opened
+
+[-] Please enter message: open a2
+Session Active : End Session to Open New Account
+
+[-] Please enter message: finish
+[-] Current Session Closed 
+
+o[-] Please enter message: open a2
+
+
+[-] Please enter message: open a2
+Account with same name already exits. Open new account with different name or start the account 
+
+[-] Please enter message: start a2
+[-] Account a2 Already in Session. Wait till out of Session 
+
+[-] Please enter message: balance
+[-] Open Session First
+
+
+[-] Please enter message: credit
+Open Session First
+
+[-] Please enter message: exit
+Thank you for banking with us
+
+

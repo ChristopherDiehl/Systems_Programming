@@ -92,7 +92,6 @@ int openAccount( bank * bk , char * name , float bal )
 	{
 		if( strcmp(name , bk->accountArray[i]->_name) == 0 )
 		{
-			if(DEV) printf(" non unique account name !");
 			res = -2 ; 		
 
 		}
@@ -148,7 +147,6 @@ int openAccount( bank * bk , char * name , float bal )
  */
 int startAccount(bank * bk , char * name)
 {
-	if(DEV) printf("STARTING ACCOUNT : %s \n" , name);
 	int i = 0 ; 
 	for( i =0 ; i < bk->_accountsUsed ; ++i)
 	{
@@ -165,12 +163,10 @@ int startAccount(bank * bk , char * name)
 			}
 			else
 			{
-				if(DEV) printf("[-] Account Already in session cannot open again\n");
 				return -2 ; 
 			}
 		}
 	}
-	if(DEV) printf("[-] Such an account has not been opened yet \n");
 	return -1 ; 
 }
 
@@ -204,7 +200,6 @@ int changeBalAccount(bank * bk , int accIdx , float posNegVal)
 		// the balance can be changed only if the account has been started ? 
 		// VERIFY THIS ! 
 	
-	if(DEV)	printf("change balance id : %d , val %f " , accIdx , posNegVal);
 	if (bk->accountArray[accIdx]->_inUse ==1 )
 	{
 		bk->accountArray[accIdx]->_balance += posNegVal ; 
@@ -327,11 +322,7 @@ int getAccountNum(bank * bk , char * accName)
 			// Found the account
 			// Make the account in use :  
 			// ensure that concurrent sessions do not exist 
-			if(  bk->accountArray[i]->_inUse == 0 ) 
-			{
-				bk->accountArray[i]->_inUse = 1; 
 				return i; 
-			}
 		}
 
 	}
@@ -343,11 +334,16 @@ int getAccountNum(bank * bk , char * accName)
 
 
 
-
-
-
-
-
-
+int isAccountInUse(bank * bk , int accNum)
+{
+	if(accNum > 0)
+	{
+		return bk->accountArray[accNum]->_inUse;
+	}
+	else
+	{
+		return -1 ;	
+	}
+}
 
 

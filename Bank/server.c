@@ -23,7 +23,7 @@ void sigHandler(int dummy)
 	thread_exit = TRUE;
 	shutdown(server_sock,SHUT_RDWR);
 	close(server_sock);
-	printf("THREAD EXIT == TRUE\n");
+	printf("\n\t [-] Closing Server\n");
 }
 
 void * sessionAcceptor( void * args)
@@ -159,14 +159,19 @@ void * connectionHandler( void * client_socket)
 		// if the read from the client blew up, complain and exit
 		if (n < 0)
 		{
-			printf("[-] ERROR reading from socket");
+			printf("[-] ERROR reading from socket \n");
 			closeWithoutMessage = TRUE;
 			break;
 		}
-
+	
 
 		char * command = strtok_r(buffer , " \n\0\t" , &strTok_ptr); 
-
+		
+		if(command == NULL)
+		{
+			printf("[-] ERROR in input from clinet");
+			break;
+		}
 		if( strcmp(command , "open") == 0 )
 		{
 
@@ -177,45 +182,68 @@ void * connectionHandler( void * client_socket)
 			else
 			{
 				accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
-				int res = openAccount(bk , accountName, 0); 
-				if(res == 1)
+				if(accountName == NULL)
 				{
-					account_bound_to_thread = startAccount(bk , accountName ); 
-					sessionOpen = TRUE;
-					strcpy(returnMessage,"Account successfuly opened");
-					printf("[-] Account opened with name: %s\n",accountName);
+					strcpy(returnMessage,"Invalid input Try Again command is open accountName "); // if the command is just open  with no account naem 
+				}
+				else
+				{
+					int res = openAccount(bk , accountName, 0); 
+					if(res == 1)
+					{
+						account_bound_to_thread = startAccount(bk , accountName ); 
+						sessionOpen = TRUE;
+						strcpy(returnMessage,"Account successfuly opened");
+						printf("[-] Account opened with name: %s\n",accountName);
 
-				}
-				else if (res == -2)
-				{
-					strcpy(returnMessage,"Account with same name already exits. Open new account with different name or start the account ");
-					//account_bound_to_thread = getAccountNum(bk , accountName);
-				}
-				else 
-				{
-					strcpy(returnMessage, "Error : Cannot support more than 20 accounts ");
+					}
+					else if (res == -2)
+					{
+						strcpy(returnMessage,"Account with same name already exits. Open new account with different name or start the account ");
+						//account_bound_to_thread = getAccountNum(bk , accountName);
+					}
+					else 
+					{
+						strcpy(returnMessage, "Error : Cannot support more than 20 accounts ");
+					}
 				}
 		}
 
 		}
 		else if( strcmp(command , "start") == 0 )
 		{
-			if(sessionOpen)
+				
+			accountName = strtok_r(NULL, " \n\0\t" , &strTok_ptr); 
+			if(accountName == NULL)
+			{
+					strcpy(returnMessage,"Invalid input Try Again command is start accountName "); // if the command is just start  with no account naem 
+			}
+			else
 			{
 
-				 if( strcmp(accountName, strtok_r(NULL , " " , & strTok_ptr) ) == 0 )
-				 {
-				 	strcpy(returnMessage,"Session Already Active with given Account");
-				 }
-				 else
-				 {
-				 	strcpy(returnMessage , "Close Session to create session with new Account");
-				 }
-			}
+				if(sessionOpen)
+				{
+					/*
+					 *
+					int res = isAccountInUse(bk , getAccountNum(bk , accountName) ) ;
+					if(DEV) printf("res : %d " , res);
+					 if( res == 1) 
+					 {
+
+						strcpy(returnMessage,"Session Already Active with given Account");
+					 }
+					 else
+					 {
+						strcpy(returnMessage , "Close Session to create session with new Account");
+					 }
+					 */
+
+					strcpy(returnMessage , "Close Session to create new session with new/existing Account");
+					
+				}
 				else
 				{
-					accountName  = strtok_r(NULL , " " , &strTok_ptr);
-					printf("[-] Account started with name : %s " , accountName);
+					printf("[-] Account started with name : %s \n" , accountName);
 					account_bound_to_thread = startAccount(bk , accountName ); 
 					
 					if(account_bound_to_thread == -2)
@@ -235,6 +263,8 @@ void * connectionHandler( void * client_socket)
 					}
 
 				}
+
+			}
 		}
 		else if( strcmp(command , "credit") == 0 )
 		{
@@ -296,7 +326,7 @@ void * connectionHandler( void * client_socket)
 				finishAccount(bk , account_bound_to_thread);			
 			// session ends here !
 				sessionOpen = 0 ; 
-				account_bound_to_thread = -1; 
+				//account_bound_to_thread = -1;  // To Handle the clinet calling ^C before exiting 
 				accountName = NULL; 
 				sprintf(returnMessage , "[-] Current Session Closed ");
 			}
@@ -308,30 +338,40 @@ void * connectionHandler( void * client_socket)
 
 		else if( strcmp(command , "exit") == 0 )
 		{
-			closeWithoutMessage = TRUE;
-			strcpy(returnMessage, "Thank you for banking with us");
-			//free(command); // DONT CALL FREE NO MEM ALLOC
-			n = write(socket,returnMessage,255);
+				finishAccount(bk , account_bound_to_thread);			
+				// session ends here !
+				sessionOpen = 0 ; 
+				//account_bound_to_thread = -1;  // To Handle the clinet calling ^C before exiting 
+				accountName = NULL; 
 
-			if (n < 0)
-			{
-				printf("[-] ERROR writing to the socket");
 				closeWithoutMessage = TRUE;
-				break;
-			}
+				strcpy(returnMessage, "Thank you for banking with us");
+				//free(command); // DONT CALL FREE NO MEM ALLOC
+				n = write(socket,returnMessage,255);
+
+				if (n < 0)
+				{
+					printf("[-] ERROR writing to the socket\n");
+					closeWithoutMessage = TRUE;
+					break;
+				}
+
+		
 
 			break;
 		}
 		else
 		{
 			//printf("Incorrect Input");
+			sprintf(returnMessage , "[-] Invalid Command ");
+
 		}
 		//free(command); // DONOT CALL FREE STRTOK DOES NOT ALLOCATE MEM
 		n = write(socket,returnMessage,BUFFER_SIZE);
 
 		if (n < 0)
 		{
-			printf("[-] ERROR writing to the socket");
+			printf("[-] ERROR writing to the socket\n");
 			closeWithoutMessage = TRUE;
 			break;
 		}
@@ -345,7 +385,13 @@ void * connectionHandler( void * client_socket)
 	{
 		char * exitMessage = "The server has been shut down.\n Sorry for any inconvenience\n";
 		n = write(socket, exitMessage, strlen(exitMessage) +1);
+		// Since we are existing, We stop the session 
 	}
+	else // HACK 
+	{
+		bk->accountArray[account_bound_to_thread]->_inUse = 0;	
+	}
+
 
 	free(returnMessage);
 	close(socket);
@@ -369,7 +415,7 @@ void * printBankStatus (void * socket)
 	}
 	while(thread_exit != TRUE)
 	{	
-
+		printf("\t[-] BANK INFORMATION\n");
 		for(i = 0; i < MAX_CLIENTS; i++)
 		{
 

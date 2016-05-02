@@ -1,0 +1,43 @@
+
+
+
+client 1
+	open a1
+	start a1
+		> Should say session already active
+	balance 
+		> 0
+	credit 100
+		> add bal by 100
+	debit 100
+		> add bal by 100
+	debit -1000	
+		> Insufficient fund warning
+	credit -1000
+	
+	open a2
+		> Should say close session first
+	
+	balance
+		
+	finish
+	exit
+
+client 2 // after clinet 1 has opened a1
+	open a1
+		> should say acc already exist
+	start a1
+		> should start acc as clinet 1 has stopped using it
+	finish a1
+	
+	open a3 
+		> works
+	balance
+		> 0
+	credit -100000000
+		> bal changes
+
+	finish 
+	exit
+
+

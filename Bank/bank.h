@@ -55,7 +55,7 @@ void finishAccount(bank * bk , int accIdx);
 void destroyBank(bank * bk);
 
 int getAccountNum(bank * bk , char * accName);
-
+int isAccountInUse(bank * bk , int accNum);
 /*
  * RULES FOR BANK :: 
  * 	While prinitng the account names : No new account can be created :: 

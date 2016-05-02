@@ -1,0 +1,33 @@
+
+
+// simulatenous Accounts:
+
+
+client 1 		clinet 2 			client 3
+open a1			open a1				open a1
+  works			   error				error
+balance                 open a2                         open a3
+
+credit 100 	  	balance				balance
+
+
+debit 100   		credit 100 			credit 100
+
+
+finish			debit 100			debit 100
+
+
+open a4			finish				finish
+
+
+balance                 start a1                      start a2
+
+
+finish                  balance                       balance
+
+
+exit			exit                          exit
+
+
+
+server

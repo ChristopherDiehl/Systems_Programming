@@ -1,0 +1,127 @@
+
+- run the server : Test using 2 clients : 
+client 1  // RUN this first 
+	open acc1 
+	credit 10000
+	try to open acc2 without closing acc1 session.
+		> This is give out an error telling us to close the session
+	finish acc1
+	try to find balance of acc1 
+		> This should give out error saying session has to be opened 
+	open acc4
+	call balance :	
+		> This should give us 0
+	debit 100
+		> Balance should increase by 100
+	credit 100
+		> Balance should increase by 100
+	debit -10000
+		> This should say insufficient funds
+	balance 
+		> print out 200	
+	finish > ends sssion
+	exit
+
+Test2:
+
+client 2
+	open acc1
+		> should give error telling it already exist
+	open acc3
+	credit 1000
+	credit -100
+	debit 0
+	debit -100
+	close acc3 
+server :
+
+
+client 1:
+	open an account
+	exit immediately 
+	> Testing the turning on and shutting down of the clinet 
+
+
+Test 3:
+
+
+
+client 1
+	open a1
+	start a1
+		> Should say session already active
+	balance 
+		> 0
+	credit 100
+		> add bal by 100
+	debit 100
+		> add bal by 100
+	debit -1000	
+		> Insufficient fund warning
+	credit -1000
+	
+	open a2
+		> Should say close session first
+	
+	balance
+		
+	finish
+	exit
+
+client 2 // after clinet 1 has opened a1
+	open a1
+		> should say acc already exist
+	start a1
+		> should start acc as clinet 1 has stopped using it
+	finish a1
+	
+	open a3 
+		> works
+	balance
+		> 0
+	credit -100000000
+		> bal changes
+
+	finish 
+	exit
+
+
+Test 4:
+
+
+In order to test the simpleList:
+start a bunch of threads -> add pthread to simpleList -> pull from simple list to join
+
+Test 5:
+In order to test client 
+	
+	-try connecting to server -> should keep trying to connect if failed
+	-try closing server using control+c to make sure its handled ->should result in normal exit
+	-try to exit from the client ->should result in a timely exit
+
+Test 6:
+In order to test the server
+	-try to control + c server with no clients-> nicely exit
+	-try to control + c server with clients -> wait for client read to finish, then exit gracefully
+	-try to connect and read / write to multiple clients at the same time
+
+Test 7:
+IN order to test bank logic
+
+	-try to access multiple user accounts while logged in-> denied
+	-try to access active account ->denied
+	-try to open account after 20 accounts have been opened ->denied
+	-try to debit more than in account -> denied
+	- try to start another account after open ->denied
+	- try to open and add 50 to account through credit ->accepted and balance == 50
+	- try to open and add 50 to account through debit ->accepted and balance == 50
+	- try to start and add 50 to account through credit ->accepted and balance += 50
+	- try to finish then reopen ->allows reopen as long as account is not active 
+	-try to open account already open then check balance -> fails and then told to open session
+	-the standard add / subtract debit and credit -> debit fails when the amount sent to server causes balance to fall below 0. rest goes through
+	-start account in use ->fail
+	-finish then balance ->fail
+	-tested with 5 clients at once.
+	
+
+
