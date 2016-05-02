@@ -1,0 +1,106 @@
+3/14/16
+
+Difference between fopen and open
+
+Blocking call, blocks everything in process until function is completed
+
+BANK
+
+-Input, tokenize to find words.. Then 
+
+-can't debit or finish before opened
+
+Server processing:
+
+client machine: 
+	-client code: connect to server
+		can't find server.. Retry until server comes up
+		-need to specify port and ip of server
+		-once connected state connected
+		-accept user input in a loop
+			-'exit' close connection and shut down instance of client code
+			accept commands read from stdin
+
+server side:
+	- connection from multiple clients
+	-one big bank store
+		-perhaps a struct with multiple 'accounts' structs
+		-probably want to mutex an account struct
+
+	-Max of 20 accounts
+	-Account name = 100 char
+	-Current balance = floating point
+
+	backup simulation:
+	-every twenty seconds, lock everyone out and print out account name and balances for everyone
+		-if account in session: print in session
+	-possible bank wide mutex
+	-need a timer
+		-can combine timer and mutex
+		-called a timer mechanism
+		-Signal handler 
+	-special signal for a timer
+		-getitimer & setitimer
+			-throws a sig alarm
+			-catch signal handler
+			-don't change anything except global data
+
+	-DONT USE BANKWIDE MUTEX.. JUST USE SIG HANDLER
+	-need to inspect account mutex, need to know it's current state
+		-use trylock
+			-non blocking mutex call
+			-problem is it locks if unlocked
+	-or just make an account global variable, active
+		-if active==1 then in session
+	-client can only send message every 2 seconds... Take that 
+	-look at his server template
+
+	sockfd = socket(AF_INTE,SOCK_STREAM,0);
+	if(sockfd<0)
+	{
+		error("error opening socket");
+	}
+
+	struct to define address 
+	-addressInfoStruct
+	listen(sockfd,5)
+
+server:
+	create socket construct/type
+		setup addressinfo
+	
+	bind socket to a port
+
+	listen for connections
+
+	accept connection
+		-blocking call
+	/*same in java*/
+
+	bzero(buffer,256)
+
+	n = read(newsockfd,buffer,255)
+	//http://www.binarytides.com/socket-programming-c-linux-tutorial/
+
+	socket stays in use for five minutes when creating socket with 0
+	-need to set some socket options
+
+	SO_REUSEPORT
+	-basically shuts down old port then 
+	SO_LINGER
+	-shuts down socket on program exit
+	...
+	SO_REUSEADDR?
+
+client:
+	create socket construct type
+		setup addresssinfo
+		gethostbyname for IP address
+		itoa on port.. htons on int to get it into 'port' format
+		connect- try to talk to IP address
+
+
+read/write from/to a socket
+	-everything is good
+	-error
+	if you block on read, can't accept new connections

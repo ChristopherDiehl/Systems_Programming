@@ -1,0 +1,123 @@
+Client sockets:
+
+if(argc < 3)
+{
+	printf("not enough stuff");
+	exit(0);
+}
+
+int portno = atoi(argv[2]);
+
+/* 
+ *convert port number to integer
+ *atoi converts string to int
+ *serverAddressInfo.sin_port = htons(portno);
+*/
+serverIpAddress = gethostbyname(argv[1]);
+if(serverIpAddress == 0)
+{
+	printf("Please enter valid Server Name");
+	exit(0);
+}
+/*	how C does business:
+ * testfunction( handle to the thing, parameterized struct, options struct...)
+ * Sockets
+ * Client : param struct = addressStruct (specify port number and ip number) Server: port number
+ */
+
+struct sockaddr_in serverAddressInfo;
+sockfd = socket(AF_INET, SOCK_STREAM, 0); //should change 0 to socket options
+
+//zero out everything in serverAddressInfo
+bzero((char *) &serverAddressInfo, sizeof(serverAddressInfo));
+//set flag to indicate what network type
+serverAddressInfo.sin_family = AF_INET;
+//set port number (use htons to convert to recognizable int)
+serverAddressInfo.sin_port = htons(portno);
+//param param struct/ address struct
+
+bcopy((char*)serverAddressInfo->h_addr,(char *)&serverAddressInfo.sin_addr.s_addr,serverAddressInfo->h_length);
+
+
+//connect to server
+
+if(connect(sockfd,(struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo))<0)
+{
+	error("ERROR CONNECTING");
+}
+//success connecting
+
+char * buffer = calloc(256);
+
+
+fgets(buffer,255,stdin);
+
+n = write(sockfd,buffer,strlen(buffer));
+
+
+
+
+/*Building a client socket
+ *make the socket itself: sockfd=socket(AF_INET,SOCK_STREAM,0);
+ *get address info struct
+ *if were client we need IP and port
+ * IP = gethostbyname("...")->hostent type
+ *	 	- hostent is a type of struct 
+ *port: atoi(char)->int = htons(int)
+ *set address family to AF_INET
+ *connect(socketFD, sockaddr_in struct, (size))
+ *client needs to 'write' while server is 'read'
+ */
+
+Ports:
+
+low ports: stuff that someone (OS) is probably using 
+	-dont bind to anything lower than 5000
+
+high ports: stuff that no one really uses 5k, <= 16k
+
+-should bind one port (ONLY SERVER BINDS TO PORT)
+
+
+SERVER:
+
+if(bind(sockfd, (struct sockaddr *)&serverAddressInfo,sizeof(serverAddressInfo))<0)
+{
+	error("ERROR ON BINDING");
+}
+
+//backlog 5
+//
+listen(sockfd,5);
+
+clilen = sizeof(clientAddressInfo);
+
+newsockfd = accept(sockfd,(struct sockaddr* ) &clientAddressInfo, %clilen);
+
+THREADS VS PROCESSES
+-BOTH RUN AT SAME TIME AS MAIN CODE
+
+-THREADS:
+	-belong to process
+	-save time and memory
+	-shared adress space, access same data & preprocesser statements
+	-basically adding a stack to a program (point to same heap)
+
+-PROCESSES: 
+	- To talk to parent process: create a file descriptor and talk through file
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

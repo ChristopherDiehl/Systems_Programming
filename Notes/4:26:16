@@ -1,0 +1,70 @@
+Semaphores:
+	shared counter
+	post:  value of the semaphore and wakes up a blocked process waiting on the semaphore, if any.
+	wait: decrement shared counter... if semaphore < 0, (after operation) block
+	post: one of the VERY few functions that is asynch thread safe
+
+Locks/mutex
+	only 2 states
+	lock
+	unlock
+	init = hard reset on mutex
+
+
+
+
+...differences
+counter vs flipping state
+semaphores can be given an initial value
+
+threads: 
+	-owned by process that created it
+
+
+***DO YOU EVER CALL A SIGNAL DIRECTLY***
+-NEGATIVE
+
+Signal handlers are PROCESS LEVEL EVENTS
+-Don't know when signal handler happens
+
+monitor:
+	-used to keep track of semaphores/ mutexes
+	-object oriented synchronization mechanism taht owns multiple locks/semaphores, that 'understands' how they interrelate or depend on each other and manages their allocation
+
+Signal Handler
+
+SIGINT - Ctrl+C
+Sleep - delay for a specified amount of time
+-makes current process sleep
+
+
+EXAM QUESTIONS
+
+WILL BE A REDACTED FINAL
+
+why is it a bad idea to return the address of a local pointer
+-your stack frame is going away when you return
+-so when you return the local pointer gets blown away
+
+FORK,EXEC, SIGNALS, NETWORKING, PTHREADS, PROCESSES
+
+why does array start at 0
+-arr[n] n specificies offset. First element at offset 0
+
+void *
+-is already a memory location
+
+union vs structs
+-union is a structured typecast
+-struct is an object without methods
+
+const int a vs int const a
+const int * a = int const * a =
+int * const a = makes the pointer constant
+--if const after * then locking pointer else looking data
+
+
+
+
+
+
