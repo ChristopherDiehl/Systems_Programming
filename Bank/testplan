@@ -122,6 +122,7 @@ IN order to test bank logic
 	-start account in use ->fail
 	-finish then balance ->fail
 	-tested with 5 clients at once.
-	
+	-try to start an account then open it ->fail because once you start you cannot open until you finish
+	-try to finish then open ->succeed
 
 

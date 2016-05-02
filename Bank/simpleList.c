@@ -44,7 +44,7 @@ pthread_t getFront(SimpleList * sl)
 	if(sl->head == 0)
 	{
 		printf("returning -1");
-		return NULL;
+		return 0;
 	}
 
 	Node * tempNode = sl->head;
